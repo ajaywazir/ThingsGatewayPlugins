@@ -116,9 +116,10 @@ public static class ExpressionEvaluatorExtension
         using System;
         using System.Linq;
         using System.Collections.Generic;
-        using ThingsGateway.NewLife.X;
-        using ThingsGateway.Gateway.Application.Extensions;
         using ThingsGateway.Gateway.Application;
+        using ThingsGateway.NewLife;
+        using ThingsGateway.NewLife.Extension;
+        using ThingsGateway.Gateway.Application.Extensions;
         {_using}
         public class Script:ReadWriteExpressions
         {{
