@@ -8,6 +8,8 @@
 //  QQ群：605534569
 //------------------------------------------------------------------------------
 
+using ThingsGateway.NewLife.Extension;
+
 namespace ThingsGateway.Foundation.Modbus;
 
 /// <summary>

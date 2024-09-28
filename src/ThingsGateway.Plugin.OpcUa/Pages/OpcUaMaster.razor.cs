@@ -15,6 +15,7 @@ using Microsoft.Extensions.Localization;
 
 using ThingsGateway.Foundation;
 using ThingsGateway.Foundation.OpcUa;
+using ThingsGateway.NewLife.Extension;
 
 using TouchSocket.Core;
 

@@ -20,6 +20,7 @@ using ThingsGateway.Extension;
 using ThingsGateway.Foundation.Json.Extension;
 using ThingsGateway.Foundation.Modbus;
 using ThingsGateway.Gateway.Application;
+using ThingsGateway.NewLife.Extension;
 using ThingsGateway.NewLife.Threading;
 
 using TouchSocket.Core;

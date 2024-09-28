@@ -12,6 +12,7 @@ using System.Text;
 
 using ThingsGateway.Foundation.Extension.String;
 using ThingsGateway.NewLife.Caching;
+using ThingsGateway.NewLife.Extension;
 
 using TouchSocket.Core;
 
@@ -53,7 +54,7 @@ public class Dlt645_2007Address : Dlt645_2007Request
                 return new(dAddress);
 
         Dlt645_2007Address dlt645_2007Address = new();
-        if (!defaultStation.IsNullOrEmpty())
+        if (!string.IsNullOrEmpty(defaultStation))
         {
             dlt645_2007Address.SetStation(defaultStation);
         }

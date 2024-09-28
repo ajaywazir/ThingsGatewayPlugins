@@ -10,6 +10,8 @@
 
 using System.Text.RegularExpressions;
 
+using ThingsGateway.NewLife.Extension;
+
 namespace ThingsGateway.Foundation;
 
 /// <summary>

@@ -18,6 +18,7 @@ using Newtonsoft.Json.Linq;
 using ThingsGateway.Foundation;
 using ThingsGateway.Foundation.OpcDa;
 using ThingsGateway.Foundation.OpcDa.Da;
+using ThingsGateway.NewLife.Extension;
 
 using TouchSocket.Core;
 
