@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="$(SolutionDir)Plugin.props" />
+	<Import Project="$(SolutionDir)Version.props" />
+	<Import Project="$(SolutionDir)PackNuget.props" />
+
+	<ItemGroup>
+		<ProjectReference Include="..\ThingsGateway.Foundation.Dlt645\ThingsGateway.Foundation.Dlt645.csproj" />
+		<!--<PackageReference Include="ThingsGateway.Foundation.Dlt645" Version="9.0.*" GeneratePathProperty="true"/>-->
+
+	</ItemGroup>
+
+
+
+</Project>

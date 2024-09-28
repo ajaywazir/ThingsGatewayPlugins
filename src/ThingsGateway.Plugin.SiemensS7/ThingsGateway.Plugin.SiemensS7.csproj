@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="$(SolutionDir)Plugin.props" />
+	<Import Project="$(SolutionDir)Version.props" />
+	<Import Project="$(SolutionDir)PackNuget.props" />
+	<ItemGroup>
+		<ProjectReference Include="..\ThingsGateway.Foundation.SiemensS7\ThingsGateway.Foundation.SiemensS7.csproj" />
+		<!--<PackageReference Include="ThingsGateway.Foundation.SiemensS7" Version="9.0.*" GeneratePathProperty="true"/>-->
+	</ItemGroup>
+</Project>

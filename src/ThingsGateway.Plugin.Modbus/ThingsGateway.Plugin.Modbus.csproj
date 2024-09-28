@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <Import Project="$(SolutionDir)Plugin.props" />
+  <Import Project="$(SolutionDir)Version.props" />
+  <Import Project="$(SolutionDir)PackNuget.props" />
+
+	<ItemGroup>
+		<ProjectReference Include="..\ThingsGateway.Foundation.Modbus\ThingsGateway.Foundation.Modbus.csproj" />
+		<!--<PackageReference Include="ThingsGateway.Foundation.Modbus" Version="9.0.*" GeneratePathProperty="true"/>-->
+	</ItemGroup>
+
+</Project>

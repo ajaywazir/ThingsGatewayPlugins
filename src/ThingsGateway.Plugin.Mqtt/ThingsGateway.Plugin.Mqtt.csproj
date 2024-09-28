@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="$(SolutionDir)Plugin.props" />
+	<Import Project="$(SolutionDir)Version.props" />
+	<Import Project="$(SolutionDir)PackNuget.props" />
+
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="MQTTnet.AspNetCore" Version="4.3.7.1207" GeneratePathProperty="true"/>
+		<PackageReference Include="MQTTnet" Version="4.3.7.1207" GeneratePathProperty="true"/>
+	</ItemGroup>
+</Project>
