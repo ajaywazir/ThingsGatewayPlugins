@@ -25,7 +25,7 @@ namespace ThingsGateway.Plugin.TDengineDB;
 /// </summary>
 public partial class TDengineDBProducer : BusinessBaseWithCacheIntervalVariableModel<TDengineDBHistoryValue>, IDBHistoryValueService
 {
-    internal readonly RealDBProducerProperty _driverPropertys = new();
+    internal readonly RealDBProducerProperty _driverPropertys = new() { DbType = DbType.TDengine };
     private readonly TDengineDBProducerVariableProperty _variablePropertys = new();
     /// <inheritdoc/>
     public override Type DriverPropertyUIType => typeof(RealDBProducerPropertyRazor);
