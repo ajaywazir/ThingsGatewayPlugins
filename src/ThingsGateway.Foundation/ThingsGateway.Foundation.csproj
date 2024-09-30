@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.8" />
-    <PackageReference Include="ThingsGateway.NewLife.X" Version="7.0.*" />
+    <PackageReference Include="ThingsGateway.NewLife.X" Version="$(AdminVersion)" />
     <PackageReference Include="TouchSocket" Version="2.1.5" />
     <PackageReference Include="TouchSocket.SerialPorts" Version="2.1.5" />
   </ItemGroup>

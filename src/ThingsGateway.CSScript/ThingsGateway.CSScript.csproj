@@ -11,6 +11,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ThingsGateway.NewLife.X" Version="7.0.*" />
+		<PackageReference Include="ThingsGateway.NewLife.X" Version="$(AdminVersion)" />
 	</ItemGroup>
 </Project>

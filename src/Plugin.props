@@ -16,7 +16,7 @@
 	</ItemGroup>
 	<ItemGroup>
 
-		<PackageReference Include="ThingsGateway.Gateway.Razor" Version="7.0.*" >
+		<PackageReference Include="ThingsGateway.Gateway.Razor" Version="$(GatewayVersion)" >
 			<PrivateAssets>all</PrivateAssets>
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
