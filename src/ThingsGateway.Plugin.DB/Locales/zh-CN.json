@@ -1,6 +1,8 @@
 ﻿{
-  "ThingsGateway.Plugin.QuestDB.QuestDBProducerProperty": {
+  "ThingsGateway.Plugin.DB.RealDBProducerProperty": {
     "BigTextConnectStr": "连接字符串",
+    "TableName": "表名称",
+    "BigTextScriptHistoryTable": "历史表动态脚本",
 
     "IsInterval": "启用定时上传",
     "BusinessInterval": "定时上传间隔",
@@ -60,17 +62,6 @@
     "Value": "变量值"
   },
 
-  "ThingsGateway.Plugin.TDengineDB.TDengineDBProducerProperty": {
-    "BigTextConnectStr": "连接字符串",
-
-    "IsInterval": "启用定时上传",
-    "BusinessInterval": "定时上传间隔",
-    "IsAllVariable": "选择全部变量",
-    "QueueMaxCount": "内存队列最大数量",
-    "CacheFileMaxLength": "缓存文件最大长度(mb)",
-    "SplitSize": "上传每页条数",
-    "CacheEnable": "启用缓存"
-  },
   "ThingsGateway.Plugin.TDengineDB.TDengineDBHistoryValue": {
     "Id": "变量Id",
 

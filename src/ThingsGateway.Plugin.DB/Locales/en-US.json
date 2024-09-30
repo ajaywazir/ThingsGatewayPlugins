@@ -1,6 +1,8 @@
 ﻿{
-  "ThingsGateway.Plugin.QuestDB.QuestDBProducerProperty": {
+  "ThingsGateway.Plugin.DB.RealDBProducerProperty": {
     "BigTextConnectStr": "ConnectString",
+    "TableName": "TableName",
+    "BigTextScriptHistoryTable": "DynamicScriptHistoryTable",
 
     "IsInterval": "IsInterval",
     "BusinessInterval": "BusinessInterval",
@@ -60,17 +62,6 @@
     "Value": "Value"
   },
 
-  "ThingsGateway.Plugin.TDengineDB.TDengineDBProducerProperty": {
-    "BigTextConnectStr": "ConnectString",
-
-    "IsInterval": "IsInterval",
-    "BusinessInterval": "BusinessInterval",
-    "IsAllVariable": "IsAllVariable",
-    "QueueMaxCount": "QueueMaxCount",
-    "CacheFileMaxLength": "CacheFileMaxLength(mb)",
-    "SplitSize": "SplitSize",
-    "CacheEnable": "CacheEnable"
-  },
   "ThingsGateway.Plugin.TDengineDB.TDengineDBHistoryValue": {
     "Id": "Id",
 

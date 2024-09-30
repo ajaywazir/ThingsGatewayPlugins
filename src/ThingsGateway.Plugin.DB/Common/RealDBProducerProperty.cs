@@ -14,9 +14,9 @@ using SqlSugar;
 
 using System.ComponentModel.DataAnnotations;
 
-namespace ThingsGateway.Plugin.QuestDB;
+namespace ThingsGateway.Plugin.DB;
 
-public class QuestDBProducerProperty : BusinessPropertyWithCacheInterval
+public class RealDBProducerProperty : BusinessPropertyWithCacheInterval
 {
     public DbType DbType { get; set; } = DbType.QuestDB;
 
@@ -24,4 +24,15 @@ public class QuestDBProducerProperty : BusinessPropertyWithCacheInterval
     [Required]
     [AutoGenerateColumn(ComponentType = typeof(Textarea), Rows = 1)]
     public string BigTextConnectStr { get; set; } = "host=localhost;port=8812;username=admin;password=quest;database=qdb;ServerCompatibilityMode=NoTypeLoading;";
+
+    [DynamicProperty]
+    [Required]
+    public string TableName { get; set; } = "historyValue";
+
+    /// <summary>
+    /// 历史表脚本
+    /// </summary>
+    [DynamicProperty(Remark = "必须为间隔上传，才生效")]
+    [AutoGenerateColumn(Visible = true, IsVisibleWhenEdit = false, IsVisibleWhenAdd = false)]
+    public string? BigTextScriptHistoryTable { get; set; }
 }

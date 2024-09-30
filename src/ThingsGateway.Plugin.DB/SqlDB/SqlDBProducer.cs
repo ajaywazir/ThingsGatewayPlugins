@@ -17,6 +17,7 @@ using SqlSugar;
 using ThingsGateway.Debug;
 using ThingsGateway.Foundation;
 using ThingsGateway.NewLife.Extension;
+using ThingsGateway.Plugin.DB;
 
 namespace ThingsGateway.Plugin.SqlDB;
 

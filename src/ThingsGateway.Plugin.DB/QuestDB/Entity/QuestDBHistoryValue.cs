@@ -14,11 +14,7 @@ using SqlSugar;
 
 namespace ThingsGateway.Plugin.QuestDB;
 
-/// <summary>
-/// 历史数据表
-/// </summary>
-[SugarTable("historyValue", TableDescription = "历史数据表")]
-[SugarIndex(null, nameof(QuestDBHistoryValue.Name), OrderByType.Asc)]
+[SugarTable("historyValue")]
 public class QuestDBHistoryValue : IPrimaryIdEntity, IDBHistoryValue
 {
     [SugarColumn(ColumnDescription = "变量Id")]
@@ -47,7 +43,6 @@ public class QuestDBHistoryValue : IPrimaryIdEntity, IDBHistoryValue
     /// <summary>
     /// 变量名称
     /// </summary>
-    [SugarColumn(ColumnDataType = "symbol")]
     [AutoGenerateColumn(Visible = true, Filterable = true, Sortable = true)]
     public string Name { get; set; }
 

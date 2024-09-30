@@ -12,7 +12,7 @@ using BootstrapBlazor.Components;
 
 using ThingsGateway.Extension;
 
-namespace ThingsGateway.Plugin.SqlDB;
+namespace ThingsGateway.Plugin.DB;
 
 public class SqlDBPageInput : ITableSearchModel
 {
@@ -30,9 +30,9 @@ public class SqlDBPageInput : ITableSearchModel
     public IEnumerable<IFilterAction> GetSearches()
     {
         var ret = new List<IFilterAction>();
-        ret.AddIF(!string.IsNullOrEmpty(VariableName), () => new SearchFilterAction(nameof(SQLHistoryValue.Name), VariableName));
-        ret.AddIF(SearchDate != null, () => new SearchFilterAction(nameof(SQLHistoryValue.CreateTime), SearchDate!.Start, FilterAction.GreaterThanOrEqual));
-        ret.AddIF(SearchDate != null, () => new SearchFilterAction(nameof(SQLHistoryValue.CreateTime), SearchDate!.End, FilterAction.LessThanOrEqual));
+        ret.AddIF(!string.IsNullOrEmpty(VariableName), () => new SearchFilterAction(nameof(IDBHistoryValue.Name), VariableName));
+        ret.AddIF(SearchDate != null, () => new SearchFilterAction(nameof(IDBHistoryValue.CreateTime), SearchDate!.Start, FilterAction.GreaterThanOrEqual));
+        ret.AddIF(SearchDate != null, () => new SearchFilterAction(nameof(IDBHistoryValue.CreateTime), SearchDate!.End, FilterAction.LessThanOrEqual));
         return ret;
     }
 

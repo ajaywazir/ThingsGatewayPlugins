@@ -12,7 +12,7 @@
 
 //using ThingsGateway;
 //using ThingsGateway.Foundation;
-//using ThingsGateway.NewLife.X.Extension;
+//using ThingsGateway.NewLife.Extension;
 
 //public class TestHistorySQL : IDynamicSQL
 //{

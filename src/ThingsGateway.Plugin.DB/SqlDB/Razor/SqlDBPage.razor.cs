@@ -12,19 +12,29 @@ using BootstrapBlazor.Components;
 
 using Microsoft.AspNetCore.Components;
 
-namespace ThingsGateway.Plugin.QuestDB;
+using ThingsGateway.Plugin.DB;
 
-public partial class QuestDBPage : IDriverUIBase
+namespace ThingsGateway.Plugin.SqlDB;
+
+public partial class SqlDBPage : IDriverUIBase
 {
+    private readonly SqlDBPageInput _searchHistory = new();
+    private readonly SqlDBPageInput _searchReal = new();
+
     [Parameter, EditorRequired]
     public object Driver { get; set; }
 
-    public QuestDBProducer QuestDBProducer => (QuestDBProducer)Driver;
-    private QuestDBPageInput CustomerSearchModel { get; set; } = new();
+    public SqlDBProducer SqlDBProducer => (SqlDBProducer)Driver;
 
-    private async Task<QueryData<QuestDBHistoryValue>> OnQueryAsync(QueryPageOptions options)
+    private async Task<QueryData<SQLHistoryValue>> OnQueryHistoryAsync(QueryPageOptions options)
     {
-        var query = await QuestDBProducer.QueryData(options).ConfigureAwait(false);
+        var query = await SqlDBProducer.QueryHistoryData(options).ConfigureAwait(false);
+        return query;
+    }
+
+    private async Task<QueryData<SQLRealValue>> OnQueryRealAsync(QueryPageOptions options)
+    {
+        var query = await SqlDBProducer.QueryRealData(options).ConfigureAwait(false);
         return query;
     }
 }

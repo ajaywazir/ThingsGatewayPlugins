@@ -17,7 +17,6 @@ using SqlSugar;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-using ThingsGateway.Plugin.SqlDB;
 
 namespace ThingsGateway.Gateway.Application;
 
@@ -30,11 +29,11 @@ public static class SqlDBBusinessDatabaseUtil
     /// 获取数据库链接
     /// </summary>
     /// <returns></returns>
-    public static SqlSugarClient GetDb(SqlDBProducerProperty sqlDBProducerProperty)
+    public static SqlSugarClient GetDb(Plugin.SqlDB.SqlDBProducerProperty sqlDBProducerProperty)
     {
         var configureExternalServices = new ConfigureExternalServices
         {
-            SplitTableService = new SqlDBDateSplitTableService(sqlDBProducerProperty),
+            SplitTableService = new Plugin.SqlDB.SqlDBDateSplitTableService(sqlDBProducerProperty),
             EntityService = (type, column) => // 修改列可空-1、带?问号 2、String类型若没有Required
             {
                 if ((type.PropertyType.IsGenericType && type.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
@@ -45,7 +44,7 @@ public static class SqlDBBusinessDatabaseUtil
         var sqlSugarClient = new SqlSugarClient(new ConnectionConfig()
         {
             ConnectionString = sqlDBProducerProperty.BigTextConnectStr,//连接字符串
-            DbType = sqlDBProducerProperty.DbType,//数据库类型
+            DbType = (SqlSugar.DbType)sqlDBProducerProperty.DbType,//数据库类型
             IsAutoCloseConnection = true, //不设成true要手动close
             ConfigureExternalServices = configureExternalServices,
         }

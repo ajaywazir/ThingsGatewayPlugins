@@ -8,20 +8,10 @@
 //  QQ群：605534569
 //------------------------------------------------------------------------------
 
-using BootstrapBlazor.Components;
+namespace ThingsGateway.Plugin.DB;
 
-using SqlSugar;
-
-using System.ComponentModel.DataAnnotations;
-
-namespace ThingsGateway.Plugin.TDengineDB;
-
-public class TDengineDBProducerProperty : BusinessPropertyWithCacheInterval
+public interface IDynamicSQL
 {
-    public DbType DbType { get; set; } = DbType.TDengine;
-
-    [DynamicProperty]
-    [Required]
-    [AutoGenerateColumn(ComponentType = typeof(Textarea), Rows = 1)]
-    public string BigTextConnectStr { get; set; } = "Host=localhost;Port=6030;Username=root;Password=taosdata;Database=test";
+    IEnumerable<dynamic> GetList(IEnumerable<object> datas);
+    Type GetModelType();
 }

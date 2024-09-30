@@ -11,6 +11,7 @@
 using Mapster;
 
 using ThingsGateway.Foundation;
+using ThingsGateway.Plugin.DB;
 
 using TouchSocket.Core;
 

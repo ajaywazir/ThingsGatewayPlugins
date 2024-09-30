@@ -6,6 +6,7 @@
 @using ThingsGateway.Extension
 @using ThingsGateway.Gateway.Application
 @using BootstrapBlazor.Components
+@using ThingsGateway.Plugin.DB
 @namespace ThingsGateway.Plugin.TDengineDB
 
 
@@ -15,7 +16,7 @@
             ShowExportButton="true" IsAutoQueryFirstRender=false
                 OnQueryAsync="OnQueryAsync" IsPagination=true CustomerSearchModel="@CustomerSearchModel">
         <CustomerSearchTemplate>
-        @if (context is TDengineDBPageInput model)
+        @if (context is SqlDBPageInput model)
             {
                 @Render(model)
             }
@@ -32,7 +33,7 @@
     </AdminTable>
 
 @code {
-    RenderFragment Render(TDengineDBPageInput model) =>
+    RenderFragment Render(SqlDBPageInput model) =>
     @<div class="row form-inline g-2">
         <div class="col-12 ">
             <BootstrapInput @bind-Value="model.VariableName" ShowLabel="true" />

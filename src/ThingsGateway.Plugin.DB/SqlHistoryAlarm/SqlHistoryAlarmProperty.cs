@@ -30,6 +30,7 @@ public class SqlHistoryAlarmProperty : BusinessPropertyWithCache
     public string BigTextConnectStr { get; set; } = "server=.;uid=sa;pwd=111111;database=test;";
 
     [DynamicProperty]
+    [Required]
     public string TableName { get; set; } = "historyAlarm";
 
 }

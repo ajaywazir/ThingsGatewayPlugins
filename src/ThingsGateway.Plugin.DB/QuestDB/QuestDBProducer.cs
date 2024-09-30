@@ -15,6 +15,8 @@ using Mapster;
 using SqlSugar;
 
 using ThingsGateway.Foundation;
+using ThingsGateway.NewLife.Extension;
+using ThingsGateway.Plugin.DB;
 
 namespace ThingsGateway.Plugin.QuestDB;
 
@@ -23,12 +25,23 @@ namespace ThingsGateway.Plugin.QuestDB;
 /// </summary>
 public partial class QuestDBProducer : BusinessBaseWithCacheIntervalVariableModel<QuestDBHistoryValue>, IDBHistoryValueService
 {
-    internal readonly QuestDBProducerProperty _driverPropertys = new();
+    internal readonly RealDBProducerProperty _driverPropertys = new();
     private readonly QuestDBProducerVariableProperty _variablePropertys = new();
 
     /// <inheritdoc/>
-    public override Type DriverUIType => typeof(QuestDBPage);
+    public override Type DriverPropertyUIType => typeof(RealDBProducerPropertyRazor);
 
+    /// <inheritdoc/>
+    public override Type DriverUIType
+    {
+        get
+        {
+            if (_driverPropertys.BigTextScriptHistoryTable.IsNullOrEmpty())
+                return typeof(QuestDBPage);
+            else
+                return null;
+        }
+    }
     public override VariablePropertyBase VariablePropertys => _variablePropertys;
 
     protected override BusinessPropertyWithCacheInterval _businessPropertyWithCacheInterval => _driverPropertys;
@@ -72,7 +85,7 @@ public partial class QuestDBProducer : BusinessBaseWithCacheIntervalVariableMode
     internal ISugarQueryable<QuestDBHistoryValue> Query(DBHistoryValuePageInput input)
     {
         var db = BusinessDatabaseUtil.GetDb(_driverPropertys.DbType, _driverPropertys.BigTextConnectStr);
-        var query = db.Queryable<QuestDBHistoryValue>()
+        var query = db.Queryable<QuestDBHistoryValue>().AS(_driverPropertys.TableName)
                              .WhereIF(input.StartTime != null, a => a.CreateTime >= input.StartTime)
                            .WhereIF(input.EndTime != null, a => a.CreateTime <= input.EndTime)
                            .WhereIF(!string.IsNullOrEmpty(input.VariableName), it => it.Name.Contains(input.VariableName))
@@ -99,7 +112,7 @@ public partial class QuestDBProducer : BusinessBaseWithCacheIntervalVariableMode
             IsSearch = option.Searches.Any()
         };
 
-        var query = db.GetQuery<QuestDBHistoryValue>(option);
+        var query = db.GetQuery<QuestDBHistoryValue>(option).AS(_driverPropertys.TableName);
 
         if (option.IsPage)
         {
@@ -130,10 +143,24 @@ public partial class QuestDBProducer : BusinessBaseWithCacheIntervalVariableMode
 
     protected override async Task ProtectedBeforStartAsync(CancellationToken cancellationToken)
     {
-        await base.ProtectedBeforStartAsync(cancellationToken).ConfigureAwait(false);
+
         var db = BusinessDatabaseUtil.GetDb(_driverPropertys.DbType, _driverPropertys.BigTextConnectStr);
         db.DbMaintenance.CreateDatabase();
-        db.CodeFirst.InitTables(typeof(QuestDBHistoryValue));
+
+        //必须为间隔上传
+        if (!_driverPropertys.BigTextScriptHistoryTable.IsNullOrEmpty())
+        {
+            var hisModel = CSharpScriptEngineExtension.Do<IDynamicSQL>(_driverPropertys.BigTextScriptHistoryTable);
+            var type = hisModel.GetModelType();
+            db.CodeFirst.InitTables(type);
+
+        }
+        else
+        {
+            db.CodeFirst.As<QuestDBHistoryValue>(_driverPropertys.TableName).InitTables(typeof(QuestDBHistoryValue));
+        }
+
+        await base.ProtectedBeforStartAsync(cancellationToken).ConfigureAwait(false);
     }
 
     protected override async ValueTask ProtectedExecuteAsync(CancellationToken cancellationToken)

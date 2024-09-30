@@ -12,6 +12,8 @@ using BootstrapBlazor.Components;
 
 using Microsoft.AspNetCore.Components;
 
+using ThingsGateway.Plugin.DB;
+
 namespace ThingsGateway.Plugin.TDengineDB;
 
 public partial class TDengineDBPage : IDriverUIBase
@@ -20,7 +22,7 @@ public partial class TDengineDBPage : IDriverUIBase
     public object Driver { get; set; }
 
     public TDengineDBProducer TDengineDBProducer => (TDengineDBProducer)Driver;
-    private TDengineDBPageInput CustomerSearchModel { get; set; } = new();
+    private SqlDBPageInput CustomerSearchModel { get; set; } = new();
 
     private async Task<QueryData<TDengineDBHistoryValue>> OnQueryAsync(QueryPageOptions options)
     {

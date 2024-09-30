@@ -11,6 +11,7 @@
 using Mapster;
 
 using ThingsGateway.Foundation;
+using ThingsGateway.Plugin.DB;
 
 using TouchSocket.Core;
 
@@ -55,12 +56,28 @@ public partial class QuestDBProducer : BusinessBaseWithCacheIntervalVariableMode
         {
             var db = BusinessDatabaseUtil.GetDb(_driverPropertys.DbType, _driverPropertys.BigTextConnectStr);
             db.Ado.CancellationToken = cancellationToken;
-            var result = await db.Insertable(dbInserts).UseParameter().ExecuteCommandAsync().ConfigureAwait(false);//不要加分表
-            //var result = await db.Insertable(dbInserts).SplitTable().ExecuteCommandAsync().ConfigureAwait(false);
-            if (result > 0)
+            if (!_driverPropertys.BigTextScriptHistoryTable.IsNullOrEmpty())
             {
-                LogMessage.Trace($"TableName：{nameof(QuestDBHistoryValue)}，Count：{result}");
+                var getDeviceModel = CSharpScriptEngineExtension.Do<IDynamicSQL>(_driverPropertys.BigTextScriptHistoryTable);
+                var result = await db.InsertableByObject(getDeviceModel.GetList(dbInserts)).ExecuteCommandAsync().ConfigureAwait(false);
+                //var result = await db.Insertable(dbInserts).SplitTable().ExecuteCommandAsync().ConfigureAwait(false);
+                if (result > 0)
+                {
+                    LogMessage.Trace($"HistoryTable Data Count：{result}");
+                }
             }
+            else
+            {
+                var result = await db.Insertable(dbInserts).AS(_driverPropertys.TableName).ExecuteCommandAsync().ConfigureAwait(false);//不要加分表
+
+                //var result = await db.Insertable(dbInserts).SplitTable().ExecuteCommandAsync().ConfigureAwait(false);
+                if (result > 0)
+                {
+                    LogMessage.Trace($"TableName：{_driverPropertys.TableName}，Count：{result}");
+                }
+            }
+
+
             return OperResult.Success;
         }
         catch (Exception ex)

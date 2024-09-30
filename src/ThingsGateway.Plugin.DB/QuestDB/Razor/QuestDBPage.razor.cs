@@ -8,10 +8,25 @@
 //  QQ群：605534569
 //------------------------------------------------------------------------------
 
-namespace ThingsGateway.Plugin.SqlDB;
+using BootstrapBlazor.Components;
 
-public interface IDynamicSQL
+using Microsoft.AspNetCore.Components;
+
+using ThingsGateway.Plugin.DB;
+
+namespace ThingsGateway.Plugin.QuestDB;
+
+public partial class QuestDBPage : IDriverUIBase
 {
-    IEnumerable<dynamic> GetList(IEnumerable<object> datas);
-    Type GetModelType();
+    [Parameter, EditorRequired]
+    public object Driver { get; set; }
+
+    public QuestDBProducer QuestDBProducer => (QuestDBProducer)Driver;
+    private SqlDBPageInput CustomerSearchModel { get; set; } = new();
+
+    private async Task<QueryData<QuestDBHistoryValue>> OnQueryAsync(QueryPageOptions options)
+    {
+        var query = await QuestDBProducer.QueryData(options).ConfigureAwait(false);
+        return query;
+    }
 }
