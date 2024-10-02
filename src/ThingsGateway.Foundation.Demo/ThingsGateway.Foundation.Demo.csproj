@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(SolutionDir)Version.props" />
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;</TargetFrameworks>
@@ -10,7 +11,7 @@
 		<ProjectReference Include="..\ThingsGateway.Foundation.Modbus\ThingsGateway.Foundation.Modbus.csproj" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.SiemensS7\ThingsGateway.Foundation.SiemensS7.csproj" />
 
-		<PackageReference Include="ThingsGateway.Foundation.Variable" Version="9.0.*" />
+		<PackageReference Include="ThingsGateway.Foundation.Variable" Version="$(Version)" />
 
 	</ItemGroup>
 
