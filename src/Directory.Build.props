@@ -1,8 +1,8 @@
 <Project>
 
 	<PropertyGroup>
-		<GatewayVersion>7.0.0.22</GatewayVersion>
-		<AdminVersion>7.0.0.61</AdminVersion>
+		<GatewayVersion>7.0.0.23</GatewayVersion>
+		<AdminVersion>7.0.0.63</AdminVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
