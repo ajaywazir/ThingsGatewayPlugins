@@ -1,4 +1,5 @@
 ﻿@using BootstrapBlazor.Components
+@using Microsoft.Extensions.Localization
 @using ThingsGateway.Extension
 @using ThingsGateway.Foundation
 @using ThingsGateway.Admin.Application
@@ -17,12 +18,13 @@
 
                     <EditTemplate Context="value">
                         <div class="col-12  col-md-12">
-                            <Textarea @bind-Value=@businessProperty.BigTextScriptHistoryTable ShowLabelTooltip="true"
-                                      rows="5" ShowLabel="true" />
+                            <BootstrapLabel Value=@SqlDBProducerPropertyLocalizer["BigTextScriptHistoryTable"] ShowLabelTooltip="true" />
+                            <CodeEditor @bind-Value=@businessProperty.BigTextScriptHistoryTable Language="csharp" Theme="vs-dark" />
+                            
                         </div>
                         <div class="col-12  col-md-12">
-                            <Textarea @bind-Value=@businessProperty.BigTextScriptRealTable ShowLabelTooltip="true"
-                                      rows="5" ShowLabel="true" />
+                            <BootstrapLabel Value=@SqlDBProducerPropertyLocalizer["BigTextScriptRealTable"] ShowLabelTooltip="true" />
+                            <CodeEditor @bind-Value=@businessProperty.BigTextScriptRealTable Language="csharp" Theme="vs-dark" />
                         </div>
                     </EditTemplate>
                 </EditorItem>
@@ -37,4 +39,12 @@
     public Device Model { get; set; }
     [Parameter, EditorRequired]
     public IEnumerable<IEditorItem> PluginPropertyEditorItems { get; set; }
+
+    IStringLocalizer SqlDBProducerPropertyLocalizer { get; set; }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        SqlDBProducerPropertyLocalizer = App.CreateLocalizerByType(Model.PluginPropertyModel.Value.GetType());
+    }
+
 }
