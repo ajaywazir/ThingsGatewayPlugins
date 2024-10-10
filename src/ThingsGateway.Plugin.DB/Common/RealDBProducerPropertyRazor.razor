@@ -1,4 +1,5 @@
 ﻿@using BootstrapBlazor.Components
+@using Microsoft.Extensions.Localization
 @using ThingsGateway.Extension
 @using ThingsGateway.Foundation
 @using ThingsGateway.Admin.Application
@@ -17,8 +18,8 @@
 
                     <EditTemplate Context="value">
                         <div class="col-12  col-md-12">
-                            <Textarea @bind-Value=@businessProperty.BigTextScriptHistoryTable ShowLabelTooltip="true"
-                                      rows="5" ShowLabel="true" />
+                            <BootstrapLabel Value=@RealDBProducerPropertyLocalizer["BigTextScriptHistoryTable"] ShowLabelTooltip="true" />
+                            <CodeEditor @bind-Value=@businessProperty.BigTextScriptHistoryTable Language="csharp" Theme="vs-dark" />
                         </div>
 
                     </EditTemplate>
@@ -34,4 +35,13 @@
     public Device Model { get; set; }
     [Parameter, EditorRequired]
     public IEnumerable<IEditorItem> PluginPropertyEditorItems { get; set; }
+
+    IStringLocalizer RealDBProducerPropertyLocalizer { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        RealDBProducerPropertyLocalizer = App.CreateLocalizerByType(Model.PluginPropertyModel.Value.GetType());
+
+        return base.OnParametersSetAsync();
+    }
 }
