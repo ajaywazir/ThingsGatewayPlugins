@@ -4,7 +4,7 @@
   <Import Project="$(SolutionDir)Version.props" />
   <Import Project="$(SolutionDir)PackNuget.props" />
 	<ItemGroup>
-		<PackageReference Include="Confluent.Kafka" Version="2.5.3" GeneratePathProperty="true">
+		<PackageReference Include="Confluent.Kafka" Version="2.6.0" GeneratePathProperty="true">
 		</PackageReference>
 	</ItemGroup>
 </Project>
