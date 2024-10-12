@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<GatewayVersion>7.0.0.26</GatewayVersion>
-		<AdminVersion>7.0.0.65</AdminVersion>
+		<AdminVersion>7.0.0.66</AdminVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
