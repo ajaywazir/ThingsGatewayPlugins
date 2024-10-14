@@ -30,7 +30,9 @@
 		<ProjectReference Include="..\ThingsGateway.Foundation.OpcDa\ThingsGateway.Foundation.OpcDa.csproj" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.OpcUa\ThingsGateway.Foundation.OpcUa.csproj" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.SiemensS7\ThingsGateway.Foundation.SiemensS7.csproj" />
-		<ProjectReference Include="..\ThingsGateway.Foundation.Razor\ThingsGateway.Foundation.Razor.csproj" />
+
+
+		<PackageReference Include="ThingsGateway.Foundation.Razor" Version="$(FoundationVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

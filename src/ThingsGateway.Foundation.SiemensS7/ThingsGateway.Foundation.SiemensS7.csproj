@@ -10,7 +10,7 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\ThingsGateway.Foundation\ThingsGateway.Foundation.csproj" />
+		<PackageReference Include="ThingsGateway.Foundation" Version="$(FoundationVersion)" />
 	</ItemGroup>
 
 

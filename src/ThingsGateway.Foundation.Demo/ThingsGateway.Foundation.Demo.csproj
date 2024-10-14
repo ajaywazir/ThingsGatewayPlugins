@@ -11,7 +11,7 @@
 		<ProjectReference Include="..\ThingsGateway.Foundation.Modbus\ThingsGateway.Foundation.Modbus.csproj" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.SiemensS7\ThingsGateway.Foundation.SiemensS7.csproj" />
 
-		<PackageReference Include="ThingsGateway.Foundation.Variable" Version="$(Version)" />
+		<PackageReference Include="ThingsGateway.Foundation.Variable" Version="$(FoundationVersion)" />
 
 	</ItemGroup>
 
