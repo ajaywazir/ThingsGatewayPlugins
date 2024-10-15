@@ -137,12 +137,15 @@ public class ModbusSlave : ProtocolBase, ITcpService, IDtuClient
                     case ChannelTypeEnum.SerialPort:
                         return new ProtocolSingleStreamDataHandleAdapter<ModbusTcpSlaveMessage>()
                         {
-                            CacheTimeout = TimeSpan.FromMilliseconds(CacheTimeout)
+                            CacheTimeout = TimeSpan.FromMilliseconds(CacheTimeout),
+                            IsSingleThread = false,
+
                         };
 
                     case ChannelTypeEnum.UdpSession:
                         return new ProtocolUdpDataHandleAdapter<ModbusTcpSlaveMessage>()
                         {
+                            IsSingleThread = false,
                         };
                 }
                 break;
@@ -155,19 +158,22 @@ public class ModbusSlave : ProtocolBase, ITcpService, IDtuClient
                     case ChannelTypeEnum.SerialPort:
                         return new ProtocolSingleStreamDataHandleAdapter<ModbusRtuSlaveMessage>()
                         {
-                            CacheTimeout = TimeSpan.FromMilliseconds(CacheTimeout)
+                            CacheTimeout = TimeSpan.FromMilliseconds(CacheTimeout),
+                            IsSingleThread = false,
                         };
 
                     case ChannelTypeEnum.UdpSession:
                         return new ProtocolUdpDataHandleAdapter<ModbusRtuSlaveMessage>()
                         {
+                            IsSingleThread = false,
                         };
                 }
                 break;
         }
         return new ProtocolSingleStreamDataHandleAdapter<ModbusTcpSlaveMessage>()
         {
-            CacheTimeout = TimeSpan.FromMilliseconds(CacheTimeout)
+            CacheTimeout = TimeSpan.FromMilliseconds(CacheTimeout),
+            IsSingleThread = false,
         };
     }
 
