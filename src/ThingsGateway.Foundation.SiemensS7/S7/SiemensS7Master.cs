@@ -194,32 +194,10 @@ public partial class SiemensS7Master : ProtocolBase
             var sAddress = sAddresss[0];
             if (sAddresss.Length <= 1 && sAddress.IsBit)
             {
-                //读取，再写入
                 var byteBlock = new ValueByteBlock(2048);
                 try
                 {
-                    var addressLen = sAddress.Length == 0 ? 1 : sAddress.Length;
 
-                    if (addressLen > PduLength)
-                    {
-                        SetFailOperResult(new OperResult("Write length exceeds limit"));
-                        return dictOperResult;
-                    }
-
-                    var result = await SendThenReturnAsync(new S7Send([sAddress], true), cancellationToken: cancellationToken).ConfigureAwait(false);
-
-                    if (!result.IsSuccess)
-                    {
-                        SetFailOperResult(result);
-                        return dictOperResult;
-                    }
-
-                    var value = sAddress.Data.ByteToBoolArray(sAddress.BitLength);
-                    for (int i = sAddress.BitCode; i < value.Length + sAddress.BitCode; i++)
-                    {
-                        result.Content[i / 8] = result.Content[i / 8].SetBit((i % 8), value[i - sAddress.BitCode]);
-                    }
-                    sAddress.Data = result.Content;
                     var wresult = await SendThenReturnAsync(new S7Send([sAddress], false), cancellationToken: cancellationToken).ConfigureAwait(false);
                     dictOperResult.TryAdd(sAddress, wresult);
                     return dictOperResult;

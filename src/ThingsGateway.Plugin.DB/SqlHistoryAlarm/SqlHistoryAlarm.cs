@@ -43,7 +43,7 @@ public partial class SqlHistoryAlarm : BusinessBaseWithCacheVariableModel<Histor
                                 .Where(a => CurrentDevice.VariableRunTimes.Select(b => b.Value.DeviceId).Contains(a.Value.Id))
                                 .ToDictionary(a => a.Key, a => a.Value);
 
-        _config.ForType<AlarmVariable, HistoryAlarm>().Map(dest => dest.Id, (src) => YitIdHelper.NextId());
+        _config.ForType<AlarmVariable, HistoryAlarm>().Map(dest => dest.Id, (src) => CommonUtils.GetSingleId());
         GlobalData.AlarmHostedService.OnAlarmChanged += AlarmWorker_OnAlarmChanged;
     }
 

@@ -270,7 +270,7 @@ public partial class OpcDaImportVariable
             {
             }
 
-            var id = Yitter.IdGenerator.YitIdHelper.NextId();
+            var id = CommonUtils.GetSingleId();
             return new Variable()
             {
                 Name = a.Name + "-" + id,
@@ -288,7 +288,7 @@ public partial class OpcDaImportVariable
 
     private Device GetImportDevice(long channelId)
     {
-        var id = Yitter.IdGenerator.YitIdHelper.NextId();
+        var id = CommonUtils.GetSingleId();
         var data = new Device()
         {
             Name = Plc.OpcDaProperty.OpcName + "-" + id,
@@ -310,7 +310,7 @@ public partial class OpcDaImportVariable
 
     private Channel GetImportChannel()
     {
-        var id = Yitter.IdGenerator.YitIdHelper.NextId();
+        var id = CommonUtils.GetSingleId();
         var data = new Channel()
         {
             Name = Plc.OpcDaProperty.OpcName + "-" + id,

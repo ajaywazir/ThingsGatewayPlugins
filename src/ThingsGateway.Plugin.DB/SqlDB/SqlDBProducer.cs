@@ -151,7 +151,7 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
     {
         _config = new TypeAdapterConfig();
         _config.ForType<VariableRunTime, SQLHistoryValue>()
-            //.Map(dest => dest.Id, (src) =>YitIdHelper.NextId())
+            //.Map(dest => dest.Id, (src) =>CommonUtils.GetSingleId())
             .Map(dest => dest.Id, src => src.Id)//Id更改为变量Id
             .Map(dest => dest.CreateTime, (src) => DateTime.Now);
 

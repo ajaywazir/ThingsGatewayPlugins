@@ -8,14 +8,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Server" Version="1.5.374.124" GeneratePathProperty="true"/>
-		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Configuration" Version="1.5.374.124" GeneratePathProperty="true"/>
-		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Core" Version="1.5.374.124" GeneratePathProperty="true"/>
-		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Security.Certificates" Version="1.5.374.124" GeneratePathProperty="true"/>
-		<PackageReference Include="System.Formats.Asn1" Version="8.0.1" GeneratePathProperty="true"/>
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Server" Version="1.5.374.126" GeneratePathProperty="true" />
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Configuration" Version="1.5.374.126" GeneratePathProperty="true" />
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Core" Version="1.5.374.126" GeneratePathProperty="true" />
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Security.Certificates" Version="1.5.374.126" GeneratePathProperty="true" />
+		<PackageReference Include="System.Formats.Asn1" Version="8.0.1" GeneratePathProperty="true" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.OpcUa\ThingsGateway.Foundation.OpcUa.csproj" />
 		<!--<PackageReference Include="ThingsGateway.Foundation.OpcUa" Version="9.0.*" GeneratePathProperty="true"/>-->
-		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Client" Version="1.5.374.124" GeneratePathProperty="true"/>
-		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Client.ComplexTypes" Version="1.5.374.124" GeneratePathProperty="true"/>
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Client" Version="1.5.374.126" GeneratePathProperty="true" />
+		<PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Client.ComplexTypes" Version="1.5.374.126" GeneratePathProperty="true" />
 	</ItemGroup>
 </Project>
