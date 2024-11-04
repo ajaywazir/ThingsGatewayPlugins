@@ -255,7 +255,7 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
         }
 
         var _userService = App.RootServices.GetRequiredService<ISysUserService>();
-        var userInfo = await _userService.GetUserByAccountAsync(arg.UserName).ConfigureAwait(false);//获取用户信息
+        var userInfo = await _userService.GetUserByAccountAsync(arg.UserName, null).ConfigureAwait(false);//获取用户信息
         if (userInfo == null)
         {
             arg.ReasonCode = MqttConnectReasonCode.BadUserNameOrPassword;

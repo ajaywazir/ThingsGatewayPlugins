@@ -47,7 +47,7 @@ public partial class MqttCollect : CollectBase
     protected override string GetAddressDescription()
     {
         return """
-                变量地址：${mqtt_topic}+${payload_item}
+                变量地址：${mqtt_topic};${payload_item};${Condition}
                 主题：vendor/device
                 负载示例：
                 {
@@ -55,19 +55,20 @@ public partial class MqttCollect : CollectBase
                           "EquipId":"E12",
                           "CarrierId": "C12",
                           "SubstrateLocId": "S12",
-                          "LotId": "L12",
+                          "LotId": 1,
                           "DesignId": "D12",
                           "EventTime": "12322131"
                      }
                 }
 
-               比如vendor/device+ModuleUnoccupied.EquipId，结果是"E12"
-
+               比如vendor/device;ModuleUnoccupied.EquipId，结果是"E12"
+               比如vendor/device;ModuleUnoccupied.EquipId;raw.SelectToken("ModuleUnoccupied.LotId").ToString().ToInt()==1，结果是"E12"
+            
             """;
     }
 
 
-    private Dictionary<string, List<Tuple<string, VariableRunTime>>> TopicItemDict = new();
+    private Dictionary<string, List<Tuple<string, string, VariableRunTime>>> TopicItemDict = new();
 
     private class TopicItem
     {
@@ -106,7 +107,7 @@ public partial class MqttCollect : CollectBase
                      TopicItem topic = new();
                      try
                      {
-                         var addressSplit = a.RegisterAddress.Split('+');
+                         var addressSplit = a.RegisterAddress.Split(';');
                          topic.Topic = addressSplit[0];
                      }
                      catch
@@ -130,11 +131,13 @@ public partial class MqttCollect : CollectBase
                 {
                     try
                     {
-                        var addressSplit = item.RegisterAddress.Split('+');
-                        if (addressSplit.Length > 1)
-                            TopicItemDict[group.Key].Add(new Tuple<string, VariableRunTime>(addressSplit[1], item));
+                        var addressSplit = item.RegisterAddress.Split(';');
+                        if (addressSplit.Length > 2)
+                            TopicItemDict[group.Key].Add(new Tuple<string, string, VariableRunTime>(addressSplit[1], addressSplit[2], item));
+                        else if (addressSplit.Length > 1)
+                            TopicItemDict[group.Key].Add(new Tuple<string, string, VariableRunTime>(addressSplit[1], string.Empty, item));
                         else
-                            TopicItemDict[group.Key].Add(new Tuple<string, VariableRunTime>("", item));
+                            TopicItemDict[group.Key].Add(new Tuple<string, string, VariableRunTime>(string.Empty, string.Empty, item));
                     }
                     catch
                     {

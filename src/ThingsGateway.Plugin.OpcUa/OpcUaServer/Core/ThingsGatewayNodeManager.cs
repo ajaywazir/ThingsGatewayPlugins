@@ -419,10 +419,12 @@ public class ThingsGatewayNodeManager : CustomNodeManager2
         try
         {
             var context1 = context as ServerSystemContext;
-            if (context1.UserIdentity.TokenType == UserTokenType.Anonymous)
-            {
-                return StatusCodes.BadUserAccessDenied;
-            }
+
+            //取消注释，插件不限制匿名用户的写入
+            //if (context1.UserIdentity.TokenType == UserTokenType.Anonymous)
+            //{
+            //    return StatusCodes.BadUserAccessDenied;
+            //}
             OpcUaTag variable = node as OpcUaTag;
             if (NodeIdTags.TryGetValue(variable.SymbolicName, out OpcUaTag tag))
             {

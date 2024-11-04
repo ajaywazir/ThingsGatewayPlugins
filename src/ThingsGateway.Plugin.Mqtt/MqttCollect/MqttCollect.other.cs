@@ -11,12 +11,13 @@
 using MQTTnet;
 using MQTTnet.Client;
 
-using Newtonsoft.Json.Linq;
 
 using System.Text;
 
 using ThingsGateway.Foundation;
 using ThingsGateway.Foundation.Json.Extension;
+using ThingsGateway.Gateway.Application.Extensions;
+using ThingsGateway.NewLife.Extension;
 
 namespace ThingsGateway.Plugin.Mqtt;
 
@@ -41,26 +42,34 @@ public partial class MqttCollect : CollectBase
     {
         try
         {
-            if (TopicItemDict.TryGetValue(args.ApplicationMessage.Topic, out var tuples))
+            var tuples = TopicItemDict.FirstOrDefault(t => (MqttTopicFilterComparer.Compare(args.ApplicationMessage.Topic, t.Key) == MqttTopicFilterCompareResult.IsMatch)).Value;
+            if (tuples != null)
             {
-
-                JToken json = JToken.Parse(Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment));
+                Newtonsoft.Json.Linq.JToken json = Newtonsoft.Json.Linq.JToken.Parse(Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment));
                 DateTime dateTime = DateTime.Now;
                 foreach (var item in tuples)
                 {
                     try
                     {
-                        var jtoken = json.SelectToken(item.Item1);
-                        object value;
-                        if (jtoken is JValue jValue)
+                        if (item.Item2.GetExpressionsResult(json).ToBoolean(true))
                         {
-                            value = jValue.Value;
+                            var jtoken = json.SelectToken(item.Item1);
+                            object value;
+                            if (jtoken is Newtonsoft.Json.Linq.JValue jValue)
+                            {
+                                value = jValue.Value;
+                            }
+                            else
+                            {
+                                value = jtoken;
+                            }
+                            item.Item3.SetValue(value, dateTime);
                         }
                         else
                         {
-                            value = jtoken;
+                            LogMessage.LogTrace($"parse : topic  {Environment.NewLine}{args.ApplicationMessage.Topic}  {Environment.NewLine} json {Environment.NewLine}{json} {Environment.NewLine} select: {item.Item1} {Environment.NewLine} condition {item.Item2}");
+
                         }
-                        item.Item2.SetValue(value, dateTime);
                     }
                     catch (Exception ex)
                     {

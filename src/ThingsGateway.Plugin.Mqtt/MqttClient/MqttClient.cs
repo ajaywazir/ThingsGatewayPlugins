@@ -132,7 +132,6 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
             await Task.Delay(10000, cancellationToken).ConfigureAwait(false);
             //return;
         }
-
         await Update(cancellationToken).ConfigureAwait(false);
 
         await Delay(cancellationToken).ConfigureAwait(false);
