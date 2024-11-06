@@ -11,6 +11,7 @@
     "KeepAliveInterval": "心跳間隔(ms)",
     "UseSecurity": "安全策略",
     "LoadType": "加載伺服器數據類型",
+    "ExportC": "導出證書",
 
     "Connect": "連接",
     "Disconnect": "斷開",

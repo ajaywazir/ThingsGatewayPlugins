@@ -16,6 +16,7 @@
     "KeepAliveInterval": "心跳間隔(ms)",
     "UseSecurity": "安全策略",
     "LoadType": "加載伺服器數據類型",
+    "ExportC": "導出證書",
     "SourceTimestampEnable": "伺服器時間戳",
     "ReIntervalTime": "離線恢復時間",
     "RetryCount": "失敗重試次數"

@@ -43,6 +43,8 @@ public class OpcUaMaster : CollectBase
     /// <inheritdoc/>
     public override Type DriverDebugUIType => typeof(ThingsGateway.Debug.OpcUaMaster);
 
+    public override Type DriverPropertyUIType => typeof(OpcUaMasterPropertyRazor);
+
     public override Type DriverUIType => null;
 
     /// <inheritdoc/>

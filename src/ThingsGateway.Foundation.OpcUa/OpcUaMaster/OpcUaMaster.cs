@@ -829,6 +829,14 @@ public class OpcUaMaster : IDisposable
     #region 连接
 
     /// <summary>
+    /// 检查/创建证书
+    /// </summary>
+    /// <returns></returns>
+    public async Task CheckApplicationInstanceCertificate()
+    {
+        await m_application.CheckApplicationInstanceCertificate(true, 0, 1200).ConfigureAwait(false);
+    }
+    /// <summary>
     /// Creates a new session.
     /// </summary>
     /// <returns>The new session object.</returns>

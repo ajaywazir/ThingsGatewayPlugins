@@ -16,6 +16,7 @@ using Microsoft.Extensions.Localization;
 using ThingsGateway.Foundation;
 using ThingsGateway.Foundation.OpcUa;
 using ThingsGateway.NewLife.Extension;
+using ThingsGateway.Razor;
 
 using TouchSocket.Core;
 
@@ -51,6 +52,40 @@ public partial class OpcUaMaster : IDisposable
         _plc?.SafeDispose();
         GC.SuppressFinalize(this);
     }
+    [Inject]
+    private DownloadService DownloadService { get; set; }
+    [Inject]
+    private ToastService ToastService { get; set; }
+    private async Task Export()
+    {
+        try
+        {
+            await _plc.CheckApplicationInstanceCertificate();
+            string path = $"{AppContext.BaseDirectory}OPCUAClientCertificate/pki/trustedPeer/certs";
+            Directory.CreateDirectory(path);
+            var files = Directory.GetFiles(path);
+            if (!files.Any())
+            {
+                return;
+            }
+            foreach (var item in files)
+            {
+                using var fileStream = new FileStream(item, FileMode.Open, FileAccess.Read);
+
+                var extension = Path.GetExtension(item);
+                extension ??= ".der";
+
+                await DownloadService.DownloadFromStreamAsync($"ThingsGateway{extension}", fileStream);
+            }
+            await ToastService.Default();
+        }
+        catch (Exception ex)
+        {
+            await ToastService.Warn(ex);
+        }
+
+    }
+
 
     protected override void OnInitialized()
     {

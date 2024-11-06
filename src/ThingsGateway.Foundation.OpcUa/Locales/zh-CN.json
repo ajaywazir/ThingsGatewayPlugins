@@ -11,7 +11,7 @@
     "KeepAliveInterval": "心跳间隔(ms)",
     "UseSecurity": "安全策略",
     "LoadType": "加载服务端数据类型",
-
+    "ExportC": "导出证书",
     "Connect": "连接",
     "Disconnect": "断开",
     "Add": "添加",

@@ -1,0 +1,79 @@
+﻿@using BootstrapBlazor.Components
+@using Microsoft.Extensions.Localization
+@using ThingsGateway.Extension
+@using ThingsGateway.Foundation
+@using ThingsGateway.Admin.Application
+@using ThingsGateway.Admin.Razor
+@using ThingsGateway.Gateway.Application
+@using ThingsGateway.Plugin.OpcUa
+@namespace ThingsGateway.Plugin.OpcUa
+
+<ValidateForm Model="Model.PluginPropertyModel.Value" @ref=Model.PluginPropertyModel.ValidateForm Id="@Model.Id.ToString()">
+
+    <EditorFormObject class="p-2" Items=PluginPropertyEditorItems AutoGenerateAllItem="false" RowType=RowType.Inline ItemsPerRow=2 ShowLabelTooltip=true LabelWidth=250 Model="Model.PluginPropertyModel.Value" @key=Model.PluginPropertyModel.Value.GetType().TypeHandle.Value>
+        <FieldItems>
+            @if (Model.PluginPropertyModel.Value is OpcUaMasterProperty businessProperty)
+            {
+  
+            }
+        </FieldItems>
+
+        <Buttons>
+            <Button IsAsync class="mx-2" Color=Color.Primary OnClick="Export">@Localizer["ExportC"]</Button>
+        </Buttons>
+    </EditorFormObject>
+
+
+</ValidateForm>
+
+@code{
+
+    [Parameter, EditorRequired]
+    public Device Model { get; set; }
+    [Parameter, EditorRequired]
+    public IEnumerable<IEditorItem> PluginPropertyEditorItems { get; set; }
+
+    IStringLocalizer Localizer { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        Localizer = App.CreateLocalizerByType(Model.PluginPropertyModel.Value.GetType());
+
+        return base.OnParametersSetAsync();
+    }
+
+    [Inject]
+    private DownloadService DownloadService { get; set; }
+    [Inject]
+    private ToastService ToastService { get; set; }
+    private async Task Export()
+    {
+        try
+        {
+            var plc = new ThingsGateway.Foundation.OpcUa.OpcUaMaster();
+            await plc.CheckApplicationInstanceCertificate();
+            string path = $"{AppContext.BaseDirectory}OPCUAClientCertificate/pki/trustedPeer/certs";
+            Directory.CreateDirectory(path);
+            var files = Directory.GetFiles(path);
+            if (!files.Any())
+            {
+                return;
+            }
+            foreach (var item in files)
+            {
+                using var fileStream = new FileStream(item, FileMode.Open, FileAccess.Read);
+
+                var extension = Path.GetExtension(item);
+                extension ??= ".der";
+
+                await DownloadService.DownloadFromStreamAsync($"ThingsGateway{extension}", fileStream);
+            }
+            await ToastService.Default();
+        }
+        catch (Exception ex)
+        {
+            await ToastService.Warn(ex);
+        }
+
+    }
+}
