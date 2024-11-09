@@ -65,11 +65,6 @@ public partial class MqttCollect : CollectBase
                             }
                             item.Item3.SetValue(value, dateTime);
                         }
-                        else
-                        {
-                            LogMessage.LogTrace($"parse : topic  {Environment.NewLine}{args.ApplicationMessage.Topic}  {Environment.NewLine} json {Environment.NewLine}{json} {Environment.NewLine} select: {item.Item1} {Environment.NewLine} condition {item.Item2}");
-
-                        }
                     }
                     catch (Exception ex)
                     {

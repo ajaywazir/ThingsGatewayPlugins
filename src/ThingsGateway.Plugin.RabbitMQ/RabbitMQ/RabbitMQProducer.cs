@@ -27,7 +27,7 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
 
     protected override BusinessPropertyWithCacheIntervalScript _businessPropertyWithCacheIntervalScript => _driverPropertys;
 
-    protected override void Init(IChannel? channel = null)
+    protected override void Init(Foundation.IChannel? channel = null)
     {
         base.Init(channel);
 
@@ -57,27 +57,27 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
     /// <inheritdoc/>
     protected override void Dispose(bool disposing)
     {
-        _model?.SafeDispose();
+        _channel?.SafeDispose();
         _connection?.SafeDispose();
         base.Dispose(disposing);
     }
 
     protected override async ValueTask ProtectedExecuteAsync(CancellationToken cancellationToken)
     {
-        if (_model == null)
+        if (_channel == null)
         {
             try
             {
                 // 创建连接
-                _connection ??= _connectionFactory.CreateConnection();
+                _connection ??= await _connectionFactory.CreateConnectionAsync(cancellationToken);
                 // 创建通道
-                _model ??= _connection.CreateModel();
+                _channel ??= await _connection.CreateChannelAsync();
                 // 声明路由队列
                 if (_driverPropertys.IsQueueDeclare)
                 {
-                    _model?.QueueDeclare(_driverPropertys.VariableTopic, true, false, false);
-                    _model?.QueueDeclare(_driverPropertys.DeviceTopic, true, false, false);
-                    _model?.QueueDeclare(_driverPropertys.AlarmTopic, true, false, false);
+                    await _channel?.QueueDeclareAsync(_driverPropertys.VariableTopic, true, false, false, cancellationToken: cancellationToken);
+                    await _channel?.QueueDeclareAsync(_driverPropertys.DeviceTopic, true, false, false, cancellationToken: cancellationToken);
+                    await _channel?.QueueDeclareAsync(_driverPropertys.AlarmTopic, true, false, false, cancellationToken: cancellationToken);
                 }
                 success = true;
             }

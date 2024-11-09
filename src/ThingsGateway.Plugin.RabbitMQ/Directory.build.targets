@@ -1,17 +1,5 @@
 <Project>
 
-
-	<Target Name="CopyNugetPackages" AfterTargets="Build">
-		<ItemGroup>
-			<!-- setting up the variable for convenience -->
-			<ApplicationPackageFiles Include="$(PkgRabbitMQ_Client)\lib\netstandard2.0\*.*" />
-		</ItemGroup>
-		<PropertyGroup>
-			<ApplicationFolder>$(TargetDir)</ApplicationFolder>
-		</PropertyGroup>
-		<Copy SourceFiles="@(ApplicationPackageFiles)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
-	</Target>
-	
 	<!--在构建后触发的。它通过在 Nuget 包的 Content 文件夹中包含目标目录中的所有文件和子文件夹来创建 nuget 包-->
 	<Target Name="IncludeAllFilesInTargetDir" AfterTargets="Build">
 		<ItemGroup>
@@ -21,5 +9,46 @@
 			</Content>
 		</ItemGroup>
 	</Target>
+
+	<Target Name="CopyNugetPackages" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net6.0'">
+		<ItemGroup>
+			<!-- setting up the variable for convenience -->
+			<ApplicationPackageFiles Include="$(PkgRabbitMQ_Client)\lib\netstandard2.0\*.*" />
+			<ApplicationPackageFiles1 Include="$(PkgMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.1\*.*" />
+			<ApplicationPackageFiles2 Include="$(PkgSystem_Diagnostics_DiagnosticSource)\lib\net6.0\*.*" />
+			<ApplicationPackageFiles3 Include="$(PkgSystem_IO_Pipelines)\lib\net6.0\*.*" />
+			<ApplicationPackageFiles4 Include="$(PkgSystem_Memory)\lib\netstandard2.0\*.*" />
+			<ApplicationPackageFiles5 Include="$(PkgSystem_Runtime_CompilerServices_Unsafe)\lib\net6.0\*.*" />
+			<ApplicationPackageFiles6 Include="$(PkgSystem_Threading_Channels)\lib\net6.0\*.*" />
+			<ApplicationPackageFiles7 Include="$(PkgSystem_Threading_RateLimiting)\lib\net6.0\*.*" />
+		</ItemGroup>
+		<PropertyGroup>
+			<ApplicationFolder>$(TargetDir)</ApplicationFolder>
+		</PropertyGroup>
+		<Copy SourceFiles="@(ApplicationPackageFiles)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles1)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles2)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles3)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles4)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles5)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles6)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles7)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+	</Target>
+
+	<Target Name="NET8CopyNugetPackages" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net8.0'">
+		<ItemGroup>
+			<!-- setting up the variable for convenience -->
+			<ApplicationPackageFiles Include="$(PkgRabbitMQ_Client)\lib\net8.0\*.*" />
+			<ApplicationPackageFiles1 Include="$(PkgSystem_IO_Pipelines)\lib\net8.0\*.*" />
+			<ApplicationPackageFiles2 Include="$(PkgSystem_Threading_RateLimiting)\lib\net8.0\*.*" />
+		</ItemGroup>
+		<PropertyGroup>
+			<ApplicationFolder>$(TargetDir)</ApplicationFolder>
+		</PropertyGroup>
+		<Copy SourceFiles="@(ApplicationPackageFiles)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles1)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+		<Copy SourceFiles="@(ApplicationPackageFiles2)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
+	</Target>
+
 
 </Project>

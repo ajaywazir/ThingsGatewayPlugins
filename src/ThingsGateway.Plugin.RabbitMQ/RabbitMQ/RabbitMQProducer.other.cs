@@ -19,6 +19,8 @@ using ThingsGateway.Foundation.Extension.Generic;
 
 using TouchSocket.Core;
 
+using IChannel = RabbitMQ.Client.IChannel;
+
 namespace ThingsGateway.Plugin.RabbitMQ;
 
 /// <summary>
@@ -28,7 +30,7 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
 {
     private IConnection _connection;
     private ConnectionFactory _connectionFactory;
-    private IModel _model;
+    private IChannel _channel;
 
     protected override void AlarmChange(AlarmVariable alarmVariable)
     {
@@ -68,11 +70,11 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
 
     #region private
 
-    private ValueTask<OperResult> Update(List<TopicJson> topicJsonList, CancellationToken cancellationToken)
+    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList, CancellationToken cancellationToken)
     {
         foreach (var topicJson in topicJsonList)
         {
-            var result = Publish(topicJson.Topic, topicJson.Json, _model.CreateBasicProperties());
+            var result = await Publish(topicJson.Topic, topicJson.Json, cancellationToken);
             if (success != result.IsSuccess)
             {
                 if (!result.IsSuccess)
@@ -83,11 +85,11 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
             }
             if (!result.IsSuccess)
             {
-                return ValueTask.FromResult(result);
+                return result;
             }
         }
         OperResult operResult = OperResult.Success;
-        return ValueTask.FromResult(operResult);
+        return operResult;
     }
 
     private ValueTask<OperResult> UpdateAlarmModel(IEnumerable<AlarmVariable> item, CancellationToken cancellationToken)
@@ -144,15 +146,13 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
     /// <summary>
     /// 上传，返回上传结果
     /// </summary>
-    private OperResult Publish(string topic, string payLoad, IBasicProperties properties)
+    private async Task<OperResult> Publish(string topic, string payLoad, CancellationToken cancellationToken)
     {
         try
         {
-            if (properties != null)
-                properties.Persistent = true;
-            if (_model != null)
+            if (_channel != null)
             {
-                _model.BasicPublish(_driverPropertys.ExchangeName, topic, properties, Encoding.UTF8.GetBytes(payLoad));
+                await _channel.BasicPublishAsync(_driverPropertys.ExchangeName, topic, Encoding.UTF8.GetBytes(payLoad), cancellationToken);
                 LogMessage.Trace($"Topic：{topic}{Environment.NewLine}PayLoad：{payLoad}");
                 return OperResult.Success;
             }
