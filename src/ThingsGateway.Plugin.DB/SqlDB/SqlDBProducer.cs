@@ -79,7 +79,8 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
             IsSearch = option.Searches.Any()
         };
 
-        var query = db.GetQuery<SQLHistoryValue>(option).SplitTable();
+        var query = db.Queryable<SQLHistoryValue>().SplitTable();
+        query = db.GetQuery<SQLHistoryValue>(option, query);
         if (option.IsPage)
         {
             RefAsync<int> totalCount = 0;
@@ -118,7 +119,8 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
             IsSearch = option.Searches.Any()
         };
 
-        var query = db.GetQuery<SQLRealValue>(option).AS(_driverPropertys.ReadDBTableName);
+        var query = db.Queryable<SQLRealValue>().AS(_driverPropertys.ReadDBTableName);
+        query = db.GetQuery<SQLRealValue>(option, query);
 
         if (option.IsPage)
         {

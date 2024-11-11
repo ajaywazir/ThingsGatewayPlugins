@@ -107,8 +107,9 @@ public partial class TDengineDBProducer : BusinessBaseWithCacheIntervalVariableM
             IsAdvanceSearch = option.AdvanceSearches.Any() || option.CustomerSearches.Any(),
             IsSearch = option.Searches.Any()
         };
+        var query = db.Queryable<TDengineDBHistoryValue>().AS(_driverPropertys.TableName);
 
-        var query = db.GetQuery<TDengineDBHistoryValue>(option).AS(_driverPropertys.TableName);
+        query = db.GetQuery<TDengineDBHistoryValue>(option, query);
 
         if (option.IsPage)
         {

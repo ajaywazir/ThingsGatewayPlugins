@@ -111,8 +111,10 @@ public partial class QuestDBProducer : BusinessBaseWithCacheIntervalVariableMode
             IsAdvanceSearch = option.AdvanceSearches.Any() || option.CustomerSearches.Any(),
             IsSearch = option.Searches.Any()
         };
+        var query = db.Queryable<QuestDBHistoryValue>()
+            .AS(_driverPropertys.TableName);
 
-        var query = db.GetQuery<QuestDBHistoryValue>(option).AS(_driverPropertys.TableName);
+        query = db.GetQuery<QuestDBHistoryValue>(option, query);
 
         if (option.IsPage)
         {

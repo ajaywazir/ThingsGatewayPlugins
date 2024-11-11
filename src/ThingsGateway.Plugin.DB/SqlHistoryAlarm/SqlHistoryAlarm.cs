@@ -16,8 +16,6 @@ using SqlSugar;
 
 using ThingsGateway.Foundation;
 
-using Yitter.IdGenerator;
-
 namespace ThingsGateway.Plugin.SqlHistoryAlarm;
 
 /// <summary>
@@ -119,7 +117,8 @@ public partial class SqlHistoryAlarm : BusinessBaseWithCacheVariableModel<Histor
             IsSearch = option.Searches.Any()
         };
 
-        var query = db.GetQuery<HistoryAlarm>(option).AS(_driverPropertys.TableName);
+        var query = db.Queryable<HistoryAlarm>().AS(_driverPropertys.TableName);
+        query = db.GetQuery<HistoryAlarm>(option, query);
 
         if (option.IsPage)
         {
