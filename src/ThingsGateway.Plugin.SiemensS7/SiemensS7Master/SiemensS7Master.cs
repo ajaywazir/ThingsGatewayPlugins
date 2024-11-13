@@ -182,7 +182,7 @@ public class SiemensS7Master : CollectBase
 
     }
 
-    [DynamicMethod("ReadWriteDateAsync", "读写日期格式")]
+    [ThingsGateway.Gateway.Application.DynamicMethod("ReadWriteDateAsync", "读写日期格式")]
     public async Task<IOperResult<System.DateTime>> ReadWriteDateAsync(string address, System.DateTime? value = null, CancellationToken cancellationToken = default)
     {
         if (value == null)
@@ -191,7 +191,7 @@ public class SiemensS7Master : CollectBase
             return new OperResult<System.DateTime>(await _plc.WriteDateAsync(address, value.Value, cancellationToken).ConfigureAwait(false));
     }
 
-    [DynamicMethod("ReadWriteDateTimeAsync", "读写日期时间格式")]
+    [ThingsGateway.Gateway.Application.DynamicMethod("ReadWriteDateTimeAsync", "读写日期时间格式")]
     public async Task<IOperResult<System.DateTime>> ReadWriteDateTimeAsync(string address, System.DateTime? value = null, CancellationToken cancellationToken = default)
     {
         if (value == null)

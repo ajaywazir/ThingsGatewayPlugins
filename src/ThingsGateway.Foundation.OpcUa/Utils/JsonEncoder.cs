@@ -578,7 +578,7 @@ public class OPCUAJsonEncoder : IJsonEncoder, IEncoder, IDisposable
     /// </summary>
     public void WriteByteString(string fieldName, ReadOnlySpan<byte> value)
     {
-        if (value == null)
+        if (value == ReadOnlySpan<byte>.Empty)
         {
             WriteSimpleField(fieldName, null, quotes: false);
             return;
