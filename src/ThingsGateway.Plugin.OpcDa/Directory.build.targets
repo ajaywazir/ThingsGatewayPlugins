@@ -1,18 +1,6 @@
 <Project>
 
 
-	
-	<!--<Target Name="CopyNugetPackages" AfterTargets="Build">
-		<ItemGroup>
-			--><!-- setting up the variable for convenience --><!--
-			<ApplicationPackageFiles Include="$(PkgThingsGateway_Foundation_OpcDa)\lib\$(TargetFramework)\*.*" />
-		</ItemGroup>
-		<PropertyGroup>
-			<ApplicationFolder>$(TargetDir)</ApplicationFolder>
-		</PropertyGroup>
-		<Copy SourceFiles="@(ApplicationPackageFiles)" DestinationFolder="$(ApplicationFolder)%(RecursiveDir)" />
-	</Target>-->
-	
 	<!--在构建后触发的。它通过在 Nuget 包的 Content 文件夹中包含目标目录中的所有文件和子文件夹来创建 nuget 包-->
 	<Target Name="IncludeAllFilesInTargetDir" AfterTargets="Build">
 		<ItemGroup>

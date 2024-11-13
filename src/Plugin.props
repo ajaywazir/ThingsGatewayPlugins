@@ -1,6 +1,5 @@
 <Project>
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net6.0;</TargetFrameworks>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<AccelerateBuildsInVisualStudio>false</AccelerateBuildsInVisualStudio>
 	</PropertyGroup>

@@ -2,9 +2,11 @@
 
 
 	<Target Name="CopyNugetPackages" AfterTargets="Build">
-		<ItemGroup>
-			<!-- setting up the variable for convenience -->
+		<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
 			<ApplicationPackageFiles Include="$(PkgConfluent_Kafka)\lib\net6.0\*.*" />
+		</ItemGroup>
+		<ItemGroup Condition="'$(TargetFramework)' != 'net6.0'">
+			<ApplicationPackageFiles Include="$(PkgConfluent_Kafka)\lib\net8.0\*.*" />
 		</ItemGroup>
 		<PropertyGroup>
 			<ApplicationFolder>$(TargetDir)</ApplicationFolder>
