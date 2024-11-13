@@ -9,7 +9,7 @@
 <div class="row ">
 
     <div class="col-12 col-md-6 p-1" style="min-height:500px;max-height:80vh;overflow: auto;">
-        <TreeView TItem="OpcUaTagModel" Items="Items" ShowIcon="true" ShowCheckbox="true" AutoCheckParent="true" AutoCheckChildren="true"
+        <TreeView TItem="OpcUaTagModel" Items="Items" ShowIcon="true" ShowCheckbox="true" AutoCheckParent="true" AutoCheckChildren="true" IsVirtualize="true"
                   OnExpandNodeAsync=OnExpandNodeAsync OnTreeItemChecked="OnTreeItemChecked" OnTreeItemClick=@(async a=>
                   {
                   if(a?.Value?.Tag?.NodeId!=null)
