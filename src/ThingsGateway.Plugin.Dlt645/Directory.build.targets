@@ -2,7 +2,7 @@
 
 	<Target Name="CopyNugetPackages" AfterTargets="Build">
 		<ItemGroup>
-			<PDBFilesToDelete Include="$(TargetDir)\ThingsGateway.Foundation.dll;$(TargetDir)\ThingsGateway.Foundation.xml" />
+			<PDBFilesToDelete Include="$(TargetDir)\ThingsGateway.Foundation.dll;$(TargetDir)\*.xml;$(TargetDir)\*.json" />
 		</ItemGroup>
 		<Delete Files="@(PDBFilesToDelete)" />
 	</Target>
