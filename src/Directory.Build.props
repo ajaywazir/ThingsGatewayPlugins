@@ -1,7 +1,7 @@
 <Project>
 
 	<PropertyGroup>
-		<GatewayVersion>7.2.0.4</GatewayVersion>
+		<GatewayVersion>7.2.0.6</GatewayVersion>
 		<FoundationVersion>9.0.2.2</FoundationVersion>
 	</PropertyGroup>
 	<PropertyGroup>
