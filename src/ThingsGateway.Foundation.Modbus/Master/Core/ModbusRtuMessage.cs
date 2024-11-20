@@ -154,7 +154,7 @@ public class ModbusRtuMessage : MessageBase, IResultMessage
         return false;
     }
 
-    public override void SendInfo(ISendMessage sendMessage)
+    public override void SendInfo(ISendMessage sendMessage, ref ValueByteBlock byteBlock)
     {
         Request = ((ModbusRtuSend)sendMessage).ModbusAddress;
     }

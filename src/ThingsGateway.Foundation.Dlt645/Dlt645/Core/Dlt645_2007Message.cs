@@ -137,8 +137,7 @@ public class Dlt645_2007Message : MessageBase, IResultMessage
         return true;
 
     }
-
-    public override void SendInfo(ISendMessage sendMessage)
+    public override void SendInfo(ISendMessage sendMessage, ref ValueByteBlock byteBlock)
     {
         Dlt645_2007Send = ((Dlt645_2007Send)sendMessage);
         Request = Dlt645_2007Send.Dlt645_2007Address;
