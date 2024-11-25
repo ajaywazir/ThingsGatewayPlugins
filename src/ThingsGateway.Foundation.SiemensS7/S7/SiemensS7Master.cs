@@ -216,13 +216,12 @@ public partial class SiemensS7Master : ProtocolBase
             else
             {
                 //多写
-                HashSet<List<SiemensAddress>> siemensAddresses = new();
+                List<List<SiemensAddress>> siemensAddresses = new();
                 ushort dataLen = 0;
                 ushort itemLen = 1;
                 List<SiemensAddress> addresses = new();
                 foreach (var item in sAddresss)
                 {
-                    siemensAddresses.Add(addresses);
                     dataLen = (ushort)(dataLen + item.Data.Length + 4);
                     ushort telegramLen = (ushort)(itemLen * 12 + 19 + dataLen);
                     if (telegramLen < PduLength)
@@ -233,8 +232,8 @@ public partial class SiemensS7Master : ProtocolBase
                     else
                     {
                         addresses = new();
-                        itemLen = 1;
                         dataLen = 0;
+                        itemLen = 1;
                         dataLen = (ushort)(dataLen + item.Data.Length + 4);
                         telegramLen = (ushort)(itemLen * 12 + 19 + dataLen);
                         if (telegramLen < PduLength)
@@ -248,6 +247,7 @@ public partial class SiemensS7Master : ProtocolBase
                             return dictOperResult;
                         }
                     }
+                    siemensAddresses.Add(addresses);
 
                 }
 
