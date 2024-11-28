@@ -227,7 +227,7 @@ public class OpcDaMaster : IDisposable
             OpcDaProperty = config;
         checkTimer?.Stop();
         checkTimer?.Dispose();
-        checkTimer = new Timer(Math.Min(OpcDaProperty.CheckRate, 1) * 60 * 1000);
+        checkTimer = new Timer(Math.Max(OpcDaProperty.CheckRate, 1) * 60 * 1000);
         checkTimer.Elapsed += CheckTimer_Elapsed;
         checkTimer.Start();
         try

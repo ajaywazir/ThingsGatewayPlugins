@@ -9,6 +9,8 @@
 		<Compile Include="..\ThingsGateway.Plugin.Modbus\Pages\ModbusSlave.razor.cs" Link="Pages\ModbusSlave.razor.cs" />
 		<Compile Include="..\ThingsGateway.Plugin.OpcDa\Pages\OpcDaImportVariable.razor.cs" Link="Pages\OpcDaImportVariable.razor.cs" />
 		<Compile Include="..\ThingsGateway.Plugin.OpcDa\Pages\OpcDaMaster.razor.cs" Link="Pages\OpcDaMaster.razor.cs" />
+		<Compile Include="..\ThingsGateway.Plugin.OpcDaNetApi\Pages\OpcDaNetApiImportVariable.razor.cs" Link="Pages\OpcDaNetApiImportVariable.razor.cs" />
+		<Compile Include="..\ThingsGateway.Plugin.OpcDaNetApi\Pages\OpcDaNetApiMaster.razor.cs" Link="Pages\OpcDaNetApiMaster.razor.cs" />
 		<Compile Include="..\ThingsGateway.Plugin.OpcUa\Pages\OpcUaImportVariable.razor.cs" Link="Pages\OpcUaImportVariable.razor.cs" />
 		<Compile Include="..\ThingsGateway.Plugin.OpcUa\Pages\OpcUaMaster.razor.cs" Link="Pages\OpcUaMaster.razor.cs" />
 	</ItemGroup>
@@ -20,6 +22,8 @@
 		<Content Include="..\ThingsGateway.Plugin.Modbus\Pages\ModbusSlave.razor" Link="Pages\ModbusSlave.razor" Pack="false" />
 		<Content Include="..\ThingsGateway.Plugin.OpcDa\Pages\OpcDaImportVariable.razor" Link="Pages\OpcDaImportVariable.razor" Pack="false" />
 		<Content Include="..\ThingsGateway.Plugin.OpcDa\Pages\OpcDaMaster.razor" Link="Pages\OpcDaMaster.razor" Pack="false" />
+		<Content Include="..\ThingsGateway.Plugin.OpcDaNetApi\Pages\OpcDaNetApiImportVariable.razor" Link="Pages\OpcDaNetApiImportVariable.razor" Pack="false" />
+		<Content Include="..\ThingsGateway.Plugin.OpcDaNetApi\Pages\OpcDaNetApiMaster.razor" Link="Pages\OpcDaNetApiMaster.razor" Pack="false" />
 		<Content Include="..\ThingsGateway.Plugin.OpcUa\Pages\OpcUaImportVariable.razor" Link="Pages\OpcUaImportVariable.razor" Pack="false" />
 		<Content Include="..\ThingsGateway.Plugin.OpcUa\Pages\OpcUaMaster.razor" Link="Pages\OpcUaMaster.razor" Pack="false" />
 	</ItemGroup>
@@ -27,6 +31,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ThingsGateway.Foundation.Dlt645\ThingsGateway.Foundation.Dlt645.csproj" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.Modbus\ThingsGateway.Foundation.Modbus.csproj" />
+		<ProjectReference Include="..\ThingsGateway.Foundation.OpcDaNetApi\ThingsGateway.Foundation.OpcDaNetApi.csproj" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.OpcDa\ThingsGateway.Foundation.OpcDa.csproj" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.OpcUa\ThingsGateway.Foundation.OpcUa.csproj" />
 		<ProjectReference Include="..\ThingsGateway.Foundation.SiemensS7\ThingsGateway.Foundation.SiemensS7.csproj" />

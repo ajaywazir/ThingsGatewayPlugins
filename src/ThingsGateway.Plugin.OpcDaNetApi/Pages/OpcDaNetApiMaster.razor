@@ -1,0 +1,101 @@
+﻿@page "/OpcDaNetApiMaster"
+@using BootstrapBlazor.Components
+@using ThingsGateway.Extension
+@using ThingsGateway.Foundation
+@namespace ThingsGateway.Debug
+@using ThingsGateway.Foundation.OpcDaNetApi
+@using TouchSocket.Core
+
+
+<div style="height:100%; width:100%;">
+
+    @if (_plc?.OpcDaNetApiMasterProperty != null)
+    {
+        <Card>
+            <BodyTemplate>
+
+                <EditorForm Model="_plc.OpcDaNetApiMasterProperty" AutoGenerateAllItem=false RowType="RowType.Inline" ItemsPerRow="4" ShowLabelTooltip="true" ShowLabel="true">
+                    <FieldItems>
+
+
+                        <EditorItem @bind-Field=context.OpcIP />
+                        <EditorItem @bind-Field=context.OpcName />
+                        <EditorItem @bind-Field=context.CheckRate />
+                        <EditorItem @bind-Field=context.ActiveSubscribe />
+                        <EditorItem @bind-Field=context.UpdateRate />
+                        <EditorItem @bind-Field=context.DeadBand />
+
+                    </FieldItems>
+                    <Buttons>
+                        <Button IsAsync Color="Color.Primary" OnClick="Connect">@OpcDaNetApiMasterPropertyLocalizer["Connect"]</Button>
+
+                        <Button IsAsync Color="Color.Warning" OnClick="Disconnect">@OpcDaNetApiMasterPropertyLocalizer["Disconnect"]</Button>
+                    </Buttons>
+                </EditorForm>
+
+                
+              
+            </BodyTemplate>
+        </Card>
+
+    }
+
+    <AdapterDebugComponent Logger=LogMessage Plc=null LogPath=@LogPath @ref=AdapterDebugComponent  ShowDefaultOtherContent=false ShowDefaultReadWriteContent=false>
+
+        <ReadWriteContent>
+
+            <BootstrapInput @bind-Value=@RegisterAddress DisplayText=@OpcDaNetApiMasterPropertyLocalizer["RegisterAddress"]
+                            ShowLabel="true" style="width:100%" />
+
+
+            <div class="row mx-1 form-inline mt-2">
+
+
+                <div class="col-12 col-md-4 p-1">
+
+                    <Button IsAsync Color="Color.Primary" OnClick="Add">@OpcDaNetApiMasterPropertyLocalizer["Add"]</Button>
+
+                </div>
+                <div class="col-12 col-md-4 p-1">
+
+                    <Button IsAsync Color="Color.Primary" OnClick="Remove">@OpcDaNetApiMasterPropertyLocalizer["Remove"]</Button>
+
+                </div>
+
+                <div class="col-12 col-md-4 p-1">
+
+                    <Button IsAsync Color="Color.Primary" OnClick="ReadAsync">@OpcDaNetApiMasterPropertyLocalizer["Read"]</Button>
+
+                </div>
+            </div>
+
+            <Divider />
+
+            <div class="row mx-1 form-inline mt-2">
+
+                <div class="col-12 col-md-8 p-1">
+                    <Textarea @bind-Value=@WriteValue ShowLabelTooltip="true" DisplayText=@OpcDaNetApiMasterPropertyLocalizer["WriteValue"]
+                              ShowLabel="true" />
+
+                </div>
+                <div class="col-12 col-md-4 p-1">
+                    <Button IsAsync Color="Color.Primary" OnClick="WriteAsync">@OpcDaNetApiMasterPropertyLocalizer["Write"]</Button>
+                </div>
+            </div>
+
+            <div class="row mx-1 form-inline mt-2">
+
+                <div class="col-12 col-md-4 p-1">
+                    <Button IsAsync Color="Color.Primary" OnClick="ShowImport">@OpcDaNetApiMasterPropertyLocalizer["ShowImport"]</Button>
+                </div>
+            </div>
+
+
+        </ReadWriteContent>
+
+
+    </AdapterDebugComponent>
+</div>
+
+
+

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(SolutionDir)PackNuget.props" />
+	<Import Project="$(SolutionDir)Version.props" />
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net9.0;net8.0;net6.0;</TargetFrameworks>
+		<Description>工业设备通讯协议-OpcDa协议</Description>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+		<IncludeSymbols>false</IncludeSymbols>
+		<NoWarn>CS8603;CS8618;CS1591;CS8625;CS8602;CS8604;CS8600;CS8601;CS8714;CS8619;CS8629;CS8765;CS8634;CS8621;CS8767;CS8633;CS8620;CS8610;CS8631;CS8605;CS8622;CS8613;NU5100;NU5104;NU1903;NU1902;CA1416;CS0168;CS8769;CA2200;SYSLIB0051;CS0649;SYSLIB0012;</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Remove="Locales\*.json" />
+		<EmbeddedResource Include="Locales\*.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+	</ItemGroup>
+
+
+
+</Project>

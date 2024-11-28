@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="$(SolutionDir)Plugin.props" />
+	<Import Project="$(SolutionDir)Version.props" />
+	<Import Project="$(SolutionDir)PackNuget.props" />
+
+	<PropertyGroup>
+		<DefineConstants>Plugin</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ThingsGateway.Foundation.OpcDaNetApi\ThingsGateway.Foundation.OpcDaNetApi.csproj" />
+	</ItemGroup>
+
+
+</Project>

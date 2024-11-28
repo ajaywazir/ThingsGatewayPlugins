@@ -28,7 +28,7 @@ A cross-platform, high-performance edge data collection gateway based on net8, c
 | Modbus      | Supports Rtu/Tcp message formats, with Serial/Tcp/Udp links   |
 | SiemensS7   | Siemens PLC S7 series                                         |
 | Dlt6452007  | Supports Serial/Tcp/Udp links                                 |
-| OpcDaMaster | Compiled for 64-bit                                           |
+| OpcDaNetApiMaster | Compiled for 64-bit                                           |
 | OpcUaMaster | Supports certificate login, object extension, Json read/write |
 
 #### Business Plugins

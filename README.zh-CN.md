@@ -20,7 +20,7 @@
 | Modbus      | Rtu/Tcp报文格式，支持串口/Tcp/Udp链路 |
 | SiemensS7   | 西门子PLC S7系列                      |
 | Dlt6452007  | 支持串口/Tcp/Udp链路                  |
-| OpcDaMaster | 64位编译                              |
+| OpcDaNetApiMaster | 64位编译                              |
 | OpcUaMaster | 支持证书登录，扩展对象，Json读写      |
 
 #### 业务插件

@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 17
+# Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThingsGateway.Plugin.DB", "ThingsGateway.Plugin.DB\ThingsGateway.Plugin.DB.csproj", "{3AC3B82C-A5B3-431B-837D-1DF7BF3FAFCD}"
@@ -43,6 +43,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{ECA1859A
 		Directory.Build.props = Directory.Build.props
 		Version.props = Version.props
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingsGateway.Debug.Photino", "ThingsGateway.Debug.Photino\ThingsGateway.Debug.Photino.csproj", "{7A580587-1CA5-4D38-94C3-4023B33C7A34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingsGateway.Foundation.OpcDaNetApi", "ThingsGateway.Foundation.OpcDaNetApi\ThingsGateway.Foundation.OpcDaNetApi.csproj", "{0631B1A6-E399-47C8-89FE-681BB8BDD965}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingsGateway.Plugin.OpcDaNetApi", "ThingsGateway.Plugin.OpcDaNetApi\ThingsGateway.Plugin.OpcDaNetApi.csproj", "{C56B6280-3D6B-4689-9160-3516A9C8B587}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingsGateway.Debug.Winform", "ThingsGateway.Debug.Winform\ThingsGateway.Debug.Winform.csproj", "{B8A77906-446F-4421-B00C-0CF0F8A3E530}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -114,6 +122,22 @@ Global
 		{E1B5DF54-2A88-44FD-82B5-CE6CDDC4A7B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1B5DF54-2A88-44FD-82B5-CE6CDDC4A7B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1B5DF54-2A88-44FD-82B5-CE6CDDC4A7B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A580587-1CA5-4D38-94C3-4023B33C7A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A580587-1CA5-4D38-94C3-4023B33C7A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A580587-1CA5-4D38-94C3-4023B33C7A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A580587-1CA5-4D38-94C3-4023B33C7A34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0631B1A6-E399-47C8-89FE-681BB8BDD965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0631B1A6-E399-47C8-89FE-681BB8BDD965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0631B1A6-E399-47C8-89FE-681BB8BDD965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0631B1A6-E399-47C8-89FE-681BB8BDD965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C56B6280-3D6B-4689-9160-3516A9C8B587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C56B6280-3D6B-4689-9160-3516A9C8B587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C56B6280-3D6B-4689-9160-3516A9C8B587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C56B6280-3D6B-4689-9160-3516A9C8B587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8A77906-446F-4421-B00C-0CF0F8A3E530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8A77906-446F-4421-B00C-0CF0F8A3E530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8A77906-446F-4421-B00C-0CF0F8A3E530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8A77906-446F-4421-B00C-0CF0F8A3E530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,10 +159,14 @@ Global
 		{16F43699-BE03-4F41-8066-C547A93CE818} = {FDE388A3-F724-430D-BA8F-AB8D21DFAB8B}
 		{8124E5B2-B2E7-4720-902C-E11A7F696432} = {FDE388A3-F724-430D-BA8F-AB8D21DFAB8B}
 		{E1B5DF54-2A88-44FD-82B5-CE6CDDC4A7B3} = {FDE388A3-F724-430D-BA8F-AB8D21DFAB8B}
+		{7A580587-1CA5-4D38-94C3-4023B33C7A34} = {FDE388A3-F724-430D-BA8F-AB8D21DFAB8B}
+		{0631B1A6-E399-47C8-89FE-681BB8BDD965} = {FDE388A3-F724-430D-BA8F-AB8D21DFAB8B}
+		{C56B6280-3D6B-4689-9160-3516A9C8B587} = {D52C02BA-1D0C-4039-B9E1-CA8679A1828B}
+		{B8A77906-446F-4421-B00C-0CF0F8A3E530} = {FDE388A3-F724-430D-BA8F-AB8D21DFAB8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {199B1B96-4F56-4828-9531-813BA02DB282}
-		RESX_NeutralResourcesLanguage = zh-Hans
 		RESX_Rules = {"EnabledRules":[]}
+		RESX_NeutralResourcesLanguage = zh-Hans
 	EndGlobalSection
 EndGlobal
