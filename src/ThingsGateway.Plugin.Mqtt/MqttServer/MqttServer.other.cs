@@ -24,9 +24,9 @@ using System.Text;
 
 using ThingsGateway.Admin.Application;
 using ThingsGateway.Foundation;
-using ThingsGateway.Foundation.Extension.Collection;
+using ThingsGateway.Extension.Generic;
 using ThingsGateway.Foundation.Extension.Generic;
-using ThingsGateway.Foundation.Json.Extension;
+using ThingsGateway.Core.Json.Extension;
 using ThingsGateway.NewLife.Extension;
 
 namespace ThingsGateway.Plugin.Mqtt;

@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 using Opc.Ua;
 
 using ThingsGateway.Foundation.Extension.Generic;
-using ThingsGateway.Foundation.Json.Extension;
+using ThingsGateway.Core.Json.Extension;
 using ThingsGateway.Foundation.OpcUa;
 using ThingsGateway.Gateway.Application;
 using ThingsGateway.NewLife.Threading;

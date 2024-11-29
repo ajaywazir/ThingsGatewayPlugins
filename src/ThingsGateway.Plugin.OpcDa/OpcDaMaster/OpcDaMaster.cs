@@ -10,6 +10,7 @@
 
 using Newtonsoft.Json.Linq;
 
+using ThingsGateway.Core.Json.Extension;
 using ThingsGateway.Foundation.OpcDa;
 using ThingsGateway.Foundation.OpcDa.Da;
 using ThingsGateway.Gateway.Application;
@@ -203,7 +204,7 @@ public class OpcDaMaster : CollectBase
                 return;
             if (_token.IsCancellationRequested)
                 return;
-            LogMessage.Trace($"{ToString()} Change:{Environment.NewLine} {values?.ToJsonString()}");
+            LogMessage.Trace($"{ToString()} Change:{Environment.NewLine} {values?.ToJsonNetString()}");
 
             foreach (var data in values)
             {

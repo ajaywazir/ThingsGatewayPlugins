@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 using ThingsGateway.Foundation;
+using ThingsGateway.Core.Json.Extension;
 using ThingsGateway.Foundation.OpcUa;
 using ThingsGateway.NewLife.Extension;
 using ThingsGateway.Razor;
@@ -98,7 +99,7 @@ public partial class OpcUaMaster : IDisposable
         LogMessage.AddLogger(logger);
 
         _plc.LogEvent = (a, b, c, d) => LogMessage.Log((LogLevel)a, b, c, d);
-        _plc.DataChangedHandler += (a) => LogMessage.Trace(a.ToJsonString());
+        _plc.DataChangedHandler += (a) => LogMessage.Trace(a.ToJsonNetString());
         base.OnInitialized();
     }
 
@@ -203,9 +204,9 @@ public partial class OpcUaMaster : IDisposable
             foreach (var item in data)
             {
                 if (item.Value.Item1)
-                    LogMessage?.LogInformation(item.ToJsonString());
+                    LogMessage?.LogInformation(item.ToJsonNetString());
                 else
-                    LogMessage?.LogWarning(item.ToJsonString());
+                    LogMessage?.LogWarning(item.ToJsonNetString());
             }
         }
     }

@@ -169,7 +169,27 @@ public partial class ModbusMaster : ProtocolBase, IDtu
         {
             var mAddress = ModbusAddress.ParseFrom(address, Station, DtuId);
             mAddress.Length = (ushort)length;
-            return await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
+            if (mAddress.BitIndex == null || mAddress.FunctionCode <= 2)
+            {
+                return await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
+            }
+            if (mAddress.BitIndex < 2)
+            {
+                mAddress.Length = 1; //请求寄存器数量
+                var readData = await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
+                if (!readData.IsSuccess) return readData;
+                var data = readData.Content;
+                if (mAddress.BitIndex == 0)
+                    readData.Content = new byte[] { data[1] };
+                else
+                    readData.Content = new byte[] { data[0] };
+                return readData;
+            }
+            else
+            {
+                return new(ModbusResource.Localizer["ValueOverlimit", nameof(mAddress.BitIndex), 2]);
+            }
+
         }
         catch (Exception ex)
         {
@@ -184,7 +204,28 @@ public partial class ModbusMaster : ProtocolBase, IDtu
         {
             var mAddress = ModbusAddress.ParseFrom(address, Station, DtuId);
             mAddress.Data = value;
-            return await ModbusRequestAsync(mAddress, false, cancellationToken).ConfigureAwait(false);
+
+            if (mAddress.BitIndex == null)
+            {
+                return await ModbusRequestAsync(mAddress, false, cancellationToken).ConfigureAwait(false);
+            }
+            if (mAddress.BitIndex < 2)
+            {
+                mAddress.Length = 1; //请求寄存器数量
+                var readData = await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
+                if (!readData.IsSuccess) return readData;
+                if (mAddress.BitIndex == 0)
+                    readData.Content[1] = value[0];
+                else
+                    readData.Content[0] = value[0];
+
+                mAddress.Data = readData.Content;
+                return await ModbusRequestAsync(mAddress, false, cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                return new OperResult(ModbusResource.Localizer["ValueOverlimit", nameof(mAddress.BitIndex), 2]);
+            }
         }
         catch (Exception ex)
         {

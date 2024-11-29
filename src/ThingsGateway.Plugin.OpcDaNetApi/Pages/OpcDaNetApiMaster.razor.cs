@@ -16,6 +16,7 @@ using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
 
 using ThingsGateway.Foundation;
+using ThingsGateway.Core.Json.Extension;
 using ThingsGateway.Foundation.OpcDaNetApi;
 using ThingsGateway.NewLife.Extension;
 
@@ -63,8 +64,8 @@ public partial class OpcDaNetApiMaster : IDisposable
         logger.LogLevel = LogLevel.Trace;
         LogMessage.AddLogger(logger);
 
-        _plc.LogEvent = (a, b, c, d) => LogMessage.Log((LogLevel)a, b, c, d);
-        _plc.DataChangedHandler += (a, b, c) => LogMessage.Trace(c.ToJsonString());
+        _plc.LogEvent = (a, b, c, d) => LogMessage.Log((LogLevel)a, b, message: c, d);
+        _plc.DataChangedHandler += (a, b, c) => LogMessage.Trace(c.ToJsonNetString());
         base.OnInitialized();
     }
 
@@ -127,9 +128,9 @@ public partial class OpcDaNetApiMaster : IDisposable
                 foreach (var item in data)
                 {
                     if (item.ResultID.Succeeded())
-                        LogMessage?.LogInformation(item.Value.ToJsonString());
+                        LogMessage?.LogInformation(item.Value.ToJsonNetString());
                     else
-                        LogMessage?.LogWarning(item.ToJsonString());
+                        LogMessage?.LogWarning(item.ToJsonNetString());
                 }
             }
         }
@@ -181,9 +182,9 @@ public partial class OpcDaNetApiMaster : IDisposable
                 foreach (var item in data)
                 {
                     if (item.Value.ResultID.Succeeded())
-                        LogMessage?.LogInformation(item.ToJsonString());
+                        LogMessage?.LogInformation(item.ToJsonNetString());
                     else
-                        LogMessage?.LogWarning(item.ToJsonString());
+                        LogMessage?.LogWarning(item.ToJsonNetString());
                 }
             }
         }

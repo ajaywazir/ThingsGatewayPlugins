@@ -15,7 +15,7 @@ using MQTTnet.Client;
 using System.Text;
 
 using ThingsGateway.Foundation;
-using ThingsGateway.Foundation.Json.Extension;
+using ThingsGateway.Core.Json.Extension;
 using ThingsGateway.Gateway.Application.Extensions;
 using ThingsGateway.NewLife.Extension;
 
