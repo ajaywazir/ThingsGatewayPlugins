@@ -143,6 +143,7 @@ public class OpcDaNetApiMaster : IDisposable
     /// <param name="items">组名称/变量节点，注意每次添加的组名称不能相同</param>
     public void AddItems(Dictionary<string, List<Opc.Da.Item>> items)
     {
+        if (Server == null) throw new ConnectFailedException(nameof(OpcDaNetApiMaster));
         if (IsExit == 1) throw new ObjectDisposedException(nameof(OpcDaNetApiMaster));
         foreach (var item in items)
         {
@@ -229,14 +230,14 @@ public class OpcDaNetApiMaster : IDisposable
         BrowseFilters m_filters = new BrowseFilters()
         {
             PropertyIDs = new PropertyID[] { new(1), new(3), new(4), new(5), new(6), new(101) },//浏览的属性ID
-
+            
             ReturnAllProperties = false,//获取数据项的属性
-
             ReturnPropertyValues = true,//要求返回属性的值
         };
         ItemIdentifier itemID = null;
         itemID = new ItemIdentifier(itemPath, itemName);
         BrowseElement[] elements = Server.Browse(itemID, m_filters, out BrowsePosition position);
+        Server.BrowseNext(ref position);
         if (elements != null)
         {
             foreach (BrowseElement element in elements)
@@ -297,18 +298,30 @@ public class OpcDaNetApiMaster : IDisposable
     }
     private Opc.Da.Server findServer()
     {
-        Opc.IDiscovery m_discovery = new OpcCom.ServerEnumerator1();
+        Opc.IDiscovery m_discovery = new OpcCom.ServerEnumerator2();
         Opc.Server[] servers = m_discovery.GetAvailableServers(Opc.Specification.COM_DA_20, OpcDaNetApiMasterProperty.OpcIP, null);
 
         Opc.Da.Server server = (Opc.Da.Server)servers.FirstOrDefault(a => string.Equals(a.Name, OpcDaNetApiMasterProperty.OpcName, StringComparison.OrdinalIgnoreCase));
 
         if (server == null)
         {
-            m_discovery = new OpcCom.ServerEnumerator2();
+
+            m_discovery = new OpcCom.ServerEnumerator1();
             servers = m_discovery.GetAvailableServers(Opc.Specification.COM_DA_20, OpcDaNetApiMasterProperty.OpcIP, null);
 
             server = (Opc.Da.Server)servers.FirstOrDefault(a => string.Equals(a.Name, OpcDaNetApiMasterProperty.OpcName, StringComparison.OrdinalIgnoreCase));
 
+
+        }
+
+        if (server == null)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in servers)
+            {
+                sb.AppendLine($"{item.Name}");
+            }
+            LogEvent?.Invoke(3, this, $"Unable to create OPCServer connection. Please check if the OPC name is consistent. The following is a list of OPCServers in {OpcDaNetApiMasterProperty.OpcIP}:{Environment.NewLine}{sb}", null);
         }
         return server;
     }
@@ -438,6 +451,8 @@ public class OpcDaNetApiMaster : IDisposable
     {
         try
         {
+            if (Server == null) throw new ConnectFailedException(nameof(OpcDaNetApiMaster));
+
             if (SaveItems?.Count > 0)
             {
                 ClearSubscriptions();

@@ -38,6 +38,8 @@ namespace OpcCom
             {
                 NetworkCredential credential = connectData?.GetCredential((Uri)null, (string)null);
                 this.m_server = (IOPCServerList)Interop.CreateInstance(ServerEnumerator1.CLSID, host, credential);
+                if (m_server == null)
+                    throw new("GetOpcServer failed, please check if OPC runtime is installed");
                 this.m_host = host;
                 try
                 {

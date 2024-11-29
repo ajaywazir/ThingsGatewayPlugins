@@ -38,7 +38,9 @@ namespace OpcCom
       {
         NetworkCredential credential = connectData?.GetCredential((Uri) null, (string) null);
         this.m_server = (IOPCServerList2) Interop.CreateInstance(ServerEnumerator2.CLSID, host, credential);
-        this.m_host = host;
+                if (m_server == null)
+                    throw new("GetOpcServer failed, please check if OPC runtime is installed");
+                this.m_host = host;
         try
         {
           ArrayList arrayList = new ArrayList();
