@@ -28,17 +28,17 @@ public class OpcDaTagModel
     public List<OpcDaTagModel> GetAllTags()
     {
         List<OpcDaTagModel> allTags = new();
-        GetAllTagsRecursive(this, allTags);
+        OpcDaTagModel.GetAllTagsRecursive(this, allTags);
         return allTags;
     }
 
-    private void GetAllTagsRecursive(OpcDaTagModel parentTag, List<OpcDaTagModel> allTags)
+    private static void GetAllTagsRecursive(OpcDaTagModel parentTag, List<OpcDaTagModel> allTags)
     {
         allTags.Add(parentTag);
         if (parentTag.Children != null)
             foreach (OpcDaTagModel childTag in parentTag.Children)
             {
-                GetAllTagsRecursive(childTag, allTags);
+                OpcDaTagModel.GetAllTagsRecursive(childTag, allTags);
             }
     }
 }
@@ -119,20 +119,20 @@ public class OpcDaNetApiMaster : IDisposable
 
     public void ClearSubscriptions()
     {
-        if (this.Server != null)
+        if (Server != null)
         {
-            foreach (Subscription subscription in this.Server.Subscriptions)
+            foreach (Subscription subscription in Server.Subscriptions)
             {
                 subscription.Dispose();
                 try
                 {
-                    ((OpcRcw.Da.IOPCServer)this.Server).RemoveGroup((int)subscription.GetState().ServerHandle, 0);
+                    ((OpcRcw.Da.IOPCServer)Server).RemoveGroup((int)subscription.GetState().ServerHandle, 0);
                 }
                 catch
                 {
                 }
             }
-            this.Server.Subscriptions.Clear();
+            Server.Subscriptions.Clear();
         }
     }
 
@@ -230,7 +230,7 @@ public class OpcDaNetApiMaster : IDisposable
         BrowseFilters m_filters = new BrowseFilters()
         {
             PropertyIDs = new PropertyID[] { new(1), new(3), new(4), new(5), new(6), new(101) },//浏览的属性ID
-            
+
             ReturnAllProperties = false,//获取数据项的属性
             ReturnPropertyValues = true,//要求返回属性的值
         };

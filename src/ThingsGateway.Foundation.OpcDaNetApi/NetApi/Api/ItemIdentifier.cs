@@ -6,72 +6,72 @@ using System.Text;
 
 namespace Opc
 {
-  [Serializable]
-  public class ItemIdentifier : ICloneable
-  {
-    private string m_itemName;
-    private string m_itemPath;
-    private object m_clientHandle;
-    private object m_serverHandle;
-
-    public string ItemName
+    [Serializable]
+    public class ItemIdentifier : ICloneable
     {
-      get => this.m_itemName;
-      set => this.m_itemName = value;
-    }
+        private string m_itemName;
+        private string m_itemPath;
+        private object m_clientHandle;
+        private object m_serverHandle;
 
-    public string ItemPath
-    {
-      get => this.m_itemPath;
-      set => this.m_itemPath = value;
-    }
+        public string ItemName
+        {
+            get => m_itemName;
+            set => m_itemName = value;
+        }
 
-    public object ClientHandle
-    {
-      get => this.m_clientHandle;
-      set => this.m_clientHandle = value;
-    }
+        public string ItemPath
+        {
+            get => m_itemPath;
+            set => m_itemPath = value;
+        }
 
-    public object ServerHandle
-    {
-      get => this.m_serverHandle;
-      set => this.m_serverHandle = value;
-    }
+        public object ClientHandle
+        {
+            get => m_clientHandle;
+            set => m_clientHandle = value;
+        }
 
-    public string Key
-    {
-      get
-      {
-        return new StringBuilder(64).Append(this.ItemName == null ? "null" : this.ItemName).Append("\r\n").Append(this.ItemPath == null ? "null" : this.ItemPath).ToString();
-      }
-    }
+        public object ServerHandle
+        {
+            get => m_serverHandle;
+            set => m_serverHandle = value;
+        }
 
-    public ItemIdentifier()
-    {
-    }
+        public string Key
+        {
+            get
+            {
+                return new StringBuilder(64).Append(ItemName == null ? "null" : ItemName).Append("\r\n").Append(ItemPath == null ? "null" : ItemPath).ToString();
+            }
+        }
 
-    public ItemIdentifier(string itemName)
-    {
-      this.ItemPath = (string) null;
-      this.ItemName = itemName;
-    }
+        public ItemIdentifier()
+        {
+        }
 
-    public ItemIdentifier(string itemPath, string itemName)
-    {
-      this.ItemPath = itemPath;
-      this.ItemName = itemName;
-    }
+        public ItemIdentifier(string itemName)
+        {
+            ItemPath = (string)null;
+            ItemName = itemName;
+        }
 
-    public ItemIdentifier(ItemIdentifier itemID)
-    {
-      if (itemID == null)
-        return;
-      this.ItemPath = itemID.ItemPath;
-      this.ItemName = itemID.ItemName;
-      this.ClientHandle = itemID.ClientHandle;
-      this.ServerHandle = itemID.ServerHandle;
-    }
+        public ItemIdentifier(string itemPath, string itemName)
+        {
+            ItemPath = itemPath;
+            ItemName = itemName;
+        }
 
-    public virtual object Clone() => this.MemberwiseClone();
-  }
+        public ItemIdentifier(ItemIdentifier itemID)
+        {
+            if (itemID == null)
+                return;
+            ItemPath = itemID.ItemPath;
+            ItemName = itemID.ItemName;
+            ClientHandle = itemID.ClientHandle;
+            ServerHandle = itemID.ServerHandle;
+        }
+
+        public virtual object Clone() => MemberwiseClone();
+    }
 }

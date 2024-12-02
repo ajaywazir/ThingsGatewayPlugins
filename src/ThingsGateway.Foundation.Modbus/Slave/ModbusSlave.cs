@@ -327,7 +327,7 @@ public class ModbusSlave : ProtocolBase, ITcpService, IDtuClient
     {
         try
         {
-            await EasyValueTask.CompletedTask;
+            await EasyValueTask.CompletedTask.ConfigureAwait(false);
             var mAddress = ModbusAddress.ParseFrom(address, Station, DtuId);
             mAddress.Data = value;
             return ModbusRequest(mAddress, false, cancellationToken);
@@ -343,7 +343,7 @@ public class ModbusSlave : ProtocolBase, ITcpService, IDtuClient
     {
         try
         {
-            await EasyValueTask.CompletedTask;
+            await EasyValueTask.CompletedTask.ConfigureAwait(false);
             var mAddress = ModbusAddress.ParseFrom(address, Station, DtuId);
             if (mAddress.IsBitFunction)
             {

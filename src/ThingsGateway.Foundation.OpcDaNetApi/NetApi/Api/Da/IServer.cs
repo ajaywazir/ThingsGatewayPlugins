@@ -5,32 +5,32 @@ using System;
 
 namespace Opc.Da
 {
-  public interface IServer : Opc.IServer, IDisposable
-  {
-    int GetResultFilters();
+    public interface IServer : Opc.IServer, IDisposable
+    {
+        int GetResultFilters();
 
-    void SetResultFilters(int filters);
+        void SetResultFilters(int filters);
 
-    ServerStatus GetStatus();
+        ServerStatus GetStatus();
 
-    ItemValueResult[] Read(Item[] items);
+        ItemValueResult[] Read(Item[] items);
 
-    IdentifiedResult[] Write(ItemValue[] values);
+        IdentifiedResult[] Write(ItemValue[] values);
 
-    ISubscription CreateSubscription(SubscriptionState state);
+        ISubscription CreateSubscription(SubscriptionState state);
 
-    void CancelSubscription(ISubscription subscription);
+        void CancelSubscription(ISubscription subscription);
 
-    BrowseElement[] Browse(
-      ItemIdentifier itemID,
-      BrowseFilters filters,
-      out BrowsePosition position);
+        BrowseElement[] Browse(
+          ItemIdentifier itemID,
+          BrowseFilters filters,
+          out BrowsePosition position);
 
-    BrowseElement[] BrowseNext(ref BrowsePosition position);
+        BrowseElement[] BrowseNext(ref BrowsePosition position);
 
-    ItemPropertyCollection[] GetProperties(
-      ItemIdentifier[] itemIDs,
-      PropertyID[] propertyIDs,
-      bool returnValues);
-  }
+        ItemPropertyCollection[] GetProperties(
+          ItemIdentifier[] itemIDs,
+          PropertyID[] propertyIDs,
+          bool returnValues);
+    }
 }

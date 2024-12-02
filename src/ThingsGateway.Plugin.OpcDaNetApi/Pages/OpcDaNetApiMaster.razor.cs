@@ -8,6 +8,7 @@
 //  QQ群：605534569
 //------------------------------------------------------------------------------
 
+#pragma warning disable CA2007 // 考虑对等待的任务调用 ConfigureAwait
 using BootstrapBlazor.Components;
 
 using Microsoft.AspNetCore.Components;
@@ -15,8 +16,8 @@ using Microsoft.Extensions.Localization;
 
 using Newtonsoft.Json.Linq;
 
-using ThingsGateway.Foundation;
 using ThingsGateway.Core.Json.Extension;
+using ThingsGateway.Foundation;
 using ThingsGateway.Foundation.OpcDaNetApi;
 using ThingsGateway.NewLife.Extension;
 
@@ -76,7 +77,7 @@ public partial class OpcDaNetApiMaster : IDisposable
         tags.Add(Guid.NewGuid().ToString(), new List<Opc.Da.Item>() { tag });
         try
         {
-            _plc. Save(tags);
+            _plc.Save(tags);
             _plc.AddItems(tags);
         }
         catch (Exception ex)

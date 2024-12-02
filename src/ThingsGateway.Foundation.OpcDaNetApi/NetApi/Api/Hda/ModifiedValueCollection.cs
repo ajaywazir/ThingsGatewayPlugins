@@ -10,8 +10,8 @@ namespace Opc.Hda
     {
         public new ModifiedValue this[int index]
         {
-            get => this[index];
-            set => this[index] = value;
+            get => (ModifiedValue)base[index];
+            set => base[index] = value;
         }
 
         public ModifiedValueCollection()

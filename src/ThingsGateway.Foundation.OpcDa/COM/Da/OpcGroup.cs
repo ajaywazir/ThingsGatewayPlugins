@@ -15,7 +15,7 @@ using ThingsGateway.Foundation.OpcDa.Rcw;
 namespace ThingsGateway.Foundation.OpcDa.Da;
 #pragma warning disable CA1416 // 验证平台兼容性
 
-internal class OpcGroup : IOPCDataCallback, IDisposable
+internal sealed class OpcGroup : IOPCDataCallback, IDisposable
 {
     internal object groupPointer = null;
     internal int revisedUpdateRate = 0;
@@ -390,7 +390,7 @@ internal class OpcGroup : IOPCDataCallback, IDisposable
             throw new ArgumentNullException(nameof(m_Async2IO));
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!disposedValue)
         {

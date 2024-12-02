@@ -1,43 +1,44 @@
 ﻿
 
 using Opc.Ae;
+
 using System;
 using System.Runtime.InteropServices.ComTypes;
 
 
 namespace OpcCom.Ae
 {
-  [Serializable]
-  public class BrowsePosition : Opc.Ae.BrowsePosition
-  {
-    private bool m_disposed;
-    private IEnumString m_enumerator;
-
-    public BrowsePosition(
-      string areaID,
-      BrowseType browseType,
-      string browseFilter,
-      IEnumString enumerator)
-      : base(areaID, browseType, browseFilter)
+    [Serializable]
+    public class BrowsePosition : Opc.Ae.BrowsePosition
     {
-      this.m_enumerator = enumerator;
-    }
+        private bool m_disposed;
+        private IEnumString m_enumerator;
 
-    protected override void Dispose(bool disposing)
-    {
-      if (!this.m_disposed)
-      {
-        int num = disposing ? 1 : 0;
-        if (this.m_enumerator != null)
+        public BrowsePosition(
+          string areaID,
+          BrowseType browseType,
+          string browseFilter,
+          IEnumString enumerator)
+          : base(areaID, browseType, browseFilter)
         {
-          OpcCom.Interop.ReleaseServer((object) this.m_enumerator);
-          this.m_enumerator = (IEnumString) null;
+            m_enumerator = enumerator;
         }
-        this.m_disposed = true;
-      }
-      base.Dispose(disposing);
-    }
 
-    public IEnumString Enumerator => this.m_enumerator;
-  }
+        protected override void Dispose(bool disposing)
+        {
+            if (!m_disposed)
+            {
+                int num = disposing ? 1 : 0;
+                if (m_enumerator != null)
+                {
+                    OpcCom.Interop.ReleaseServer((object)m_enumerator);
+                    m_enumerator = (IEnumString)null;
+                }
+                m_disposed = true;
+            }
+            base.Dispose(disposing);
+        }
+
+        public IEnumString Enumerator => m_enumerator;
+    }
 }

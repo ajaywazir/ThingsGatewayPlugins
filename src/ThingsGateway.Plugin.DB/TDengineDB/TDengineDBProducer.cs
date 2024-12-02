@@ -103,9 +103,9 @@ public partial class TDengineDBProducer : BusinessBaseWithCacheIntervalVariableM
         var ret = new QueryData<TDengineDBHistoryValue>()
         {
             IsSorted = option.SortOrder != SortOrder.Unset,
-            IsFiltered = option.Filters.Any(),
-            IsAdvanceSearch = option.AdvanceSearches.Any() || option.CustomerSearches.Any(),
-            IsSearch = option.Searches.Any()
+            IsFiltered = option.Filters.Count > 0,
+            IsAdvanceSearch = option.AdvanceSearches.Count > 0 || option.CustomerSearches.Count > 0,
+            IsSearch = option.Searches.Count > 0
         };
         var query = db.Queryable<TDengineDBHistoryValue>().AS(_driverPropertys.TableName);
 

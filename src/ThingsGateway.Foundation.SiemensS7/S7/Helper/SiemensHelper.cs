@@ -12,14 +12,14 @@ using System.Text;
 
 namespace ThingsGateway.Foundation.SiemensS7;
 
-internal partial class SiemensHelper
+internal sealed partial class SiemensHelper
 {
     public static List<List<SiemensAddress>> GroupByLength(SiemensAddress[] a, int pduLength)
     {
         List<List<SiemensAddress>> groups = new List<List<SiemensAddress>>();
         List<SiemensAddress> sortedItems = a.OrderByDescending(item => item.Length).ToList(); // 按长度降序排序
 
-        while (sortedItems.Any())
+        while (sortedItems.Count > 0)
         {
             List<SiemensAddress> currentGroup = new List<SiemensAddress>();
             int currentGroupLength = 0;
@@ -42,7 +42,7 @@ internal partial class SiemensHelper
                 }
             }
 
-            if (currentGroup.Any()) // 如果当前组不为空
+            if (currentGroup.Count > 0) // 如果当前组不为空
             {
                 groups.Add(currentGroup);
             }

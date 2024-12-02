@@ -70,7 +70,7 @@ public partial class ThingsGatewayServer : StandardServer
     /// <inheritdoc/>
     protected override MasterNodeManager CreateMasterNodeManager(IServerInternal server, ApplicationConfiguration configuration)
     {
-        IList<INodeManager> nodeManagers = new List<INodeManager>();
+        List<INodeManager> nodeManagers = new List<INodeManager>();
         // 创建自定义节点管理器.
         NodeManager = new ThingsGatewayNodeManager(_businessBase, server, configuration);
         nodeManagers.Add(NodeManager);

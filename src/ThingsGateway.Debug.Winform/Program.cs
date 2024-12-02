@@ -18,7 +18,7 @@ using ThingsGateway.NewLife.Log;
 
 namespace ThingsGateway.Debug;
 
-internal class Program
+internal sealed class Program
 {
     internal static void Closing(object? sender, FormClosingEventArgs e)
     {

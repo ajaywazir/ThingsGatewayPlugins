@@ -89,18 +89,20 @@ public class OPCUAJsonEncoder : IJsonEncoder, IEncoder, IDisposable
 
     public static ArraySegment<byte> EncodeMessage(IEncodeable message, byte[] buffer, IServiceMessageContext context)
     {
+
         if (message == null)
         {
-            throw new ArgumentNullException("message");
+            throw new ArgumentNullException(nameof(message));
         }
         if (buffer == null)
         {
-            throw new ArgumentNullException("buffer");
+            throw new ArgumentNullException(nameof(buffer));
         }
         if (context == null)
         {
-            throw new ArgumentNullException("context");
+            throw new ArgumentNullException(nameof(context));
         }
+
         using MemoryStream stream = new MemoryStream(buffer, writable: true);
         using OPCUAJsonEncoder jsonEncoder = new OPCUAJsonEncoder(context, useReversibleEncoding: true, topLevelIsArray: false, stream);
         jsonEncoder.EncodeMessage(message);
@@ -112,11 +114,11 @@ public class OPCUAJsonEncoder : IJsonEncoder, IEncoder, IDisposable
     {
         if (message == null)
         {
-            throw new ArgumentNullException("message");
+            throw new ArgumentNullException(nameof(message));
         }
         if (context == null)
         {
-            throw new ArgumentNullException("context");
+            throw new ArgumentNullException(nameof(context));
         }
         OPCUAJsonEncoder jsonEncoder = new OPCUAJsonEncoder(context, useReversibleEncoding: true, topLevelIsArray: false, stream, leaveOpen);
         try
@@ -188,7 +190,7 @@ public class OPCUAJsonEncoder : IJsonEncoder, IEncoder, IDisposable
     {
         if (message == null)
         {
-            throw new ArgumentNullException("message");
+            throw new ArgumentNullException(nameof(message));
         }
         NodeId value = ExpandedNodeId.ToNodeId(message.TypeId, m_context.NamespaceUris);
         WriteNodeId("TypeId", value);

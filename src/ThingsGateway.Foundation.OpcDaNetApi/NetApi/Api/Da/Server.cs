@@ -208,7 +208,7 @@ namespace Opc.Da
             return subscription;
         }
 
-        private class Names
+        private sealed class Names
         {
             internal const string FILTERS = "Filters";
             internal const string SUBSCRIPTIONS = "Subscription";

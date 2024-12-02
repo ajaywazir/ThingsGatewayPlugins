@@ -3,5 +3,5 @@
 
 namespace Opc.Da
 {
-  public delegate int GetResultFiltersAsyncDelegate();
+    public delegate int GetResultFiltersAsyncDelegate();
 }

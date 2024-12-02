@@ -6,53 +6,53 @@ using System.Runtime.InteropServices;
 
 namespace OpcRcw.Ae
 {
-  [Guid("65168855-5783-11D1-84A0-00608CB8A7E9")]
-  [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-  [ComImport]
-  public interface IOPCEventSubscriptionMgt
-  {
-    void SetFilter(
-      [MarshalAs(UnmanagedType.I4)] int dwEventType,
-      [MarshalAs(UnmanagedType.I4)] int dwNumCategories,
-      [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1, ArraySubType = UnmanagedType.I4)] int[] pdwEventCategories,
-      [MarshalAs(UnmanagedType.I4)] int dwLowSeverity,
-      [MarshalAs(UnmanagedType.I4)] int dwHighSeverity,
-      [MarshalAs(UnmanagedType.I4)] int dwNumAreas,
-      [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5, ArraySubType = UnmanagedType.LPWStr)] string[] pszAreaList,
-      [MarshalAs(UnmanagedType.I4)] int dwNumSources,
-      [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 7, ArraySubType = UnmanagedType.LPWStr)] string[] pszSourceList);
+    [Guid("65168855-5783-11D1-84A0-00608CB8A7E9")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [ComImport]
+    public interface IOPCEventSubscriptionMgt
+    {
+        void SetFilter(
+          [MarshalAs(UnmanagedType.I4)] int dwEventType,
+          [MarshalAs(UnmanagedType.I4)] int dwNumCategories,
+          [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1, ArraySubType = UnmanagedType.I4)] int[] pdwEventCategories,
+          [MarshalAs(UnmanagedType.I4)] int dwLowSeverity,
+          [MarshalAs(UnmanagedType.I4)] int dwHighSeverity,
+          [MarshalAs(UnmanagedType.I4)] int dwNumAreas,
+          [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5, ArraySubType = UnmanagedType.LPWStr)] string[] pszAreaList,
+          [MarshalAs(UnmanagedType.I4)] int dwNumSources,
+          [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 7, ArraySubType = UnmanagedType.LPWStr)] string[] pszSourceList);
 
-    void GetFilter(
-      [MarshalAs(UnmanagedType.I4)] out int pdwEventType,
-      [MarshalAs(UnmanagedType.I4)] out int pdwNumCategories,
-      out IntPtr ppdwEventCategories,
-      [MarshalAs(UnmanagedType.I4)] out int pdwLowSeverity,
-      [MarshalAs(UnmanagedType.I4)] out int pdwHighSeverity,
-      [MarshalAs(UnmanagedType.I4)] out int pdwNumAreas,
-      out IntPtr ppszAreaList,
-      [MarshalAs(UnmanagedType.I4)] out int pdwNumSources,
-      out IntPtr ppszSourceList);
+        void GetFilter(
+          [MarshalAs(UnmanagedType.I4)] out int pdwEventType,
+          [MarshalAs(UnmanagedType.I4)] out int pdwNumCategories,
+          out IntPtr ppdwEventCategories,
+          [MarshalAs(UnmanagedType.I4)] out int pdwLowSeverity,
+          [MarshalAs(UnmanagedType.I4)] out int pdwHighSeverity,
+          [MarshalAs(UnmanagedType.I4)] out int pdwNumAreas,
+          out IntPtr ppszAreaList,
+          [MarshalAs(UnmanagedType.I4)] out int pdwNumSources,
+          out IntPtr ppszSourceList);
 
-    void SelectReturnedAttributes([MarshalAs(UnmanagedType.I4)] int dwEventCategory, [MarshalAs(UnmanagedType.I4)] int dwCount, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1, ArraySubType = UnmanagedType.I4)] int[] dwAttributeIDs);
+        void SelectReturnedAttributes([MarshalAs(UnmanagedType.I4)] int dwEventCategory, [MarshalAs(UnmanagedType.I4)] int dwCount, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1, ArraySubType = UnmanagedType.I4)] int[] dwAttributeIDs);
 
-    void GetReturnedAttributes([MarshalAs(UnmanagedType.I4)] int dwEventCategory, [MarshalAs(UnmanagedType.I4)] out int pdwCount, out IntPtr ppdwAttributeIDs);
+        void GetReturnedAttributes([MarshalAs(UnmanagedType.I4)] int dwEventCategory, [MarshalAs(UnmanagedType.I4)] out int pdwCount, out IntPtr ppdwAttributeIDs);
 
-    void Refresh([MarshalAs(UnmanagedType.I4)] int dwConnection);
+        void Refresh([MarshalAs(UnmanagedType.I4)] int dwConnection);
 
-    void CancelRefresh([MarshalAs(UnmanagedType.I4)] int dwConnection);
+        void CancelRefresh([MarshalAs(UnmanagedType.I4)] int dwConnection);
 
-    void GetState(
-      [MarshalAs(UnmanagedType.I4)] out int pbActive,
-      [MarshalAs(UnmanagedType.I4)] out int pdwBufferTime,
-      [MarshalAs(UnmanagedType.I4)] out int pdwMaxSize,
-      [MarshalAs(UnmanagedType.I4)] out int phClientSubscription);
+        void GetState(
+          [MarshalAs(UnmanagedType.I4)] out int pbActive,
+          [MarshalAs(UnmanagedType.I4)] out int pdwBufferTime,
+          [MarshalAs(UnmanagedType.I4)] out int pdwMaxSize,
+          [MarshalAs(UnmanagedType.I4)] out int phClientSubscription);
 
-    void SetState(
-      IntPtr pbActive,
-      IntPtr pdwBufferTime,
-      IntPtr pdwMaxSize,
-      [MarshalAs(UnmanagedType.I4)] int hClientSubscription,
-      [MarshalAs(UnmanagedType.I4)] out int pdwRevisedBufferTime,
-      [MarshalAs(UnmanagedType.I4)] out int pdwRevisedMaxSize);
-  }
+        void SetState(
+          IntPtr pbActive,
+          IntPtr pdwBufferTime,
+          IntPtr pdwMaxSize,
+          [MarshalAs(UnmanagedType.I4)] int hClientSubscription,
+          [MarshalAs(UnmanagedType.I4)] out int pdwRevisedBufferTime,
+          [MarshalAs(UnmanagedType.I4)] out int pdwRevisedMaxSize);
+    }
 }

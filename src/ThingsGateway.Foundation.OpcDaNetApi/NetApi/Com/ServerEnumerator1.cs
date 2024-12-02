@@ -26,7 +26,7 @@ namespace OpcCom
 
         public Opc.Server[] GetAvailableServers(Specification specification)
         {
-            return this.GetAvailableServers(specification, (string)null, (ConnectData)null);
+            return GetAvailableServers(specification, (string)null, (ConnectData)null);
         }
 
         public Opc.Server[] GetAvailableServers(
@@ -37,27 +37,28 @@ namespace OpcCom
             lock (this)
             {
                 NetworkCredential credential = connectData?.GetCredential((Uri)null, (string)null);
-                this.m_server = (IOPCServerList)Interop.CreateInstance(ServerEnumerator1.CLSID, host, credential);
+                m_server = (IOPCServerList)Interop.CreateInstance(ServerEnumerator1.CLSID, host, credential);
                 if (m_server == null)
                     throw new("GetOpcServer failed, please check if OPC runtime is installed");
-                this.m_host = host;
+                m_host = host;
                 try
                 {
                     ArrayList arrayList = new ArrayList();
                     Guid guid = new Guid(specification.ID);
                     object ppenumClsid = null;
-                    this.m_server.EnumClassesOfCategories(1, new Guid[1]
+                    m_server.EnumClassesOfCategories(1, new Guid[1]
                     {
             guid
                     }, 0, (Guid[])null, out ppenumClsid);
-                    Guid[] guidArray = this.ReadClasses((IEnumGUID)ppenumClsid);
+
+                    Guid[] guidArray = ServerEnumerator1.ReadClasses((IEnumGUID)ppenumClsid);
                     Interop.ReleaseServer((object)ppenumClsid);
                     foreach (Guid clsid in guidArray)
                     {
                         Factory factory = new Factory();
                         try
                         {
-                            URL url = this.CreateUrl(specification, clsid);
+                            URL url = CreateUrl(specification, clsid);
                             Opc.Server server = (Opc.Server)null;
                             if (specification == Specification.COM_DA_30)
                                 server = (Opc.Server)new Opc.Da.Server((Opc.Factory)factory, url);
@@ -73,7 +74,7 @@ namespace OpcCom
                                 server = (Opc.Server)new Opc.Dx.Server((Opc.Factory)factory, url);
                             arrayList.Add((object)server);
                         }
-                        catch (Exception ex)
+                        catch
                         {
                         }
                     }
@@ -81,8 +82,8 @@ namespace OpcCom
                 }
                 finally
                 {
-                    Interop.ReleaseServer((object)this.m_server);
-                    this.m_server = (IOPCServerList)null;
+                    Interop.ReleaseServer((object)m_server);
+                    m_server = (IOPCServerList)null;
                 }
             }
         }
@@ -92,12 +93,12 @@ namespace OpcCom
             lock (this)
             {
                 NetworkCredential credential = connectData?.GetCredential((Uri)null, (string)null);
-                this.m_server = (IOPCServerList)Interop.CreateInstance(ServerEnumerator1.CLSID, host, credential);
-                this.m_host = host;
+                m_server = (IOPCServerList)Interop.CreateInstance(ServerEnumerator1.CLSID, host, credential);
+                m_host = host;
                 Guid clsid;
                 try
                 {
-                    this.m_server.CLSIDFromProgID(progID, out clsid);
+                    m_server.CLSIDFromProgID(progID, out clsid);
                 }
                 catch
                 {
@@ -105,14 +106,14 @@ namespace OpcCom
                 }
                 finally
                 {
-                    Interop.ReleaseServer((object)this.m_server);
-                    this.m_server = (IOPCServerList)null;
+                    Interop.ReleaseServer((object)m_server);
+                    m_server = (IOPCServerList)null;
                 }
                 return clsid;
             }
         }
 
-        private Guid[] ReadClasses(IEnumGUID enumerator)
+        private static Guid[] ReadClasses(IEnumGUID enumerator)
         {
             ArrayList arrayList = new ArrayList();
             int pceltFetched = 0;
@@ -130,7 +131,7 @@ namespace OpcCom
                         {
                             Guid structure = (Guid)Marshal.PtrToStructure(ptr, typeof(Guid));
                             arrayList.Add((object)structure);
-                            ptr = (IntPtr)(ptr.ToInt64() + (long)Marshal.SizeOf(typeof(Guid)));
+                            ptr = (nint)(ptr.ToInt64() + (long)Marshal.SizeOf(typeof(Guid)));
                         }
                     }
                     catch
@@ -150,7 +151,7 @@ namespace OpcCom
         private URL CreateUrl(Specification specification, Guid clsid)
         {
             URL url = new URL();
-            url.HostName = this.m_host;
+            url.HostName = m_host;
             url.Port = 0;
             url.Path = (string)null;
             if (specification == Specification.COM_DA_30)
@@ -173,11 +174,11 @@ namespace OpcCom
             {
                 string ppszProgID = (string)null;
                 string ppszUserType = (string)null;
-                this.m_server.GetClassDetails(ref clsid, out ppszProgID, out ppszUserType);
+                m_server.GetClassDetails(ref clsid, out ppszProgID, out ppszUserType);
                 if (ppszProgID != null)
                     url.Path = string.Format("{0}/{1}", (object)ppszProgID, (object)("{" + clsid.ToString() + "}"));
             }
-            catch (Exception ex)
+            catch
             {
             }
             finally

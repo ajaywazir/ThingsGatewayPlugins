@@ -3,42 +3,42 @@
 
 namespace Opc.Hda
 {
-  public class BrowseElement : ItemIdentifier
-  {
-    private string m_name;
-    private bool m_isItem;
-    private bool m_hasChildren;
-    private AttributeValueCollection m_attributes = new AttributeValueCollection();
-
-    public string Name
+    public class BrowseElement : ItemIdentifier
     {
-      get => this.m_name;
-      set => this.m_name = value;
-    }
+        private string m_name;
+        private bool m_isItem;
+        private bool m_hasChildren;
+        private AttributeValueCollection m_attributes = new AttributeValueCollection();
 
-    public bool IsItem
-    {
-      get => this.m_isItem;
-      set => this.m_isItem = value;
-    }
+        public string Name
+        {
+            get => m_name;
+            set => m_name = value;
+        }
 
-    public bool HasChildren
-    {
-      get => this.m_hasChildren;
-      set => this.m_hasChildren = value;
-    }
+        public bool IsItem
+        {
+            get => m_isItem;
+            set => m_isItem = value;
+        }
 
-    public AttributeValueCollection Attributes
-    {
-      get => this.m_attributes;
-      set => this.m_attributes = value;
-    }
+        public bool HasChildren
+        {
+            get => m_hasChildren;
+            set => m_hasChildren = value;
+        }
 
-    public override object Clone()
-    {
-      BrowseElement browseElement = (BrowseElement) this.MemberwiseClone();
-      browseElement.Attributes = (AttributeValueCollection) this.m_attributes.Clone();
-      return (object) browseElement;
+        public AttributeValueCollection Attributes
+        {
+            get => m_attributes;
+            set => m_attributes = value;
+        }
+
+        public override object Clone()
+        {
+            BrowseElement browseElement = (BrowseElement)MemberwiseClone();
+            browseElement.Attributes = (AttributeValueCollection)m_attributes.Clone();
+            return (object)browseElement;
+        }
     }
-  }
 }

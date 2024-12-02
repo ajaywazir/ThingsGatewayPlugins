@@ -3,5 +3,5 @@
 
 namespace Opc.Da
 {
-  public delegate IdentifiedResult[] WriteAsyncDelegate(ItemValue[] items);
+    public delegate IdentifiedResult[] WriteAsyncDelegate(ItemValue[] items);
 }

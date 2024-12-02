@@ -17,7 +17,7 @@ namespace ThingsGateway.Foundation.OpcDa.Comn;
 #pragma warning disable IDE0090
 #pragma warning disable IDE0051
 
-internal class ComInterop
+internal sealed class ComInterop
 {
     private static readonly Guid IID_IUnknown = new Guid("00000000-0000-0000-C000-000000000046");
 
@@ -176,7 +176,7 @@ internal class ComInterop
             // 检查是否在本地或远程连接。
             uint clsctx = 0x01 | 0x04;
 
-            if (hostName != null && hostName.Length > 0 && hostName.ToLower() != "localhost" && hostName != "127.0.0.1")
+            if (hostName != null && hostName.Length > 0 && !hostName.Equals("localhost", StringComparison.OrdinalIgnoreCase) && !hostName.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase))
             {
                 clsctx = 0x04 | 0x10;
             }

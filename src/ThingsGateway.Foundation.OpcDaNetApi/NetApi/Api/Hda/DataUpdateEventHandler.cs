@@ -3,5 +3,5 @@
 
 namespace Opc.Hda
 {
-  public delegate void DataUpdateEventHandler(IRequest request, ItemValueCollection[] results);
+    public delegate void DataUpdateEventHandler(IRequest request, ItemValueCollection[] results);
 }

@@ -203,7 +203,7 @@ public class PackHelper
             sourceReads.Add(sourceRead);
 
             // 更新最小地址值，如果还有地址未处理，则继续循环；否则跳出循环
-            if (orderByAddressEnd.Count() > 0)
+            if (orderByAddressEnd.Any())
                 minAddress = orderByAddressStart.First().StartAddress;
             else
                 break;

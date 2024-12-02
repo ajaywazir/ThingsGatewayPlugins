@@ -83,13 +83,9 @@ internal static class DictionaryExtension
     /// <returns></returns>
     internal static void AddOrUpdate<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey tkey, TValue value) where TKey : notnull
     {
-        if (dictionary.ContainsKey(tkey))
+        if (!dictionary.TryAdd(tkey, value))
         {
             dictionary[tkey] = value;
-        }
-        else
-        {
-            dictionary.Add(tkey, value);
         }
     }
 

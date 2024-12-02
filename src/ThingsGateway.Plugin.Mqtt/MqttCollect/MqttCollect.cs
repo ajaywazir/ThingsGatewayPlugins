@@ -70,7 +70,7 @@ public partial class MqttCollect : CollectBase
 
     private Dictionary<string, List<Tuple<string, string, VariableRunTime>>> TopicItemDict = new();
 
-    private class TopicItem
+    private sealed class TopicItem
     {
         public string Topic { get; set; }
         public string Item { get; set; }

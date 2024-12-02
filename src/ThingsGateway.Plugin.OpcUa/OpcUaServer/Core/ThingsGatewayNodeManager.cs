@@ -379,7 +379,7 @@ public class ThingsGatewayNodeManager : CustomNodeManager2
             Id = variableRunTime.Id,
             DataType = DataNodeType(variableRunTime)
         };
-        var level = ProtectTypeTrans(variableRunTime);
+        var level = ThingsGatewayNodeManager.ProtectTypeTrans(variableRunTime);
         variable.AccessLevel = level;
         variable.UserAccessLevel = level;
         variable.Historizing = false;//历史存储状态
@@ -459,7 +459,7 @@ public class ThingsGatewayNodeManager : CustomNodeManager2
         }
     }
 
-    private byte ProtectTypeTrans(VariableRunTime variableRunTime)
+    private static byte ProtectTypeTrans(VariableRunTime variableRunTime)
     {
         byte result = 0;
         result = variableRunTime.ProtectType switch

@@ -18,7 +18,7 @@ using TouchSocket.Core;
 
 namespace ThingsGateway.Plugin.OpcUa;
 
-internal class OpcUaLogger : ILogger
+internal sealed class OpcUaLogger : ILogger
 {
     private ILog _log;
 

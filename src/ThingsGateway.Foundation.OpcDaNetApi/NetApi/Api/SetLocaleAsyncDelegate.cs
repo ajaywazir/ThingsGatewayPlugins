@@ -3,5 +3,5 @@
 
 namespace Opc
 {
-  public delegate void SetLocaleAsyncDelegate(string locale);
+    public delegate void SetLocaleAsyncDelegate(string locale);
 }

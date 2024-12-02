@@ -3,5 +3,5 @@
 
 namespace Opc.Da
 {
-  public delegate void CancelSubscriptionAsyncDelegate(ISubscription subscription);
+    public delegate void CancelSubscriptionAsyncDelegate(ISubscription subscription);
 }

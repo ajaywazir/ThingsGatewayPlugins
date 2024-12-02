@@ -24,7 +24,9 @@ public class Data
 
     public string method { get; set; }
 
+#pragma warning disable CA1507 // 使用 nameof 表达符号名称
     [JsonProperty("params")]
+#pragma warning restore CA1507 // 使用 nameof 表达符号名称
     public Dictionary<string, string> @params { get; set; }
 }
 

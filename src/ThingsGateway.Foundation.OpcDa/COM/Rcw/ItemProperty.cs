@@ -191,7 +191,7 @@ public struct PropertyID : ISerializable
         return "";
     }
 
-    private class Names
+    private sealed class Names
     {
         internal const string CODE = "CO";
         internal const string NAME = "NA";
@@ -619,7 +619,7 @@ public struct ResultID : ISerializable
         public static readonly ResultID W_NOFILTER = new ResultID("W_NOFILTER", "http://opcfoundation.org/HistoricalDataAccess/");
     }
 
-    private class Names
+    private sealed class Names
     {
         internal const string CODE = "CO";
         internal const string NAME = "NA";

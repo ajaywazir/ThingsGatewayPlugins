@@ -3,5 +3,5 @@
 
 namespace Opc.Hda
 {
-  public delegate ServerStatus GetStatusDelegate();
+    public delegate ServerStatus GetStatusDelegate();
 }

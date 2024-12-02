@@ -5,29 +5,29 @@ using System;
 
 namespace Opc.Hda
 {
-  [Serializable]
-  public class ModifiedValue : ItemValue
-  {
-    private DateTime m_modificationTime = DateTime.MinValue;
-    private EditType m_editType = EditType.Insert;
-    private string m_user;
-
-    public DateTime ModificationTime
+    [Serializable]
+    public class ModifiedValue : ItemValue
     {
-      get => this.m_modificationTime;
-      set => this.m_modificationTime = value;
-    }
+        private DateTime m_modificationTime = DateTime.MinValue;
+        private EditType m_editType = EditType.Insert;
+        private string m_user;
 
-    public EditType EditType
-    {
-      get => this.m_editType;
-      set => this.m_editType = value;
-    }
+        public DateTime ModificationTime
+        {
+            get => m_modificationTime;
+            set => m_modificationTime = value;
+        }
 
-    public string User
-    {
-      get => this.m_user;
-      set => this.m_user = value;
+        public EditType EditType
+        {
+            get => m_editType;
+            set => m_editType = value;
+        }
+
+        public string User
+        {
+            get => m_user;
+            set => m_user = value;
+        }
     }
-  }
 }

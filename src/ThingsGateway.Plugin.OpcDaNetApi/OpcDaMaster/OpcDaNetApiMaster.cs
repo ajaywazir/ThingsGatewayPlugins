@@ -12,8 +12,8 @@ using Newtonsoft.Json.Linq;
 
 using Opc.Da;
 
-using ThingsGateway.Foundation.Extension.Generic;
 using ThingsGateway.Core.Json.Extension;
+using ThingsGateway.Foundation.Extension.Generic;
 using ThingsGateway.Foundation.OpcDaNetApi;
 using ThingsGateway.Gateway.Application;
 using ThingsGateway.NewLife.Threading;
@@ -82,12 +82,12 @@ public class OpcDaNetApiMaster : CollectBase
     protected override void Dispose(bool disposing)
     {
         if (_plc != null)
-            _plc.DataChangedHandler -= DataChangedHandler  ;
+            _plc.DataChangedHandler -= DataChangedHandler;
         _plc?.SafeDispose();
         base.Dispose(disposing);
     }
 
-   
+
 
     protected override string GetAddressDescription()
     {
@@ -128,7 +128,7 @@ public class OpcDaNetApiMaster : CollectBase
     protected override List<VariableSourceRead> ProtectedLoadSourceRead(List<VariableRunTime> deviceVariables)
     {
 
-        var datas = deviceVariables.GroupBy(a=>a.IntervalTime).ChunkBetter(_driverProperties.GroupSize);
+        var datas = deviceVariables.GroupBy(a => a.IntervalTime).ChunkBetter(_driverProperties.GroupSize);
         List<VariableSourceRead> reads = new();
         foreach (var datags in datas)
         {
@@ -158,8 +158,8 @@ public class OpcDaNetApiMaster : CollectBase
         try
         {
             await WriteLock.WaitAsync(cancellationToken).ConfigureAwait(false);
-           var result= _plc.ReadItems(deviceVariableSourceRead.VariableRunTimes.Select(a=>a.RegisterAddress));
-        DateTime time = DateTime.Now;
+            var result = _plc.ReadItems(deviceVariableSourceRead.VariableRunTimes.Select(a => a.RegisterAddress));
+            DateTime time = DateTime.Now;
             foreach (var data in result)
             {
                 if (!CurrentDevice.KeepRun)
@@ -175,9 +175,9 @@ public class OpcDaNetApiMaster : CollectBase
                 foreach (var item in itemReads)
                 {
                     if (!CurrentDevice.KeepRun)
-                    return new();
+                        return new();
                     if (_token.IsCancellationRequested)
-                    return new(new OperationCanceledException());
+                        return new(new OperationCanceledException());
                     var value = data.Value;
                     var quality = data.Quality;
                     if (_driverProperties.SourceTimestampEnable)
@@ -287,7 +287,7 @@ public class OpcDaNetApiMaster : CollectBase
                     {
                         time = data.Timestamp.ToLocalTime();
                     }
-                    if (quality .GetCode()==192)
+                    if (quality.GetCode() == 192)
                     {
                         if (item.DataType == DataTypeEnum.Object)
                             if (type.Namespace.StartsWith("System"))

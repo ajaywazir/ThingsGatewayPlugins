@@ -102,7 +102,7 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
                 var getDeviceModel = CSharpScriptEngineExtension.Do<IDynamicSQL>(_driverPropertys.BigTextScriptRealTable);
                 if (!_initRealData)
                 {
-                    if (datas?.Count != 0)
+                    if (datas?.Count > 0)
                     {
                         var result = db.StorageableByObject(getDeviceModel.GetList(datas)).ExecuteCommand();
                         if (result > 0)
@@ -114,7 +114,7 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
                 }
                 else
                 {
-                    if (datas?.Count != 0)
+                    if (datas?.Count > 0)
                     {
                         var result = await db.UpdateableByObject(getDeviceModel.GetList(datas)).ExecuteCommandAsync().ConfigureAwait(false);
                         if (result > 0)
@@ -128,7 +128,7 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
             {
                 if (!_initRealData)
                 {
-                    if (datas?.Count != 0)
+                    if (datas?.Count > 0)
                     {
                         var result = await db.Storageable(datas).As(_driverPropertys.ReadDBTableName).PageSize(5000).ExecuteSqlBulkCopyAsync().ConfigureAwait(false);
                         if (result > 0)
@@ -140,7 +140,7 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
                 }
                 else
                 {
-                    if (datas?.Count != 0)
+                    if (datas?.Count > 0)
                     {
                         var result = await db.Fastest<SQLRealValue>().AS(_driverPropertys.ReadDBTableName).PageSize(100000).BulkUpdateAsync(datas).ConfigureAwait(false);
                         LogMessage.Trace($"RealTable Data Count：{result}");

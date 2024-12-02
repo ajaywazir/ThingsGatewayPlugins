@@ -49,6 +49,8 @@ public partial class OpcUaServer : BusinessBase
     protected IStringLocalizer Localizer { get; private set; }
     private ConcurrentQueue<VariableData> CollectVariableRunTimes { get; set; } = new();
 
+    private static readonly string[] separator = new string[] { ";" };
+
     protected override void Init(IChannel? channel = null)
     {
         if (_driverPropertys.IsAllVariable)
@@ -111,7 +113,7 @@ public partial class OpcUaServer : BusinessBase
     protected override async Task ProtectedBeforStartAsync(CancellationToken cancellationToken)
     {
         // 启动服务器。
-        await m_application.CheckApplicationInstanceCertificate(false, 0, 1200).ConfigureAwait(false);
+        await m_application.CheckApplicationInstanceCertificate(false, 0, 1200, cancellationToken).ConfigureAwait(false);
         await m_application.Start(m_server).ConfigureAwait(false);
         await base.ProtectedBeforStartAsync(cancellationToken).ConfigureAwait(false);
     }
@@ -130,7 +132,7 @@ public partial class OpcUaServer : BusinessBase
                 CurrentDevice.SetDeviceStatus(TimerX.Now, 999);
                 try
                 {
-                    await m_application.CheckApplicationInstanceCertificate(false, 0, 1200).ConfigureAwait(false);
+                    await m_application.CheckApplicationInstanceCertificate(false, 0, 1200, cancellationToken).ConfigureAwait(false);
                     await m_application.Start(m_server).ConfigureAwait(false);
                     success = true;
                 }
@@ -147,7 +149,7 @@ public partial class OpcUaServer : BusinessBase
             ////变化推送
             var varList = data.DistinctBy(a => a.Name).ToList();
 
-            if (varList?.Count != 0)
+            if (varList?.Count > 0)
             {
                 foreach (var item in varList)
                 {
@@ -183,7 +185,7 @@ public partial class OpcUaServer : BusinessBase
     private ApplicationConfiguration GetDefaultConfiguration()
     {
         ApplicationConfiguration config = new();
-        var urls = _driverPropertys.OpcUaStringUrl.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+        var urls = _driverPropertys.OpcUaStringUrl.Split(separator, StringSplitOptions.RemoveEmptyEntries);
         // 签名及加密验证
         ServerSecurityPolicyCollection policies = new();
         var userTokens = new UserTokenPolicyCollection();

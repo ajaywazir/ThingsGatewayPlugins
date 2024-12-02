@@ -86,7 +86,7 @@ namespace Opc
                 info.AddValue("PU", (object)null);
         }
 
-        private class Names
+        private sealed class Names
         {
             internal const string USER_NAME = "UN";
             internal const string PASSWORD = "PW";

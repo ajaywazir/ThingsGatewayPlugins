@@ -3,5 +3,5 @@
 
 namespace Opc.Da
 {
-  public delegate void WriteCompleteEventHandler(object requestHandle, IdentifiedResult[] results);
+    public delegate void WriteCompleteEventHandler(object requestHandle, IdentifiedResult[] results);
 }

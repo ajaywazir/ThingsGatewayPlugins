@@ -3,5 +3,5 @@
 
 namespace Opc.Da
 {
-  public delegate ServerStatus GetStatusAsyncDelegate();
+    public delegate ServerStatus GetStatusAsyncDelegate();
 }

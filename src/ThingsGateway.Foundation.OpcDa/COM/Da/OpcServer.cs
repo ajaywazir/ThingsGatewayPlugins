@@ -15,7 +15,7 @@ using ThingsGateway.Foundation.OpcDa.Rcw;
 namespace ThingsGateway.Foundation.OpcDa.Da;
 #pragma warning disable CA1416 // 验证平台兼容性
 
-internal class OpcServer : IDisposable
+internal sealed class OpcServer : IDisposable
 {
     private bool disposedValue;
 
@@ -124,7 +124,7 @@ internal class OpcServer : IDisposable
             BrowseElement[] browseElements = Interop.GetBrowseElements(ref pElements, count, true);
             string stringUni = Marshal.PtrToStringUni(pContinuationPoint);
             Marshal.FreeCoTaskMem(pContinuationPoint);
-            ProcessResults(browseElements, filterId);
+            OpcServer.ProcessResults(browseElements, filterId);
             return browseElements?.ToList();
         }
     }
@@ -211,7 +211,7 @@ internal class OpcServer : IDisposable
         }
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!disposedValue)
         {
@@ -236,7 +236,7 @@ internal class OpcServer : IDisposable
         }
     }
 
-    private void ProcessResults(BrowseElement[] elements, PropertyID[] propertyIDs)
+    private static void ProcessResults(BrowseElement[] elements, PropertyID[] propertyIDs)
     {
         if (elements == null)
             return;

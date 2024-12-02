@@ -138,7 +138,7 @@ namespace OpcCom
                         clsid = new ServerEnumerator1().CLSIDFromProgID(str1, url.HostName, connectData);
 
                     }
-                    catch (Exception)
+                    catch
                     {
 
 

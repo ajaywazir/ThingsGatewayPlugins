@@ -29,7 +29,7 @@ namespace Opc.Da
         public new ItemProperty this[int index]
         {
             get => (ItemProperty)base[index];
-            set => this[index] = (ItemProperty)value;
+            set => base[index] = (ItemProperty)value;
         }
 
         public ItemPropertyCollection()

@@ -5,45 +5,45 @@ using System;
 
 namespace Opc.Hda
 {
-  [Serializable]
-  public class ItemResult : Item, IResult
-  {
-    private ResultID m_resultID = ResultID.S_OK;
-    private string m_diagnosticInfo;
-
-    public ItemResult()
+    [Serializable]
+    public class ItemResult : Item, IResult
     {
-    }
+        private ResultID m_resultID = ResultID.S_OK;
+        private string m_diagnosticInfo;
 
-    public ItemResult(ItemIdentifier item)
-      : base(item)
-    {
-    }
+        public ItemResult()
+        {
+        }
 
-    public ItemResult(Item item)
-      : base(item)
-    {
-    }
+        public ItemResult(ItemIdentifier item)
+          : base(item)
+        {
+        }
 
-    public ItemResult(ItemResult item)
-      : base((Item) item)
-    {
-      if (item == null)
-        return;
-      this.ResultID = item.ResultID;
-      this.DiagnosticInfo = item.DiagnosticInfo;
-    }
+        public ItemResult(Item item)
+          : base(item)
+        {
+        }
 
-    public ResultID ResultID
-    {
-      get => this.m_resultID;
-      set => this.m_resultID = value;
-    }
+        public ItemResult(ItemResult item)
+          : base((Item)item)
+        {
+            if (item == null)
+                return;
+            ResultID = item.ResultID;
+            DiagnosticInfo = item.DiagnosticInfo;
+        }
 
-    public string DiagnosticInfo
-    {
-      get => this.m_diagnosticInfo;
-      set => this.m_diagnosticInfo = value;
+        public ResultID ResultID
+        {
+            get => m_resultID;
+            set => m_resultID = value;
+        }
+
+        public string DiagnosticInfo
+        {
+            get => m_diagnosticInfo;
+            set => m_diagnosticInfo = value;
+        }
     }
-  }
 }

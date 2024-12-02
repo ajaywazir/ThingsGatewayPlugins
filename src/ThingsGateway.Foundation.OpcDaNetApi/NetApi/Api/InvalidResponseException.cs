@@ -6,34 +6,34 @@ using System.Runtime.Serialization;
 
 namespace Opc
 {
-  [Serializable]
-  public class InvalidResponseException : ApplicationException
-  {
-    private const string Default = "The response from the server was invalid or incomplete.";
-
-    public InvalidResponseException()
-      : base("The response from the server was invalid or incomplete.")
+    [Serializable]
+    public class InvalidResponseException : ApplicationException
     {
-    }
+        private const string Default = "The response from the server was invalid or incomplete.";
 
-    public InvalidResponseException(string message)
-      : base("The response from the server was invalid or incomplete.\r\n" + message)
-    {
-    }
+        public InvalidResponseException()
+          : base("The response from the server was invalid or incomplete.")
+        {
+        }
 
-    public InvalidResponseException(Exception e)
-      : base("The response from the server was invalid or incomplete.", e)
-    {
-    }
+        public InvalidResponseException(string message)
+          : base("The response from the server was invalid or incomplete.\r\n" + message)
+        {
+        }
 
-    public InvalidResponseException(string message, Exception innerException)
-      : base("The response from the server was invalid or incomplete.\r\n" + message, innerException)
-    {
-    }
+        public InvalidResponseException(Exception e)
+          : base("The response from the server was invalid or incomplete.", e)
+        {
+        }
 
-    protected InvalidResponseException(SerializationInfo info, StreamingContext context)
-      : base(info, context)
-    {
+        public InvalidResponseException(string message, Exception innerException)
+          : base("The response from the server was invalid or incomplete.\r\n" + message, innerException)
+        {
+        }
+
+        protected InvalidResponseException(SerializationInfo info, StreamingContext context)
+          : base(info, context)
+        {
+        }
     }
-  }
 }

@@ -293,17 +293,17 @@ public class OpcUaMaster : IDisposable
 
         lock (dic_subscriptions)
         {
-            if (dic_subscriptions.ContainsKey(subscriptionName))
+            if (dic_subscriptions.TryGetValue(subscriptionName, out var existingSubscription))
             {
                 // remove
-                dic_subscriptions[subscriptionName].Delete(true);
-                m_session.RemoveSubscription(dic_subscriptions[subscriptionName]);
-                try { dic_subscriptions[subscriptionName].Dispose(); } catch { }
+                existingSubscription.Delete(true);
+                m_session.RemoveSubscription(existingSubscription);
+                try { existingSubscription.Dispose(); } catch { }
                 dic_subscriptions[subscriptionName] = m_subscription;
             }
             else
             {
-                dic_subscriptions.Add(subscriptionName, m_subscription);
+                dic_subscriptions.TryAdd(subscriptionName, m_subscription);
             }
         }
     }
@@ -720,13 +720,13 @@ public class OpcUaMaster : IDisposable
     {
         lock (dic_subscriptions)
         {
-            if (dic_subscriptions.ContainsKey(subscriptionName))
+            if (dic_subscriptions.TryGetValue(subscriptionName, out var subscription))
             {
                 // remove
-                dic_subscriptions[subscriptionName].Delete(true);
-                m_session.RemoveSubscription(dic_subscriptions[subscriptionName]);
-                try { dic_subscriptions[subscriptionName].Dispose(); } catch { }
-                dic_subscriptions.RemoveWhere(a => a.Key == subscriptionName);
+                subscription.Delete(true);
+                m_session.RemoveSubscription(subscription);
+                try { subscription.Dispose(); } catch { }
+                dic_subscriptions.Remove(subscriptionName);
             }
         }
     }
@@ -864,7 +864,7 @@ public class OpcUaMaster : IDisposable
         }
         //创建本地证书
         if (useSecurity)
-            await m_application.CheckApplicationInstanceCertificate(true, 0, 1200).ConfigureAwait(false);
+            await m_application.CheckApplicationInstanceCertificate(true, 0, 1200, cancellationToken).ConfigureAwait(false);
         m_session = await Opc.Ua.Client.Session.Create(
         m_configuration,
         endpoint,
@@ -996,7 +996,7 @@ public class OpcUaMaster : IDisposable
         NodeId nodeToRead = new(nodeIdStr);
         var node = (VariableNode)await m_session.ReadNodeAsync(nodeToRead, NodeClass.Variable, false, cancellationToken).ConfigureAwait(false);
         if (OpcUaProperty.LoadType)
-            await typeSystem.LoadType(node.DataType).ConfigureAwait(false);
+            await typeSystem.LoadType(node.DataType, ct: cancellationToken).ConfigureAwait(false);
         _variableDicts.AddOrUpdate(nodeIdStr, node);
         return node;
     }
@@ -1018,7 +1018,7 @@ public class OpcUaMaster : IDisposable
             if (StatusCode.IsGood(nodes.Item2[i].StatusCode))
             {
                 var node = ((VariableNode)nodes.Item1[i]);
-                await typeSystem.LoadType(node.DataType).ConfigureAwait(false);
+                await typeSystem.LoadType(node.DataType, ct: cancellationToken).ConfigureAwait(false);
                 _variableDicts.AddOrUpdate(nodeIdStrs[i], node);
             }
             else

@@ -3,8 +3,8 @@
 
 namespace Opc
 {
-  public interface IRequest
-  {
-    object Handle { get; }
-  }
+    public interface IRequest
+    {
+        object Handle { get; }
+    }
 }

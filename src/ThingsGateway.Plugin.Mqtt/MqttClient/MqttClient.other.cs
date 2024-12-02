@@ -17,10 +17,10 @@ using Newtonsoft.Json.Linq;
 
 using System.Text;
 
-using ThingsGateway.Foundation;
-using ThingsGateway.Extension.Generic;
-using ThingsGateway.Foundation.Extension.Generic;
 using ThingsGateway.Core.Json.Extension;
+using ThingsGateway.Extension.Generic;
+using ThingsGateway.Foundation;
+using ThingsGateway.Foundation.Extension.Generic;
 using ThingsGateway.NewLife.Extension;
 
 namespace ThingsGateway.Plugin.Mqtt;
@@ -375,7 +375,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
                 return OperResult.Success;
             try
             {
-                await ConnectLock.WaitAsync().ConfigureAwait(false);
+                await ConnectLock.WaitAsync(cancellationToken).ConfigureAwait(false);
                 if (_mqttClient?.IsConnected == true)
                     return OperResult.Success;
                 using var timeoutToken = new CancellationTokenSource(TimeSpan.FromMilliseconds(_driverPropertys.ConnectTimeout));

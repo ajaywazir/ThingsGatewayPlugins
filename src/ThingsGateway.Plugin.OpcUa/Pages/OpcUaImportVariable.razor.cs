@@ -7,6 +7,7 @@
 //  使用文档：https://thingsgateway.cn/
 //  QQ群：605534569
 //------------------------------------------------------------------------------
+#pragma warning disable CA2007 // 考虑对等待的任务调用 ConfigureAwait
 
 using BootstrapBlazor.Components;
 
@@ -98,7 +99,7 @@ public partial class OpcUaImportVariable
         return trees;
     }
 
-    private bool ModelEqualityComparer(OpcUaTagModel x, OpcUaTagModel y) => x.NodeId == y.NodeId;
+    private static bool ModelEqualityComparer(OpcUaTagModel x, OpcUaTagModel y) => x.NodeId == y.NodeId;
 
     private async Task<IEnumerable<TreeViewItem<OpcUaTagModel>>> OnExpandNodeAsync(TreeViewItem<OpcUaTagModel> treeViewItem)
     {
@@ -283,19 +284,19 @@ public partial class OpcUaImportVariable
         await opcUaTagModels.ParallelForEachAsync(async (b, token) =>
          {
              var a = b.Tag;
-             var nodeClass = (await Plc.ReadNoteAttributeAsync(a.NodeId.ToString(), Opc.Ua.Attributes.NodeClass)).FirstOrDefault().Value.ToString();
+             var nodeClass = (await Plc.ReadNoteAttributeAsync(a.NodeId.ToString(), Opc.Ua.Attributes.NodeClass, token)).FirstOrDefault().Value.ToString();
              if (nodeClass == nameof(NodeClass.Variable))
              {
                  ProtectTypeEnum level = ProtectTypeEnum.ReadOnly;
                  DataTypeEnum dataTypeEnum = DataTypeEnum.Object;
                  try
                  {
-                     var userAccessLevel = (AccessLevelType)(await Plc.ReadNoteAttributeAsync(a.NodeId.ToString(), Opc.Ua.Attributes.UserAccessLevel)).FirstOrDefault().Value;
+                     var userAccessLevel = (AccessLevelType)(await Plc.ReadNoteAttributeAsync(a.NodeId.ToString(), Opc.Ua.Attributes.UserAccessLevel, token)).FirstOrDefault().Value;
                      level = (userAccessLevel.HasFlag(AccessLevelType.CurrentRead)) ?
          userAccessLevel.HasFlag(AccessLevelType.CurrentWrite) ?
          ProtectTypeEnum.ReadWrite : ProtectTypeEnum.ReadOnly : ProtectTypeEnum.WriteOnly;
 
-                     var dataTypeId = (Opc.Ua.NodeId)(await Plc.ReadNoteAttributeAsync(a.NodeId.ToString(), Opc.Ua.Attributes.DataType)).FirstOrDefault().Value;
+                     var dataTypeId = (Opc.Ua.NodeId)(await Plc.ReadNoteAttributeAsync(a.NodeId.ToString(), Opc.Ua.Attributes.DataType, token)).FirstOrDefault().Value;
                      var dataType = Opc.Ua.TypeInfo.GetSystemType(dataTypeId, Plc.Session.Factory);
                      var result = dataType != null && Enum.TryParse<DataTypeEnum>(dataType.Name, out dataTypeEnum);
                      if (!result)
@@ -401,7 +402,7 @@ public partial class OpcUaImportVariable
 
 #endif
 
-    internal class OpcUaTagModel
+    internal sealed class OpcUaTagModel
     {
         internal List<OpcUaTagModel> Children { get; set; }
         internal string Name { get; set; }
@@ -411,17 +412,17 @@ public partial class OpcUaImportVariable
         public List<OpcUaTagModel> GetAllTags()
         {
             List<OpcUaTagModel> allTags = new();
-            GetAllTagsRecursive(this, allTags);
+            OpcUaTagModel.GetAllTagsRecursive(this, allTags);
             return allTags;
         }
 
-        private void GetAllTagsRecursive(OpcUaTagModel parentTag, List<OpcUaTagModel> allTags)
+        private static void GetAllTagsRecursive(OpcUaTagModel parentTag, List<OpcUaTagModel> allTags)
         {
             allTags.Add(parentTag);
             if (parentTag.Children != null)
                 foreach (OpcUaTagModel childTag in parentTag.Children)
                 {
-                    GetAllTagsRecursive(childTag, allTags);
+                    OpcUaTagModel.GetAllTagsRecursive(childTag, allTags);
                 }
         }
     }

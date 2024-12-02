@@ -3,5 +3,5 @@
 
 namespace Opc
 {
-  public delegate void DisconnectAsyncDelegate();
+    public delegate void DisconnectAsyncDelegate();
 }

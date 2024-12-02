@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using ThingsGateway.Foundation.Extension.String;
+using ThingsGateway.NewLife.Extension;
 
 using TouchSocket.Core;
 using TouchSocket.Sockets;
@@ -83,12 +84,13 @@ public partial class SiemensS7Master : ProtocolBase
     {
         if (address.IndexOf('.') > 0)
         {
-            var addressSplits1 = address.SplitStringBySemicolon().Where(a => !a.Contains("=")).FirstOrDefault();
+            var addressSplits1 = address.SplitStringBySemicolon().Where(a => !a.Contains('=')).FirstOrDefault();
             string[] addressSplits = addressSplits1.SplitStringByDelimiter();
             try
             {
+                var hasDB = address.Contains("DB", StringComparison.OrdinalIgnoreCase);
                 int bitIndex = 0;
-                if ((addressSplits.Length == 2 && !address.ToUpper().Contains("DB")) || (addressSplits.Length >= 3 && address.ToUpper().Contains("DB")))
+                if ((addressSplits.Length == 2 && !hasDB) || (addressSplits.Length >= 3 && hasDB))
                     bitIndex = Convert.ToInt32(addressSplits.Last());
                 return bitIndex;
             }

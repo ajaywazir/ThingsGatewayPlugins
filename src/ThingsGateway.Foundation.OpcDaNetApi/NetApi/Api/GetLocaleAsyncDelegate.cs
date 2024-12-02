@@ -3,5 +3,5 @@
 
 namespace Opc
 {
-  public delegate string GetLocaleAsyncDelegate();
+    public delegate string GetLocaleAsyncDelegate();
 }

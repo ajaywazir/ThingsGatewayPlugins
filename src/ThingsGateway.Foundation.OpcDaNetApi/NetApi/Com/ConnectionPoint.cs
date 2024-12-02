@@ -15,36 +15,36 @@ namespace OpcCom
 
         public ConnectionPoint(object server, Guid iid)
         {
-            ((IConnectionPointContainer)server).FindConnectionPoint(ref iid, out this.m_server);
+            ((IConnectionPointContainer)server).FindConnectionPoint(ref iid, out m_server);
         }
 
         public void Dispose()
         {
-            if (this.m_server == null)
+            if (m_server == null)
                 return;
 
-            while (this.Unadvise() > 0)
+            while (Unadvise() > 0)
             {
 
             }
-            Interop.ReleaseServer((object)this.m_server);
-            this.m_server = (IConnectionPoint)null;
+            Interop.ReleaseServer((object)m_server);
+            m_server = (IConnectionPoint)null;
         }
 
-        public int Cookie => this.m_cookie;
+        public int Cookie => m_cookie;
 
         public int Advise(object callback)
         {
-            if (this.m_refs++ == 0)
-                this.m_server.Advise(callback, out this.m_cookie);
-            return this.m_refs;
+            if (m_refs++ == 0)
+                m_server.Advise(callback, out m_cookie);
+            return m_refs;
         }
 
         public int Unadvise()
         {
-            if (--this.m_refs == 0)
-                this.m_server.Unadvise(this.m_cookie);
-            return this.m_refs;
+            if (--m_refs == 0)
+                m_server.Unadvise(m_cookie);
+            return m_refs;
         }
     }
 }

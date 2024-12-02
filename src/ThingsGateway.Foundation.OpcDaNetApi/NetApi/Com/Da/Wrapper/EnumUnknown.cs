@@ -1,6 +1,7 @@
 ﻿
 
 using OpcRcw.Comn;
+
 using System;
 using System.Collections;
 using System.Runtime.InteropServices;
@@ -8,92 +9,92 @@ using System.Runtime.InteropServices;
 
 namespace OpcCom.Da.Wrapper
 {
-  public class EnumUnknown : IEnumUnknown
-  {
-    private ArrayList m_unknowns = new ArrayList();
-    private int m_index;
-
-    internal EnumUnknown(ICollection unknowns)
+    public class EnumUnknown : IEnumUnknown
     {
-      if (unknowns == null)
-        return;
-      foreach (object unknown in (IEnumerable) unknowns)
-        this.m_unknowns.Add(unknown);
-    }
+        private ArrayList m_unknowns = new ArrayList();
+        private int m_index;
 
-    public void Skip(int celt)
-    {
-      lock (this)
-      {
-        try
+        internal EnumUnknown(ICollection unknowns)
         {
-          this.m_index += celt;
-          if (this.m_index <= this.m_unknowns.Count)
-            return;
-          this.m_index = this.m_unknowns.Count;
+            if (unknowns == null)
+                return;
+            foreach (object unknown in (IEnumerable)unknowns)
+                m_unknowns.Add(unknown);
         }
-        catch (Exception ex)
-        {
-          throw Server.CreateException(ex);
-        }
-      }
-    }
 
-    public void Clone(out IEnumUnknown ppenum)
-    {
-      lock (this)
-      {
-        try
+        public void Skip(int celt)
         {
-          ppenum = (IEnumUnknown) new EnumUnknown((ICollection) this.m_unknowns);
+            lock (this)
+            {
+                try
+                {
+                    m_index += celt;
+                    if (m_index <= m_unknowns.Count)
+                        return;
+                    m_index = m_unknowns.Count;
+                }
+                catch (Exception ex)
+                {
+                    throw Server.CreateException(ex);
+                }
+            }
         }
-        catch (Exception ex)
-        {
-          throw Server.CreateException(ex);
-        }
-      }
-    }
 
-    public void Reset()
-    {
-      lock (this)
-      {
-        try
+        public void Clone(out IEnumUnknown ppenum)
         {
-          this.m_index = 0;
+            lock (this)
+            {
+                try
+                {
+                    ppenum = (IEnumUnknown)new EnumUnknown((ICollection)m_unknowns);
+                }
+                catch (Exception ex)
+                {
+                    throw Server.CreateException(ex);
+                }
+            }
         }
-        catch (Exception ex)
-        {
-          throw Server.CreateException(ex);
-        }
-      }
-    }
 
-    public void RemoteNext(int celt, IntPtr rgelt, out int pceltFetched)
-    {
-      lock (this)
-      {
-        try
+        public void Reset()
         {
-          if (rgelt == IntPtr.Zero)
-            throw new ExternalException("E_INVALIDARG", -2147024809);
-          IntPtr[] source = new IntPtr[celt];
-          pceltFetched = 0;
-          if (this.m_index >= this.m_unknowns.Count)
-            return;
-          for (int index = 0; index < this.m_unknowns.Count - this.m_index && index < source.Length; ++index)
-          {
-            source[index] = Marshal.GetIUnknownForObject(this.m_unknowns[this.m_index + index]);
-            ++pceltFetched;
-          }
-          this.m_index += pceltFetched;
-          Marshal.Copy(source, 0, rgelt, pceltFetched);
+            lock (this)
+            {
+                try
+                {
+                    m_index = 0;
+                }
+                catch (Exception ex)
+                {
+                    throw Server.CreateException(ex);
+                }
+            }
         }
-        catch (Exception ex)
+
+        public void RemoteNext(int celt, IntPtr rgelt, out int pceltFetched)
         {
-          throw Server.CreateException(ex);
+            lock (this)
+            {
+                try
+                {
+                    if (rgelt == IntPtr.Zero)
+                        throw new ExternalException("E_INVALIDARG", -2147024809);
+                    IntPtr[] source = new IntPtr[celt];
+                    pceltFetched = 0;
+                    if (m_index >= m_unknowns.Count)
+                        return;
+                    for (int index = 0; index < m_unknowns.Count - m_index && index < source.Length; ++index)
+                    {
+                        source[index] = Marshal.GetIUnknownForObject(m_unknowns[m_index + index]);
+                        ++pceltFetched;
+                    }
+                    m_index += pceltFetched;
+                    Marshal.Copy(source, 0, rgelt, pceltFetched);
+                }
+                catch (Exception ex)
+                {
+                    throw Server.CreateException(ex);
+                }
+            }
         }
-      }
     }
-  }
 }

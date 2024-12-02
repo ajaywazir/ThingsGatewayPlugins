@@ -97,7 +97,7 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
             {
                 LogMessage.Exception(ex);
             }
-        });
+        }, cancellationToken);
         if (_mqttServer != null)
         {
             _mqttServer.ClientDisconnectedAsync -= MqttServer_ClientDisconnectedAsync;

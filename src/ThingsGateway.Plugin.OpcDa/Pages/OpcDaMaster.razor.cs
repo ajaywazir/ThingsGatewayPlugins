@@ -7,6 +7,7 @@
 //  使用文档：https://thingsgateway.cn/
 //  QQ群：605534569
 //------------------------------------------------------------------------------
+#pragma warning disable CA2007 // 考虑对等待的任务调用 ConfigureAwait
 
 using BootstrapBlazor.Components;
 
@@ -15,8 +16,8 @@ using Microsoft.Extensions.Localization;
 
 using Newtonsoft.Json.Linq;
 
-using ThingsGateway.Foundation;
 using ThingsGateway.Core.Json.Extension;
+using ThingsGateway.Foundation;
 using ThingsGateway.Foundation.OpcDa;
 using ThingsGateway.Foundation.OpcDa.Da;
 using ThingsGateway.NewLife.Extension;

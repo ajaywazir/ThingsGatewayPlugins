@@ -5,81 +5,81 @@ using System;
 
 namespace Opc.Da
 {
-  [Serializable]
-  public class ItemValue : ItemIdentifier
-  {
-    private object m_value;
-    private Quality m_quality = Quality.Bad;
-    private bool m_qualitySpecified;
-    private DateTime m_timestamp = DateTime.MinValue;
-    private bool m_timestampSpecified;
-
-    public object Value
+    [Serializable]
+    public class ItemValue : ItemIdentifier
     {
-      get => this.m_value;
-      set => this.m_value = value;
-    }
+        private object m_value;
+        private Quality m_quality = Quality.Bad;
+        private bool m_qualitySpecified;
+        private DateTime m_timestamp = DateTime.MinValue;
+        private bool m_timestampSpecified;
 
-    public Quality Quality
-    {
-      get => this.m_quality;
-      set => this.m_quality = value;
-    }
+        public object Value
+        {
+            get => m_value;
+            set => m_value = value;
+        }
 
-    public bool QualitySpecified
-    {
-      get => this.m_qualitySpecified;
-      set => this.m_qualitySpecified = value;
-    }
+        public Quality Quality
+        {
+            get => m_quality;
+            set => m_quality = value;
+        }
 
-    public DateTime Timestamp
-    {
-      get => this.m_timestamp;
-      set => this.m_timestamp = value;
-    }
+        public bool QualitySpecified
+        {
+            get => m_qualitySpecified;
+            set => m_qualitySpecified = value;
+        }
 
-    public bool TimestampSpecified
-    {
-      get => this.m_timestampSpecified;
-      set => this.m_timestampSpecified = value;
-    }
+        public DateTime Timestamp
+        {
+            get => m_timestamp;
+            set => m_timestamp = value;
+        }
 
-    public ItemValue()
-    {
-    }
+        public bool TimestampSpecified
+        {
+            get => m_timestampSpecified;
+            set => m_timestampSpecified = value;
+        }
 
-    public ItemValue(ItemIdentifier item)
-    {
-      if (item == null)
-        return;
-      this.ItemName = item.ItemName;
-      this.ItemPath = item.ItemPath;
-      this.ClientHandle = item.ClientHandle;
-      this.ServerHandle = item.ServerHandle;
-    }
+        public ItemValue()
+        {
+        }
 
-    public ItemValue(string itemName)
-      : base(itemName)
-    {
-    }
+        public ItemValue(ItemIdentifier item)
+        {
+            if (item == null)
+                return;
+            ItemName = item.ItemName;
+            ItemPath = item.ItemPath;
+            ClientHandle = item.ClientHandle;
+            ServerHandle = item.ServerHandle;
+        }
 
-    public ItemValue(ItemValue item)
-      : base((ItemIdentifier) item)
-    {
-      if (item == null)
-        return;
-      this.Value = Opc.Convert.Clone(item.Value);
-      this.Quality = item.Quality;
-      this.QualitySpecified = item.QualitySpecified;
-      this.Timestamp = item.Timestamp;
-      this.TimestampSpecified = item.TimestampSpecified;
-    }
+        public ItemValue(string itemName)
+          : base(itemName)
+        {
+        }
 
-    public override object Clone()
-    {
-      ItemValue itemValue = (ItemValue) this.MemberwiseClone();
-      itemValue.Value = Opc.Convert.Clone(this.Value);
-      return (object) itemValue;
+        public ItemValue(ItemValue item)
+          : base((ItemIdentifier)item)
+        {
+            if (item == null)
+                return;
+            Value = Opc.Convert.Clone(item.Value);
+            Quality = item.Quality;
+            QualitySpecified = item.QualitySpecified;
+            Timestamp = item.Timestamp;
+            TimestampSpecified = item.TimestampSpecified;
+        }
+
+        public override object Clone()
+        {
+            ItemValue itemValue = (ItemValue)MemberwiseClone();
+            itemValue.Value = Opc.Convert.Clone(Value);
+            return (object)itemValue;
+        }
     }
-  }
 }

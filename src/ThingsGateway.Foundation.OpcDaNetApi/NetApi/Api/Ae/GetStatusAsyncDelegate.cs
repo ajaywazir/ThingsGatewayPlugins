@@ -3,5 +3,5 @@
 
 namespace Opc.Ae
 {
-  public delegate ServerStatus GetStatusAsyncDelegate();
+    public delegate ServerStatus GetStatusAsyncDelegate();
 }

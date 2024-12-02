@@ -5,36 +5,36 @@ using System;
 
 namespace Opc.Hda
 {
-  [Serializable]
-  public class BrowseFilter : ICloneable
-  {
-    private int m_attributeID;
-    private Operator m_operator = Operator.Equal;
-    private object m_filterValue;
-
-    public int AttributeID
+    [Serializable]
+    public class BrowseFilter : ICloneable
     {
-      get => this.m_attributeID;
-      set => this.m_attributeID = value;
-    }
+        private int m_attributeID;
+        private Operator m_operator = Operator.Equal;
+        private object m_filterValue;
 
-    public Operator Operator
-    {
-      get => this.m_operator;
-      set => this.m_operator = value;
-    }
+        public int AttributeID
+        {
+            get => m_attributeID;
+            set => m_attributeID = value;
+        }
 
-    public object FilterValue
-    {
-      get => this.m_filterValue;
-      set => this.m_filterValue = value;
-    }
+        public Operator Operator
+        {
+            get => m_operator;
+            set => m_operator = value;
+        }
 
-    public virtual object Clone()
-    {
-      BrowseFilter browseFilter = (BrowseFilter) this.MemberwiseClone();
-      browseFilter.FilterValue = Opc.Convert.Clone(this.FilterValue);
-      return (object) browseFilter;
+        public object FilterValue
+        {
+            get => m_filterValue;
+            set => m_filterValue = value;
+        }
+
+        public virtual object Clone()
+        {
+            BrowseFilter browseFilter = (BrowseFilter)MemberwiseClone();
+            browseFilter.FilterValue = Opc.Convert.Clone(FilterValue);
+            return (object)browseFilter;
+        }
     }
-  }
 }

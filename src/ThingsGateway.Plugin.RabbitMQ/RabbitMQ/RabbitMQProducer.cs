@@ -69,15 +69,15 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
             try
             {
                 // 创建连接
-                _connection ??= await _connectionFactory.CreateConnectionAsync(cancellationToken);
+                _connection ??= await _connectionFactory.CreateConnectionAsync(cancellationToken).ConfigureAwait(false);
                 // 创建通道
-                _channel ??= await _connection.CreateChannelAsync();
+                _channel ??= await _connection.CreateChannelAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 // 声明路由队列
                 if (_driverPropertys.IsQueueDeclare)
                 {
-                    await _channel?.QueueDeclareAsync(_driverPropertys.VariableTopic, true, false, false, cancellationToken: cancellationToken);
-                    await _channel?.QueueDeclareAsync(_driverPropertys.DeviceTopic, true, false, false, cancellationToken: cancellationToken);
-                    await _channel?.QueueDeclareAsync(_driverPropertys.AlarmTopic, true, false, false, cancellationToken: cancellationToken);
+                    await (_channel?.QueueDeclareAsync(_driverPropertys.VariableTopic, true, false, false, cancellationToken: cancellationToken)).ConfigureAwait(false);
+                    await (_channel?.QueueDeclareAsync(_driverPropertys.DeviceTopic, true, false, false, cancellationToken: cancellationToken)).ConfigureAwait(false);
+                    await (_channel?.QueueDeclareAsync(_driverPropertys.AlarmTopic, true, false, false, cancellationToken: cancellationToken)).ConfigureAwait(false);
                 }
                 success = true;
             }

@@ -5,40 +5,40 @@ using System;
 
 namespace Opc.Hda
 {
-  [Serializable]
-  public class Result : ICloneable, IResult
-  {
-    private ResultID m_resultID = ResultID.S_OK;
-    private string m_diagnosticInfo;
-
-    public Result()
+    [Serializable]
+    public class Result : ICloneable, IResult
     {
-    }
+        private ResultID m_resultID = ResultID.S_OK;
+        private string m_diagnosticInfo;
 
-    public Result(ResultID resultID)
-    {
-      this.ResultID = resultID;
-      this.DiagnosticInfo = (string) null;
-    }
+        public Result()
+        {
+        }
 
-    public Result(IResult result)
-    {
-      this.ResultID = result.ResultID;
-      this.DiagnosticInfo = result.DiagnosticInfo;
-    }
+        public Result(ResultID resultID)
+        {
+            ResultID = resultID;
+            DiagnosticInfo = (string)null;
+        }
 
-    public ResultID ResultID
-    {
-      get => this.m_resultID;
-      set => this.m_resultID = value;
-    }
+        public Result(IResult result)
+        {
+            ResultID = result.ResultID;
+            DiagnosticInfo = result.DiagnosticInfo;
+        }
 
-    public string DiagnosticInfo
-    {
-      get => this.m_diagnosticInfo;
-      set => this.m_diagnosticInfo = value;
-    }
+        public ResultID ResultID
+        {
+            get => m_resultID;
+            set => m_resultID = value;
+        }
 
-    public object Clone() => this.MemberwiseClone();
-  }
+        public string DiagnosticInfo
+        {
+            get => m_diagnosticInfo;
+            set => m_diagnosticInfo = value;
+        }
+
+        public object Clone() => MemberwiseClone();
+    }
 }

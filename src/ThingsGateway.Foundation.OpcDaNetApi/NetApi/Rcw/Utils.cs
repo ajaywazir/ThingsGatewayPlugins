@@ -185,7 +185,7 @@ namespace OpcRcw
                             Guid guid = new Guid(subKeyName.Substring(1, subKeyName.Length - 2));
                             implementedCategories.Add(guid);
                         }
-                        catch (Exception ex)
+                        catch
                         {
                         }
                     }
@@ -220,7 +220,7 @@ namespace OpcRcw
                         for (int index = 0; index < pceltFetched; ++index)
                         {
                             guidArray[index] = (Guid)Marshal.PtrToStructure(ptr, typeof(Guid));
-                            ptr = (IntPtr)(ptr.ToInt64() + (long)Marshal.SizeOf(typeof(Guid)));
+                            ptr = (nint)(ptr.ToInt64() + (long)Marshal.SizeOf(typeof(Guid)));
                         }
                     }
                     else
@@ -245,7 +245,7 @@ namespace OpcRcw
 
         public static string GetExecutablePath(Guid clsid)
         {
-            RegistryKey registryKey = Registry.ClassesRoot.OpenSubKey(string.Format("CLSID\\{{{0}}}\\LocalServer32", (object)clsid)) ?? Registry.ClassesRoot.OpenSubKey(string.Format("CLSID\\{{{0}}}\\InprocServer32", (object)clsid));
+            using RegistryKey registryKey = Registry.ClassesRoot.OpenSubKey(string.Format("CLSID\\{{{0}}}\\LocalServer32", (object)clsid)) ?? Registry.ClassesRoot.OpenSubKey(string.Format("CLSID\\{{{0}}}\\InprocServer32", (object)clsid));
             if (registryKey == null)
                 return (string)null;
             try
@@ -388,7 +388,7 @@ namespace OpcRcw
                         {
                             Utils.UnregisterClassInCategory(clsid, new Guid(subKeyName.Substring(1, subKeyName.Length - 2)));
                         }
-                        catch (Exception ex)
+                        catch
                         {
                         }
                     }
@@ -410,7 +410,7 @@ namespace OpcRcw
                     {
                         Registry.ClassesRoot.DeleteSubKeyTree(subkey);
                     }
-                    catch (Exception ex)
+                    catch
                     {
                     }
                 }
@@ -419,7 +419,7 @@ namespace OpcRcw
             {
                 Registry.ClassesRoot.DeleteSubKeyTree(string.Format("CLSID\\{{{0}}}", (object)clsid));
             }
-            catch (Exception ex)
+            catch
             {
             }
         }
@@ -505,7 +505,7 @@ namespace OpcRcw
         private static extern void VariantInit(IntPtr pVariant);
 
         [DllImport("oleaut32.dll")]
-        public static extern void VariantClear(IntPtr pVariant);
+        private static extern void VariantClear(IntPtr pVariant);
 
         [DllImport("ole32.dll")]
         private static extern int CoInitializeSecurity(
@@ -567,7 +567,7 @@ namespace OpcRcw
           int SECURITY_IMPERSONATION_LEVEL,
           ref IntPtr DuplicateTokenHandle);
 
-        private class ServerInfo
+        private sealed class ServerInfo
         {
             private GCHandle m_hUserName;
             private GCHandle m_hPassword;

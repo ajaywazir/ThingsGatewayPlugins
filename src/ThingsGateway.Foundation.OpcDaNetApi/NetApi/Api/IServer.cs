@@ -5,16 +5,16 @@ using System;
 
 namespace Opc
 {
-  public interface IServer : IDisposable
-  {
-    event ServerShutdownEventHandler ServerShutdown;
+    public interface IServer : IDisposable
+    {
+        event ServerShutdownEventHandler ServerShutdown;
 
-    string GetLocale();
+        string GetLocale();
 
-    string SetLocale(string locale);
+        string SetLocale(string locale);
 
-    string[] GetSupportedLocales();
+        string[] GetSupportedLocales();
 
-    string GetErrorText(string locale, ResultID resultID);
-  }
+        string GetErrorText(string locale, ResultID resultID);
+    }
 }

@@ -42,7 +42,7 @@ public class SqlDBDateSplitTableService : DateSplitTableService
             string value = match.Groups[1].Value;
             string value2 = match.Groups[2].Value;
             string value3 = match.Groups[3].Value;
-            splitTableInfo.Date = GetDate(value, value2, value3, EntityInfo.DbTableName);
+            splitTableInfo.Date = SqlDBDateSplitTableService.GetDate(value, value2, value3, EntityInfo.DbTableName);
             list2.Add(splitTableInfo);
         }
 
@@ -79,7 +79,7 @@ public class SqlDBDateSplitTableService : DateSplitTableService
 
     #region Private Models
 
-    internal class SplitTableSort
+    internal sealed class SplitTableSort
     {
         public string Name { get; set; }
         public int Sort { get; set; }
@@ -100,7 +100,7 @@ public class SqlDBDateSplitTableService : DateSplitTableService
         Check.Exception(Regex.IsMatch(dbTableName, @"\d\{|\}\d"), " '{{' or  '}}'  can't be numbers nearby", "占位符相令一位不能是数字,比如 : 1{{day}}2 错误 , 正确: 1_{{day}}_2");
     }
 
-    private DateTime GetDate(string group1, string group2, string group3, string dbTableName)
+    private static DateTime GetDate(string group1, string group2, string group3, string dbTableName)
     {
         var yearIndex = dbTableName.IndexOf("{year}");
         var dayIndex = dbTableName.IndexOf("{day}");
@@ -155,10 +155,10 @@ public class SqlDBDateSplitTableService : DateSplitTableService
     private string GetTableNameByDate(EntityInfo EntityInfo, SplitType splitType, DateTime date)
     {
         date = ConvertDateBySplitType(date, splitType);
-        return EntityInfo.DbTableName.Replace("{year}", date.Year + "").Replace("{day}", PadLeft2(date.Day + "")).Replace("{month}", PadLeft2(date.Month + "")).Replace("{name}", sqlDBProducerProperty.HistoryDBTableName);
+        return EntityInfo.DbTableName.Replace("{year}", date.Year + "").Replace("{day}", SqlDBDateSplitTableService.PadLeft2(date.Day + "")).Replace("{month}", SqlDBDateSplitTableService.PadLeft2(date.Month + "")).Replace("{name}", sqlDBProducerProperty.HistoryDBTableName);
     }
 
-    private string PadLeft2(string str)
+    private static string PadLeft2(string str)
     {
         if (str.Length < 2)
         {
@@ -174,7 +174,7 @@ public class SqlDBDateSplitTableService : DateSplitTableService
 
     #region Date Helper
 
-    private DateTime ConvertDateBySplitType(DateTime time, SplitType type)
+    private static DateTime ConvertDateBySplitType(DateTime time, SplitType type)
     {
         switch (type)
         {
@@ -182,7 +182,7 @@ public class SqlDBDateSplitTableService : DateSplitTableService
                 return Convert.ToDateTime(time.ToString("yyyy-MM-dd"));
 
             case SplitType.Week:
-                return GetMondayDate(time);
+                return SqlDBDateSplitTableService.GetMondayDate(time);
 
             case SplitType.Month:
                 return Convert.ToDateTime(time.ToString("yyyy-MM-01"));
@@ -221,7 +221,7 @@ public class SqlDBDateSplitTableService : DateSplitTableService
         }
     }
 
-    private DateTime GetMondayDate(DateTime someDate)
+    private static DateTime GetMondayDate(DateTime someDate)
     {
         int i = someDate.DayOfWeek - DayOfWeek.Monday;
         if (i == -1) i = 6;

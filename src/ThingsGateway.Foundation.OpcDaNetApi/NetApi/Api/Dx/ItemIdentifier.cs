@@ -5,52 +5,52 @@ using System;
 
 namespace Opc.Dx
 {
-  [Serializable]
-  public class ItemIdentifier : Opc.ItemIdentifier
-  {
-    private string m_version;
-
-    public string Version
+    [Serializable]
+    public class ItemIdentifier : Opc.ItemIdentifier
     {
-      get => this.m_version;
-      set => this.m_version = value;
-    }
+        private string m_version;
 
-    public ItemIdentifier()
-    {
-    }
+        public string Version
+        {
+            get => m_version;
+            set => m_version = value;
+        }
 
-    public ItemIdentifier(string itemName)
-      : base(itemName)
-    {
-    }
+        public ItemIdentifier()
+        {
+        }
 
-    public ItemIdentifier(string itemPath, string itemName)
-      : base(itemPath, itemName)
-    {
-    }
+        public ItemIdentifier(string itemName)
+          : base(itemName)
+        {
+        }
 
-    public ItemIdentifier(Opc.ItemIdentifier item)
-      : base(item)
-    {
-    }
+        public ItemIdentifier(string itemPath, string itemName)
+          : base(itemPath, itemName)
+        {
+        }
 
-    public ItemIdentifier(ItemIdentifier item)
-      : base((Opc.ItemIdentifier) item)
-    {
-      if (item == null)
-        return;
-      this.m_version = item.m_version;
-    }
+        public ItemIdentifier(Opc.ItemIdentifier item)
+          : base(item)
+        {
+        }
 
-    public override bool Equals(object target)
-    {
-      if (!typeof (ItemIdentifier).IsInstanceOfType(target))
-        return false;
-      ItemIdentifier itemIdentifier = (ItemIdentifier) target;
-      return itemIdentifier.ItemName == this.ItemName && itemIdentifier.ItemPath == this.ItemPath && itemIdentifier.Version == this.Version;
-    }
+        public ItemIdentifier(ItemIdentifier item)
+          : base((Opc.ItemIdentifier)item)
+        {
+            if (item == null)
+                return;
+            m_version = item.m_version;
+        }
 
-    public override int GetHashCode() => base.GetHashCode();
-  }
+        public override bool Equals(object target)
+        {
+            if (!typeof(ItemIdentifier).IsInstanceOfType(target))
+                return false;
+            ItemIdentifier itemIdentifier = (ItemIdentifier)target;
+            return itemIdentifier.ItemName == ItemName && itemIdentifier.ItemPath == ItemPath && itemIdentifier.Version == Version;
+        }
+
+        public override int GetHashCode() => base.GetHashCode();
+    }
 }

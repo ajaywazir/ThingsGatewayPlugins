@@ -92,21 +92,21 @@ public class ModbusAddress : ModbusRequest
             string[] strArray = address.SplitStringBySemicolon();
             for (int index = 0; index < strArray.Length; ++index)
             {
-                if (strArray[index].ToUpper().StartsWith("S="))
+                if (strArray[index].StartsWith("S=", StringComparison.OrdinalIgnoreCase))
                 {
                     if (Convert.ToByte(strArray[index].Substring(2)) > 0)
                         modbusAddress.Station = byte.Parse(strArray[index].Substring(2));
                 }
-                else if (strArray[index].ToUpper().StartsWith("W="))
+                else if (strArray[index].StartsWith("W=", StringComparison.OrdinalIgnoreCase))
                 {
                     if (Convert.ToByte(strArray[index].Substring(2)) > 0)
                         modbusAddress.WriteFunctionCode = byte.Parse(strArray[index].Substring(2));
                 }
-                else if (strArray[index].ToUpper().StartsWith("ID="))
+                else if (strArray[index].StartsWith("ID=", StringComparison.OrdinalIgnoreCase))
                 {
                     modbusAddress.SocketId = strArray[index].Substring(3);
                 }
-                else if (!strArray[index].Contains("="))
+                else if (!strArray[index].Contains('='))
                 {
                     Address(strArray[index]);
                 }
@@ -170,7 +170,7 @@ public class ModbusAddress : ModbusRequest
         return stringGeter.ToString();
     }
 
-    private string GetFunctionString(byte readF)
+    private static string GetFunctionString(byte readF)
     {
         return readF switch
         {

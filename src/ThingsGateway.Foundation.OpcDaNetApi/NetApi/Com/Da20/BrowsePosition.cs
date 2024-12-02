@@ -2,50 +2,51 @@
 
 using Opc;
 using Opc.Da;
+
 using System;
 
 
 namespace OpcCom.Da20
 {
-  [Serializable]
-  internal class BrowsePosition : Opc.Da.BrowsePosition
-  {
-    internal EnumString Enumerator;
-    internal bool IsBranch = true;
-    internal string[] Names;
-    internal int Index;
-    private bool m_disposed;
-
-    internal BrowsePosition(
-      ItemIdentifier itemID,
-      BrowseFilters filters,
-      EnumString enumerator,
-      bool isBranch)
-      : base(itemID, filters)
+    [Serializable]
+    internal sealed class BrowsePosition : Opc.Da.BrowsePosition
     {
-      this.Enumerator = enumerator;
-      this.IsBranch = isBranch;
-    }
+        internal EnumString Enumerator;
+        internal bool IsBranch = true;
+        internal string[] Names;
+        internal int Index;
+        private bool m_disposed;
 
-    protected override void Dispose(bool disposing)
-    {
-      if (!this.m_disposed)
-      {
-        if (disposing && this.Enumerator != null)
+        internal BrowsePosition(
+          ItemIdentifier itemID,
+          BrowseFilters filters,
+          EnumString enumerator,
+          bool isBranch)
+          : base(itemID, filters)
         {
-          this.Enumerator.Dispose();
-          this.Enumerator = (EnumString) null;
+            Enumerator = enumerator;
+            IsBranch = isBranch;
         }
-        this.m_disposed = true;
-      }
-      base.Dispose(disposing);
-    }
 
-    public override object Clone()
-    {
-      BrowsePosition browsePosition = (BrowsePosition) this.MemberwiseClone();
-      browsePosition.Enumerator = this.Enumerator.Clone();
-      return (object) browsePosition;
+        protected override void Dispose(bool disposing)
+        {
+            if (!m_disposed)
+            {
+                if (disposing && Enumerator != null)
+                {
+                    Enumerator.Dispose();
+                    Enumerator = (EnumString)null;
+                }
+                m_disposed = true;
+            }
+            base.Dispose(disposing);
+        }
+
+        public override object Clone()
+        {
+            BrowsePosition browsePosition = (BrowsePosition)MemberwiseClone();
+            browsePosition.Enumerator = Enumerator.Clone();
+            return (object)browsePosition;
+        }
     }
-  }
 }

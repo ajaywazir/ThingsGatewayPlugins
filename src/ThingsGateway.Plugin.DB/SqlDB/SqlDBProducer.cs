@@ -74,9 +74,9 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
         var ret = new QueryData<SQLHistoryValue>()
         {
             IsSorted = option.SortOrder != SortOrder.Unset,
-            IsFiltered = option.Filters.Any(),
-            IsAdvanceSearch = option.AdvanceSearches.Any() || option.CustomerSearches.Any(),
-            IsSearch = option.Searches.Any()
+            IsFiltered = option.Filters.Count > 0,
+            IsAdvanceSearch = option.AdvanceSearches.Count > 0 || option.CustomerSearches.Count > 0,
+            IsSearch = option.Searches.Count > 0
         };
 
         var query = db.Queryable<SQLHistoryValue>().SplitTable();
@@ -114,9 +114,9 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
         var ret = new QueryData<SQLRealValue>()
         {
             IsSorted = option.SortOrder != SortOrder.Unset,
-            IsFiltered = option.Filters.Any(),
-            IsAdvanceSearch = option.AdvanceSearches.Any() || option.CustomerSearches.Any(),
-            IsSearch = option.Searches.Any()
+            IsFiltered = option.Filters.Count > 0,
+            IsAdvanceSearch = option.AdvanceSearches.Count > 0 || option.CustomerSearches.Count > 0,
+            IsSearch = option.Searches.Count > 0
         };
 
         var query = db.Queryable<SQLRealValue>().AS(_driverPropertys.ReadDBTableName);

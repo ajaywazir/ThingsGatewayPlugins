@@ -427,7 +427,7 @@ public class Dlt645_2007Master : ProtocolBase, IDtu
         }
     }
 
-    private ISendMessage GetSendMessage(Dlt645_2007Address dAddress, ushort sign, ControlCode read, string feHead, byte[] codes = default, string[] datas = default)
+    private static Dlt645_2007Send GetSendMessage(Dlt645_2007Address dAddress, ushort sign, ControlCode read, string feHead, byte[] codes = default, string[] datas = default)
     {
         return new Dlt645_2007Send(dAddress, sign, read, feHead.HexStringToBytes(), codes, datas);
     }

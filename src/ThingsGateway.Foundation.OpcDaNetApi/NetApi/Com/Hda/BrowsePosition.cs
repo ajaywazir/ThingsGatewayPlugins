@@ -3,50 +3,50 @@
 
 namespace OpcCom.Hda
 {
-  internal class BrowsePosition : Opc.Hda.BrowsePosition
-  {
-    private bool m_disposed;
-    private string m_branchPath;
-    private EnumString m_enumerator;
-    private bool m_fetchingItems;
-
-    internal BrowsePosition(string branchPath, EnumString enumerator, bool fetchingItems)
+    internal sealed class BrowsePosition : Opc.Hda.BrowsePosition
     {
-      this.m_branchPath = branchPath;
-      this.m_enumerator = enumerator;
-      this.m_fetchingItems = fetchingItems;
-    }
+        private bool m_disposed;
+        private string m_branchPath;
+        private EnumString m_enumerator;
+        private bool m_fetchingItems;
 
-    internal string BranchPath
-    {
-      get => this.m_branchPath;
-      set => this.m_branchPath = value;
-    }
-
-    internal EnumString Enumerator
-    {
-      get => this.m_enumerator;
-      set => this.m_enumerator = value;
-    }
-
-    internal bool FetchingItems
-    {
-      get => this.m_fetchingItems;
-      set => this.m_fetchingItems = value;
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-      if (!this.m_disposed)
-      {
-        if (disposing && this.m_enumerator != null)
+        internal BrowsePosition(string branchPath, EnumString enumerator, bool fetchingItems)
         {
-          this.m_enumerator.Dispose();
-          this.m_enumerator = (EnumString) null;
+            m_branchPath = branchPath;
+            m_enumerator = enumerator;
+            m_fetchingItems = fetchingItems;
         }
-        this.m_disposed = true;
-      }
-      base.Dispose(disposing);
+
+        internal string BranchPath
+        {
+            get => m_branchPath;
+            set => m_branchPath = value;
+        }
+
+        internal EnumString Enumerator
+        {
+            get => m_enumerator;
+            set => m_enumerator = value;
+        }
+
+        internal bool FetchingItems
+        {
+            get => m_fetchingItems;
+            set => m_fetchingItems = value;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!m_disposed)
+            {
+                if (disposing && m_enumerator != null)
+                {
+                    m_enumerator.Dispose();
+                    m_enumerator = (EnumString)null;
+                }
+                m_disposed = true;
+            }
+            base.Dispose(disposing);
+        }
     }
-  }
 }

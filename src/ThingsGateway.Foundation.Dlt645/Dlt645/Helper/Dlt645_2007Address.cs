@@ -70,22 +70,22 @@ public class Dlt645_2007Address : Dlt645_2007Request
 
             for (int index = 0; index < strArray.Length; ++index)
             {
-                if (strArray[index].ToUpper().StartsWith("S="))
+                if (strArray[index].StartsWith("S=", StringComparison.OrdinalIgnoreCase))
                 {
                     var station = strArray[index].Substring(2);
                     if (station.Length < 12)
                         station = station.PadLeft(12, '0');
                     dlt645_2007Address.Station = station.HexStringToBytes().Reverse().ToArray();
                 }
-                else if (strArray[index].Contains("R="))
+                else if (strArray[index].StartsWith("R=", StringComparison.OrdinalIgnoreCase))
                 {
                     dlt645_2007Address.Reverse = strArray[index].Substring(2).ToBoolean(false);
                 }
-                else if (strArray[index].ToUpper().StartsWith("ID="))
+                else if (strArray[index].StartsWith("ID=", StringComparison.OrdinalIgnoreCase))
                 {
                     dlt645_2007Address.SocketId = strArray[index].Substring(3);
                 }
-                else if (!strArray[index].Contains("="))
+                else if (!strArray[index].Contains('='))
                 {
                     dlt645_2007Address.SetDataId(strArray[index]);
                 }

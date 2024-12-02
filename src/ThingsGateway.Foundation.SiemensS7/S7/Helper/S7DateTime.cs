@@ -12,25 +12,25 @@ namespace ThingsGateway.Foundation.SiemensS7;
 
 /// <summary>
 /// https://github.com/S7NetPlus/s7netplus/blob/develop/S7.Net/Types/DateTime.cs
-/// Contains the methods to convert between <see cref="T:System.DateTime"/> and S7 representation of datetime values.
+/// Contains the methods to convert between <see cref="System.DateTime"/> and S7 representation of datetime values.
 /// </summary>
 internal static class S7DateTime
 {
     /// <summary>
-    /// The maximum <see cref="T:System.DateTime"/> value supported by the specification.
+    /// The maximum <see cref="System.DateTime"/> value supported by the specification.
     /// </summary>
     public static readonly System.DateTime SpecMaximumDateTime = new(2089, 12, 31, 23, 59, 59, 999);
 
     /// <summary>
-    /// The minimum <see cref="T:System.DateTime"/> value supported by the specification.
+    /// The minimum <see cref="System.DateTime"/> value supported by the specification.
     /// </summary>
     public static readonly System.DateTime SpecMinimumDateTime = new(1990, 1, 1);
 
     /// <summary>
-    /// Parses a <see cref="T:System.DateTime"/> value from bytes.
+    /// Parses a <see cref="System.DateTime"/> value from bytes.
     /// </summary>
     /// <param name="bytes">Input bytes read from PLC.</param>
-    /// <returns>A <see cref="T:System.DateTime"/> object representing the value read from PLC.</returns>
+    /// <returns>A <see cref="System.DateTime"/> object representing the value read from PLC.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the length of
     ///   <paramref name="bytes"/> is not 8 or any value in <paramref name="bytes"/>
     ///   is outside the valid range of values.</exception>
@@ -40,10 +40,10 @@ internal static class S7DateTime
     }
 
     /// <summary>
-    /// Parses an array of <see cref="T:System.DateTime"/> values from bytes.
+    /// Parses an array of <see cref="System.DateTime"/> values from bytes.
     /// </summary>
     /// <param name="bytes">Input bytes read from PLC.</param>
-    /// <returns>An array of <see cref="T:System.DateTime"/> objects representing the values read from PLC.</returns>
+    /// <returns>An array of <see cref="System.DateTime"/> objects representing the values read from PLC.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the length of
     ///   <paramref name="bytes"/> is not a multiple of 8 or any value in
     ///   <paramref name="bytes"/> is outside the valid range of values.</exception>
@@ -63,13 +63,13 @@ internal static class S7DateTime
     }
 
     /// <summary>
-    /// Converts a <see cref="T:System.DateTime"/> value to a byte array.
+    /// Converts a <see cref="System.DateTime"/> value to a byte array.
     /// </summary>
     /// <param name="dateTime">The DateTime value to convert.</param>
     /// <returns>A byte array containing the S7 date time representation of <paramref name="dateTime"/>.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of
-    ///   <paramref name="dateTime"/> is before <see cref="P:SpecMinimumDateTime"/>
-    ///   or after <see cref="P:SpecMaximumDateTime"/>.</exception>
+    ///   <paramref name="dateTime"/> is before <see cref="SpecMinimumDateTime"/>
+    ///   or after <see cref="SpecMaximumDateTime"/>.</exception>
     public static byte[] ToByteArray(System.DateTime dateTime)
     {
         byte EncodeBcd(int value)
@@ -103,13 +103,13 @@ internal static class S7DateTime
     }
 
     /// <summary>
-    /// Converts an array of <see cref="T:System.DateTime"/> values to a byte array.
+    /// Converts an array of <see cref="System.DateTime"/> values to a byte array.
     /// </summary>
     /// <param name="dateTimes">The DateTime values to convert.</param>
     /// <returns>A byte array containing the S7 date time representations of <paramref name="dateTimes"/>.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when any value of
-    ///   <paramref name="dateTimes"/> is before <see cref="P:SpecMinimumDateTime"/>
-    ///   or after <see cref="P:SpecMaximumDateTime"/>.</exception>
+    ///   <paramref name="dateTimes"/> is before <see cref="SpecMinimumDateTime"/>
+    ///   or after <see cref="SpecMaximumDateTime"/>.</exception>
     public static byte[] ToByteArray(System.DateTime[] dateTimes)
     {
         var bytes = new List<byte>(dateTimes.Length * 8);

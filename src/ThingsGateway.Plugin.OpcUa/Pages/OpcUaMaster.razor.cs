@@ -7,14 +7,15 @@
 //  使用文档：https://thingsgateway.cn/
 //  QQ群：605534569
 //------------------------------------------------------------------------------
+#pragma warning disable CA2007 // 考虑对等待的任务调用 ConfigureAwait
 
 using BootstrapBlazor.Components;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
-using ThingsGateway.Foundation;
 using ThingsGateway.Core.Json.Extension;
+using ThingsGateway.Foundation;
 using ThingsGateway.Foundation.OpcUa;
 using ThingsGateway.NewLife.Extension;
 using ThingsGateway.Razor;
@@ -65,7 +66,7 @@ public partial class OpcUaMaster : IDisposable
             string path = $"{AppContext.BaseDirectory}OPCUAClientCertificate/pki/trustedPeer/certs";
             Directory.CreateDirectory(path);
             var files = Directory.GetFiles(path);
-            if (!files.Any())
+            if (files.Length == 0)
             {
                 return;
             }

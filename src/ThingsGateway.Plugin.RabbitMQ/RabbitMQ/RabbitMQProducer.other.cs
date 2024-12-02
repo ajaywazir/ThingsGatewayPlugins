@@ -74,7 +74,7 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
     {
         foreach (var topicJson in topicJsonList)
         {
-            var result = await Publish(topicJson.Topic, topicJson.Json, cancellationToken);
+            var result = await Publish(topicJson.Topic, topicJson.Json, cancellationToken).ConfigureAwait(false);
             if (success != result.IsSuccess)
             {
                 if (!result.IsSuccess)
@@ -152,7 +152,7 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
         {
             if (_channel != null)
             {
-                await _channel.BasicPublishAsync(_driverPropertys.ExchangeName, topic, Encoding.UTF8.GetBytes(payLoad), cancellationToken);
+                await _channel.BasicPublishAsync(_driverPropertys.ExchangeName, topic, Encoding.UTF8.GetBytes(payLoad), cancellationToken).ConfigureAwait(false);
                 LogMessage.Trace($"Topic：{topic}{Environment.NewLine}PayLoad：{payLoad}");
                 return OperResult.Success;
             }

@@ -12,7 +12,7 @@ using Opc.Ua;
 
 namespace ThingsGateway.Plugin.OpcUa;
 
-internal class OpcUaTag : BaseDataVariableState
+internal sealed class OpcUaTag : BaseDataVariableState
 {
     internal OpcUaTag(NodeState parent) : base(parent)
     {

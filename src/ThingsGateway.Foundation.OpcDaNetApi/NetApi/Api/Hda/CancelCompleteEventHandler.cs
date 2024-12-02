@@ -3,5 +3,5 @@
 
 namespace Opc.Hda
 {
-  public delegate void CancelCompleteEventHandler(IRequest request);
+    public delegate void CancelCompleteEventHandler(IRequest request);
 }

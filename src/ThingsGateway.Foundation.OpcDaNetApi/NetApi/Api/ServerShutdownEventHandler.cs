@@ -3,5 +3,5 @@
 
 namespace Opc
 {
-  public delegate void ServerShutdownEventHandler(string reason);
+    public delegate void ServerShutdownEventHandler(string reason);
 }

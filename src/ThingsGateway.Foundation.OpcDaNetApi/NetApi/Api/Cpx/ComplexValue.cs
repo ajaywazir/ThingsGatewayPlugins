@@ -3,10 +3,10 @@
 
 namespace Opc.Cpx
 {
-  public class ComplexValue
-  {
-    public string Name;
-    public string Type;
-    public object Value;
-  }
+    public class ComplexValue
+    {
+        public string Name;
+        public string Type;
+        public object Value;
+    }
 }

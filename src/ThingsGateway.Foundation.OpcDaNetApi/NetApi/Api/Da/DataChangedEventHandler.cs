@@ -3,8 +3,8 @@
 
 namespace Opc.Da
 {
-  public delegate void DataChangedEventHandler(
-    object subscriptionHandle,
-    object requestHandle,
-    ItemValueResult[] values);
+    public delegate void DataChangedEventHandler(
+      object subscriptionHandle,
+      object requestHandle,
+      ItemValueResult[] values);
 }

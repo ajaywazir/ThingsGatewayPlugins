@@ -8,6 +8,7 @@
 //  QQ群：605534569
 //------------------------------------------------------------------------------
 
+#pragma warning disable CA2007 // 考虑对等待的任务调用 ConfigureAwait
 using BootstrapBlazor.Components;
 
 using Microsoft.AspNetCore.Components;
@@ -95,7 +96,7 @@ public partial class OpcDaNetApiImportVariable
         return trees;
     }
 
-    private bool ModelEqualityComparer(OpcDaTagModel x, OpcDaTagModel y) => x.NodeId == y.NodeId;
+    private static bool ModelEqualityComparer(OpcDaTagModel x, OpcDaTagModel y) => x.NodeId == y.NodeId;
 
     private Task<IEnumerable<TreeViewItem<OpcDaTagModel>>> OnExpandNodeAsync(TreeViewItem<OpcDaTagModel> treeViewItem)
     {
@@ -113,7 +114,7 @@ public partial class OpcDaNetApiImportVariable
     {
         try
         {
-            return Plc.GetTag(isAll, null,sourceId);
+            return Plc.GetTag(isAll, null, sourceId);
         }
         catch (Exception ex)
         {

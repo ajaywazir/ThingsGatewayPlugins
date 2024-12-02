@@ -3,9 +3,9 @@
 
 namespace Opc.Ae
 {
-  public enum BrowseType
-  {
-    Area,
-    Source,
-  }
+    public enum BrowseType
+    {
+        Area,
+        Source,
+    }
 }

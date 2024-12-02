@@ -19,7 +19,7 @@ using ThingsGateway.NewLife.Log;
 
 namespace ThingsGateway.Debug;
 
-internal class Program
+internal sealed class Program
 {
 
     [STAThread]

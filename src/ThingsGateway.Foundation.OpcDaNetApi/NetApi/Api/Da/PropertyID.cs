@@ -95,7 +95,7 @@ namespace Opc.Da
             return Code != 0 ? string.Format("{0}", (object)Code) : "";
         }
 
-        private class Names
+        private sealed class Names
         {
             internal const string NAME = "NA";
             internal const string NAMESPACE = "NS";

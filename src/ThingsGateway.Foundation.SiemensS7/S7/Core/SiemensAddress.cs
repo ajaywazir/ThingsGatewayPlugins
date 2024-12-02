@@ -49,33 +49,33 @@ public class SiemensAddress : S7Request
 
         if (DataCode == (byte)S7Area.AI)
         {
-            return $"AI{GetStringAddress(AddressStart)}";
+            return $"AI{SiemensAddress.GetStringAddress(AddressStart)}";
         }
 
         if (DataCode == (byte)S7Area.AQ)
         {
-            return $"AQ{GetStringAddress(AddressStart)}";
+            return $"AQ{SiemensAddress.GetStringAddress(AddressStart)}";
         }
 
         if (DataCode == (byte)S7Area.PE)
         {
-            return $"I{GetStringAddress(AddressStart)}";
+            return $"I{SiemensAddress.GetStringAddress(AddressStart)}";
         }
 
         if (DataCode == (byte)S7Area.PA)
         {
-            return $"Q{GetStringAddress(AddressStart)}";
+            return $"Q{SiemensAddress.GetStringAddress(AddressStart)}";
         }
 
         if (DataCode == (byte)S7Area.MK)
         {
-            return $"M{GetStringAddress(AddressStart)}";
+            return $"M{SiemensAddress.GetStringAddress(AddressStart)}";
         }
 
-        return DataCode == (byte)S7Area.DB ? $"DB{DbBlock}.{GetStringAddress(AddressStart)}" : AddressStart.ToString();
+        return DataCode == (byte)S7Area.DB ? $"DB{DbBlock}.{SiemensAddress.GetStringAddress(AddressStart)}" : AddressStart.ToString();
     }
 
-    private string GetStringAddress(int addressStart)
+    private static string GetStringAddress(int addressStart)
     {
         return addressStart % 8 == 0 ? (addressStart / 8).ToString() : $"{addressStart / 8}.{addressStart % 8}";
     }
@@ -140,7 +140,7 @@ public class SiemensAddress : S7Request
         string[] strArr = address.SplitStringBySemicolon();
         for (int index = 0; index < strArr.Length; ++index)
         {
-            if (!strArr[index].Contains("="))
+            if (!strArr[index].Contains('='))
             {
                 s7AddressData.DbBlock = 0;
 

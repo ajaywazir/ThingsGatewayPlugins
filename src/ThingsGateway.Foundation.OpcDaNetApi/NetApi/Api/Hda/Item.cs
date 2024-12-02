@@ -5,32 +5,32 @@ using System;
 
 namespace Opc.Hda
 {
-  [Serializable]
-  public class Item : ItemIdentifier
-  {
-    private int m_aggregateID;
-
-    public int AggregateID
+    [Serializable]
+    public class Item : ItemIdentifier
     {
-      get => this.m_aggregateID;
-      set => this.m_aggregateID = value;
-    }
+        private int m_aggregateID;
 
-    public Item()
-    {
-    }
+        public int AggregateID
+        {
+            get => m_aggregateID;
+            set => m_aggregateID = value;
+        }
 
-    public Item(ItemIdentifier item)
-      : base(item)
-    {
-    }
+        public Item()
+        {
+        }
 
-    public Item(Item item)
-      : base((ItemIdentifier) item)
-    {
-      if (item == null)
-        return;
-      this.AggregateID = item.AggregateID;
+        public Item(ItemIdentifier item)
+          : base(item)
+        {
+        }
+
+        public Item(Item item)
+          : base((ItemIdentifier)item)
+        {
+            if (item == null)
+                return;
+            AggregateID = item.AggregateID;
+        }
     }
-  }
 }

@@ -3,5 +3,5 @@
 
 namespace Opc.Da
 {
-  public delegate BrowseElement[] BrowseNextAsyncDelegate(ref BrowsePosition position);
+    public delegate BrowseElement[] BrowseNextAsyncDelegate(ref BrowsePosition position);
 }

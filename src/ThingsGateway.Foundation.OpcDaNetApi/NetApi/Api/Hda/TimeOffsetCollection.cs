@@ -12,8 +12,8 @@ namespace Opc.Hda
     {
         public new TimeOffset this[int index]
         {
-            get => this[index];
-            set => this[index] = value;
+            get => (TimeOffset)base[index];
+            set => base[index] = value;
         }
 
         public int Add(int value, RelativeTime type)
@@ -31,7 +31,7 @@ namespace Opc.Hda
             foreach (TimeOffset timeOffset in (IEnumerable)this)
             {
                 if (timeOffset.Value >= 0)
-                    stringBuilder.Append("+");
+                    stringBuilder.Append('+');
                 stringBuilder.AppendFormat("{0}", (object)timeOffset.Value);
                 stringBuilder.Append(TimeOffset.OffsetTypeToString(timeOffset.Type));
             }

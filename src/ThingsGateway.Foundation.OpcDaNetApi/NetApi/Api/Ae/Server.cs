@@ -214,7 +214,7 @@ namespace Opc.Ae
         //{
         //}
 
-        private  class Names
+        private sealed class Names
         {
             internal const string COUNT = "CT";
             internal const string SUBSCRIPTION = "SU";
@@ -248,7 +248,7 @@ namespace Opc.Ae
             }
 
             internal SubscriptionCollection()
-              : base((Array)new Subscription[0])
+              : base(Array.Empty<Subscription>())
             {
             }
         }

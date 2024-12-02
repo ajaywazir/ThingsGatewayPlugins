@@ -5,7 +5,7 @@ using System;
 
 namespace Opc
 {
-  public interface IBrowsePosition : IDisposable, ICloneable
-  {
-  }
+    public interface IBrowsePosition : IDisposable, ICloneable
+    {
+    }
 }

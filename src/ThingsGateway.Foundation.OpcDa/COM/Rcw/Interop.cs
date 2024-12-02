@@ -81,7 +81,7 @@ public class Interop
             for (int index = 0; index < count; ++index)
             {
                 browseElements[index] = Interop.GetBrowseElement(pInput1, deallocate);
-                pInput1 = (IntPtr)(pInput1.ToInt64() + Marshal.SizeOf(typeof(OPCBROWSEELEMENT)));
+                pInput1 = (nint)(pInput1.ToInt64() + Marshal.SizeOf(typeof(OPCBROWSEELEMENT)));
             }
             if (deallocate)
             {
@@ -102,7 +102,7 @@ public class Interop
             for (int index = 0; index < input.Length; ++index)
             {
                 Marshal.StructureToPtr((object)Interop.GetBrowseElement(input[index], propertiesRequested), ptr, false);
-                ptr = (IntPtr)(ptr.ToInt64() + Marshal.SizeOf(typeof(OPCBROWSEELEMENT)));
+                ptr = (nint)(ptr.ToInt64() + Marshal.SizeOf(typeof(OPCBROWSEELEMENT)));
             }
         }
         return browseElements;
@@ -129,7 +129,7 @@ public class Interop
                     itemProperties[index].Description = ex.Message;
                     itemProperties[index].ResultID = ResultID.E_FAIL;
                 }
-                pInput = (IntPtr)(pInput.ToInt64() + Marshal.SizeOf(typeof(OPCITEMPROPERTY)));
+                pInput = (nint)(pInput.ToInt64() + Marshal.SizeOf(typeof(OPCITEMPROPERTY)));
             }
             if (deallocate)
             {
@@ -154,7 +154,7 @@ public class Interop
             for (int index = 0; index < input.Length; ++index)
             {
                 Marshal.StructureToPtr((object)Interop.GetItemProperty(input[index]), ptr, false);
-                ptr = (IntPtr)(ptr.ToInt64() + Marshal.SizeOf(typeof(OPCITEMPROPERTY)));
+                ptr = (nint)(ptr.ToInt64() + Marshal.SizeOf(typeof(OPCITEMPROPERTY)));
                 if (input[index].ResultID.Failed())
                     flag = true;
             }

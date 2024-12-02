@@ -5,50 +5,50 @@ using System;
 
 namespace Opc.Ae
 {
-  [Serializable]
-  public class EventAcknowledgement : ICloneable
-  {
-    private string m_sourceName;
-    private string m_conditionName;
-    private DateTime m_activeTime = DateTime.MinValue;
-    private int m_cookie;
-
-    public string SourceName
+    [Serializable]
+    public class EventAcknowledgement : ICloneable
     {
-      get => this.m_sourceName;
-      set => this.m_sourceName = value;
-    }
+        private string m_sourceName;
+        private string m_conditionName;
+        private DateTime m_activeTime = DateTime.MinValue;
+        private int m_cookie;
 
-    public string ConditionName
-    {
-      get => this.m_conditionName;
-      set => this.m_conditionName = value;
-    }
+        public string SourceName
+        {
+            get => m_sourceName;
+            set => m_sourceName = value;
+        }
 
-    public DateTime ActiveTime
-    {
-      get => this.m_activeTime;
-      set => this.m_activeTime = value;
-    }
+        public string ConditionName
+        {
+            get => m_conditionName;
+            set => m_conditionName = value;
+        }
 
-    public int Cookie
-    {
-      get => this.m_cookie;
-      set => this.m_cookie = value;
-    }
+        public DateTime ActiveTime
+        {
+            get => m_activeTime;
+            set => m_activeTime = value;
+        }
 
-    public EventAcknowledgement()
-    {
-    }
+        public int Cookie
+        {
+            get => m_cookie;
+            set => m_cookie = value;
+        }
 
-    public EventAcknowledgement(EventNotification notification)
-    {
-      this.m_sourceName = notification.SourceID;
-      this.m_conditionName = notification.ConditionName;
-      this.m_activeTime = notification.ActiveTime;
-      this.m_cookie = notification.Cookie;
-    }
+        public EventAcknowledgement()
+        {
+        }
 
-    public virtual object Clone() => this.MemberwiseClone();
-  }
+        public EventAcknowledgement(EventNotification notification)
+        {
+            m_sourceName = notification.SourceID;
+            m_conditionName = notification.ConditionName;
+            m_activeTime = notification.ActiveTime;
+            m_cookie = notification.Cookie;
+        }
+
+        public virtual object Clone() => MemberwiseClone();
+    }
 }

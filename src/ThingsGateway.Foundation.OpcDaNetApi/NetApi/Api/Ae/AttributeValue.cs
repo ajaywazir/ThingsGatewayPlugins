@@ -5,43 +5,43 @@ using System;
 
 namespace Opc.Ae
 {
-  [Serializable]
-  public class AttributeValue : ICloneable, IResult
-  {
-    private int m_id;
-    private object m_value;
-    private ResultID m_resultID = ResultID.S_OK;
-    private string m_diagnosticInfo;
-
-    public int ID
+    [Serializable]
+    public class AttributeValue : ICloneable, IResult
     {
-      get => this.m_id;
-      set => this.m_id = value;
-    }
+        private int m_id;
+        private object m_value;
+        private ResultID m_resultID = ResultID.S_OK;
+        private string m_diagnosticInfo;
 
-    public object Value
-    {
-      get => this.m_value;
-      set => this.m_value = value;
-    }
+        public int ID
+        {
+            get => m_id;
+            set => m_id = value;
+        }
 
-    public ResultID ResultID
-    {
-      get => this.m_resultID;
-      set => this.m_resultID = value;
-    }
+        public object Value
+        {
+            get => m_value;
+            set => m_value = value;
+        }
 
-    public string DiagnosticInfo
-    {
-      get => this.m_diagnosticInfo;
-      set => this.m_diagnosticInfo = value;
-    }
+        public ResultID ResultID
+        {
+            get => m_resultID;
+            set => m_resultID = value;
+        }
 
-    public virtual object Clone()
-    {
-      AttributeValue attributeValue = (AttributeValue) this.MemberwiseClone();
-      attributeValue.Value = Opc.Convert.Clone(this.Value);
-      return (object) attributeValue;
+        public string DiagnosticInfo
+        {
+            get => m_diagnosticInfo;
+            set => m_diagnosticInfo = value;
+        }
+
+        public virtual object Clone()
+        {
+            AttributeValue attributeValue = (AttributeValue)MemberwiseClone();
+            attributeValue.Value = Opc.Convert.Clone(Value);
+            return (object)attributeValue;
+        }
     }
-  }
 }

@@ -18,7 +18,7 @@ namespace ThingsGateway.Foundation.OpcDa.Discovery;
 /// <summary>
 /// OpcDiscovery
 /// </summary>
-internal class OpcDiscovery
+internal sealed class OpcDiscovery
 {
     private static readonly Guid CATID_OPC_DA10 = new("63D5F430-CFE4-11d1-B2C8-0060083BA1FB");
 
@@ -101,9 +101,9 @@ internal class OpcDiscovery
         serverInfos = GetServerDetails(clsids?.ToArray(), host, m_server);
         for (int i = 0; i < serverInfos.Length; i++)
         {
-            if (serverInfos[i].CLSID.ToString().ToLower() == serverName.ToLower() ||
-                    serverInfos[i].ProgID.ToLower() == serverName.ToLower() ||
-                    serverInfos[i].VerIndProgID.ToLower() == serverName.ToLower())
+            if (serverInfos[i].CLSID.ToString().Equals(serverName, StringComparison.OrdinalIgnoreCase) ||
+                         serverInfos[i].ProgID.Equals(serverName, StringComparison.OrdinalIgnoreCase) ||
+                         serverInfos[i].VerIndProgID.Equals(serverName, StringComparison.OrdinalIgnoreCase))
             {
                 result = serverInfos[i];
                 break;
@@ -129,9 +129,9 @@ internal class OpcDiscovery
         serverInfos = GetServerDetails(clsids?.ToArray(), host, m_server);
         for (int i = 0; i < serverInfos.Length; i++)
         {
-            if (serverInfos[i].CLSID.ToString().ToLower() == serverName.ToLower() ||
-                    serverInfos[i].ProgID.ToLower() == serverName.ToLower() ||
-                    serverInfos[i].VerIndProgID.ToLower() == serverName.ToLower())
+            if (serverInfos[i].CLSID.ToString().Equals(serverName, StringComparison.OrdinalIgnoreCase) ||
+                         serverInfos[i].ProgID.Equals(serverName, StringComparison.OrdinalIgnoreCase) ||
+                         serverInfos[i].VerIndProgID.Equals(serverName, StringComparison.OrdinalIgnoreCase))
             {
                 result = serverInfos[i];
                 break;
@@ -224,7 +224,7 @@ internal class OpcDiscovery
     }
 }
 
-internal class ServerInfo
+internal sealed class ServerInfo
 {
     internal Guid CLSID { get; set; }
     internal string Description { get; set; } = string.Empty;

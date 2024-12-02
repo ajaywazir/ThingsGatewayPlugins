@@ -40,6 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{D52C02
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{ECA1859A-7676-4D45-AB80-569AB9FF769A}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
 		Version.props = Version.props
 	EndProjectSection
@@ -165,8 +166,8 @@ Global
 		{B8A77906-446F-4421-B00C-0CF0F8A3E530} = {FDE388A3-F724-430D-BA8F-AB8D21DFAB8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {199B1B96-4F56-4828-9531-813BA02DB282}
-		RESX_NeutralResourcesLanguage = zh-Hans
 		RESX_Rules = {"EnabledRules":[]}
+		RESX_NeutralResourcesLanguage = zh-Hans
+		SolutionGuid = {199B1B96-4F56-4828-9531-813BA02DB282}
 	EndGlobalSection
 EndGlobal

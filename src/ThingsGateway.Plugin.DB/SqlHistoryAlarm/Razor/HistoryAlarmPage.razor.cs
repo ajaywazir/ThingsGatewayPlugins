@@ -27,7 +27,7 @@ public partial class HistoryAlarmPage : IDriverUIBase
 
     private async Task<QueryData<HistoryAlarm>> OnQueryAsync(QueryPageOptions options)
     {
-        var query = await SqlHistoryAlarmProducer.QueryData(options);
+        var query = await SqlHistoryAlarmProducer.QueryData(options).ConfigureAwait(false);
         return query;
     }
 }

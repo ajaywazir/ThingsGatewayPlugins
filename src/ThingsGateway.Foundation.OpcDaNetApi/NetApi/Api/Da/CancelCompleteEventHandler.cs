@@ -3,5 +3,5 @@
 
 namespace Opc.Da
 {
-  public delegate void CancelCompleteEventHandler(object requestHandle);
+    public delegate void CancelCompleteEventHandler(object requestHandle);
 }

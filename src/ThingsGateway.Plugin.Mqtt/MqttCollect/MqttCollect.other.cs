@@ -11,11 +11,10 @@
 using MQTTnet;
 using MQTTnet.Client;
 
-
 using System.Text;
 
-using ThingsGateway.Foundation;
 using ThingsGateway.Core.Json.Extension;
+using ThingsGateway.Foundation;
 using ThingsGateway.Gateway.Application.Extensions;
 using ThingsGateway.NewLife.Extension;
 
@@ -152,7 +151,7 @@ public partial class MqttCollect : CollectBase
                 return OperResult.Success;
             try
             {
-                await ConnectLock.WaitAsync().ConfigureAwait(false);
+                await ConnectLock.WaitAsync(cancellationToken).ConfigureAwait(false);
                 if (_mqttClient?.IsConnected == true)
                     return OperResult.Success;
                 using var timeoutToken = new CancellationTokenSource(TimeSpan.FromMilliseconds(_driverPropertys.ConnectTimeout));

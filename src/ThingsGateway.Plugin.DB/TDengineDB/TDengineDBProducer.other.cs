@@ -69,7 +69,7 @@ public partial class TDengineDBProducer : BusinessBaseWithCacheIntervalVariableM
             }
             else
             {
-                var result = await db.Insertable(dbInserts).AS(_driverPropertys.TableName).ExecuteCommandAsync().ConfigureAwait(false);//不要加分表
+                var result = await db.Insertable(dbInserts).AS(_driverPropertys.TableName).ExecuteCommandAsync(cancellationToken).ConfigureAwait(false);//不要加分表
 
                 //var result = await db.Insertable(dbInserts).SplitTable().ExecuteCommandAsync().ConfigureAwait(false);
                 if (result > 0)

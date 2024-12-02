@@ -11,8 +11,8 @@ namespace Opc.Dx
     {
         public new string this[int index]
         {
-            get => this[index];
-            set => this[index] = value;
+            get => (string)base[index];
+            set => base[index] = value;
         }
 
         public new string[] ToArray() => (string[])ToArray(typeof(string));

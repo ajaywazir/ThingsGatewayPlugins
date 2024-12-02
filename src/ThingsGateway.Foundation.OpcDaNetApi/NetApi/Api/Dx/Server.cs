@@ -278,7 +278,7 @@ namespace Opc.Dx
             return m_version;
         }
 
-        private class Names
+        private sealed class Names
         {
             internal const string QUERIES = "Queries";
         }

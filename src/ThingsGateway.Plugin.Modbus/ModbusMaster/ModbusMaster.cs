@@ -67,7 +67,7 @@ public class ModbusMaster : CollectBase
     {
         await base.ProtectedBeforStartAsync(cancellationToken).ConfigureAwait(false);
         if (CurrentDevice.Channel.ChannelType == ChannelTypeEnum.TcpService)
-            await Task.Delay(6000).ConfigureAwait(false);//等待6秒连接
+            await Task.Delay(6000, cancellationToken).ConfigureAwait(false);//等待6秒连接
     }
 
     /// <inheritdoc/>

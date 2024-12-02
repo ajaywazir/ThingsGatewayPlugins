@@ -476,7 +476,7 @@ namespace Opc.Hda
 
         public override object Clone() => (object)(Server)base.Clone();
 
-        private class Names
+        private sealed class Names
         {
             internal const string TRENDS = "Trends";
         }

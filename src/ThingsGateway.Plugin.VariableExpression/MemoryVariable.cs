@@ -39,7 +39,7 @@ public class MemoryVariable : CollectBase
         {
             while (WriteLock.IsWaitting)
             {
-                await Task.Delay(100).ConfigureAwait(false);
+                await Task.Delay(100, cancellationToken).ConfigureAwait(false);
             }
         }
 

@@ -26,7 +26,7 @@ public partial class TDengineDBPage : IDriverUIBase
 
     private async Task<QueryData<TDengineDBHistoryValue>> OnQueryAsync(QueryPageOptions options)
     {
-        var query = await TDengineDBProducer.QueryData(options);
+        var query = await TDengineDBProducer.QueryData(options).ConfigureAwait(false);
         return query;
     }
 }

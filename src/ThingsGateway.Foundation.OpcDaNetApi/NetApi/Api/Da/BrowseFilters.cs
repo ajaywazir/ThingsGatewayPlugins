@@ -5,64 +5,64 @@ using System;
 
 namespace Opc.Da
 {
-  [Serializable]
-  public class BrowseFilters : ICloneable
-  {
-    private int m_maxElementsReturned;
-    private browseFilter m_browseFilter;
-    private string m_elementNameFilter;
-    private string m_vendorFilter;
-    private bool m_returnAllProperties;
-    private PropertyID[] m_propertyIDs;
-    private bool m_returnPropertyValues;
-
-    public int MaxElementsReturned
+    [Serializable]
+    public class BrowseFilters : ICloneable
     {
-      get => this.m_maxElementsReturned;
-      set => this.m_maxElementsReturned = value;
-    }
+        private int m_maxElementsReturned;
+        private browseFilter m_browseFilter;
+        private string m_elementNameFilter;
+        private string m_vendorFilter;
+        private bool m_returnAllProperties;
+        private PropertyID[] m_propertyIDs;
+        private bool m_returnPropertyValues;
 
-    public browseFilter BrowseFilter
-    {
-      get => this.m_browseFilter;
-      set => this.m_browseFilter = value;
-    }
+        public int MaxElementsReturned
+        {
+            get => m_maxElementsReturned;
+            set => m_maxElementsReturned = value;
+        }
 
-    public string ElementNameFilter
-    {
-      get => this.m_elementNameFilter;
-      set => this.m_elementNameFilter = value;
-    }
+        public browseFilter BrowseFilter
+        {
+            get => m_browseFilter;
+            set => m_browseFilter = value;
+        }
 
-    public string VendorFilter
-    {
-      get => this.m_vendorFilter;
-      set => this.m_vendorFilter = value;
-    }
+        public string ElementNameFilter
+        {
+            get => m_elementNameFilter;
+            set => m_elementNameFilter = value;
+        }
 
-    public bool ReturnAllProperties
-    {
-      get => this.m_returnAllProperties;
-      set => this.m_returnAllProperties = value;
-    }
+        public string VendorFilter
+        {
+            get => m_vendorFilter;
+            set => m_vendorFilter = value;
+        }
 
-    public PropertyID[] PropertyIDs
-    {
-      get => this.m_propertyIDs;
-      set => this.m_propertyIDs = value;
-    }
+        public bool ReturnAllProperties
+        {
+            get => m_returnAllProperties;
+            set => m_returnAllProperties = value;
+        }
 
-    public bool ReturnPropertyValues
-    {
-      get => this.m_returnPropertyValues;
-      set => this.m_returnPropertyValues = value;
-    }
+        public PropertyID[] PropertyIDs
+        {
+            get => m_propertyIDs;
+            set => m_propertyIDs = value;
+        }
 
-    public virtual object Clone()
-    {
-      BrowseFilters browseFilters = (BrowseFilters) this.MemberwiseClone();
-      browseFilters.PropertyIDs = this.PropertyIDs != null ? (PropertyID[]) this.PropertyIDs.Clone() : (PropertyID[]) (object) null;
-      return (object) browseFilters;
+        public bool ReturnPropertyValues
+        {
+            get => m_returnPropertyValues;
+            set => m_returnPropertyValues = value;
+        }
+
+        public virtual object Clone()
+        {
+            BrowseFilters browseFilters = (BrowseFilters)MemberwiseClone();
+            browseFilters.PropertyIDs = PropertyIDs != null ? (PropertyID[])PropertyIDs.Clone() : (PropertyID[])(object)null;
+            return (object)browseFilters;
+        }
     }
-  }
 }
