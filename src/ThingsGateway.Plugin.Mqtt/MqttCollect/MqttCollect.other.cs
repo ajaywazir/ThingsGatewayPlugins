@@ -44,7 +44,12 @@ public partial class MqttCollect : CollectBase
             var tuples = TopicItemDict.FirstOrDefault(t => (MqttTopicFilterComparer.Compare(args.ApplicationMessage.Topic, t.Key) == MqttTopicFilterCompareResult.IsMatch)).Value;
             if (tuples != null)
             {
-                Newtonsoft.Json.Linq.JToken json = Newtonsoft.Json.Linq.JToken.Parse(Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment));
+
+                var payLoad = Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment);
+                LogMessage.LogTrace($"Topic：{args.ApplicationMessage.Topic}{Environment.NewLine}PayLoad：{payLoad}");
+
+                Newtonsoft.Json.Linq.JToken json = Newtonsoft.Json.Linq.JToken.Parse(payLoad);
+
                 DateTime dateTime = DateTime.Now;
                 foreach (var item in tuples)
                 {
@@ -74,7 +79,7 @@ public partial class MqttCollect : CollectBase
         }
         catch (Exception ex)
         {
-            LogMessage.LogTrace($"parse error: topic  {Environment.NewLine}{args.ApplicationMessage.Topic} {Environment.NewLine} {ex}");
+            LogMessage.LogWarning($"parse error: topic  {Environment.NewLine}{args.ApplicationMessage.Topic} {Environment.NewLine} {ex}");
         }
         return Task.CompletedTask;
 

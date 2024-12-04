@@ -1,9 +1,9 @@
 <Project>
 
 	<PropertyGroup>
-		<AdminVersion>7.2.0.29</AdminVersion>
-		<GatewayVersion>7.2.0.40</GatewayVersion>
-		<FoundationVersion>9.0.2.20</FoundationVersion>
+		<AdminVersion>7.2.0.32</AdminVersion>
+		<GatewayVersion>7.2.0.44</GatewayVersion>
+		<FoundationVersion>9.0.2.21</FoundationVersion>
 	</PropertyGroup>
 	<PropertyGroup>
 		<TargetFrameworks>net9.0;net8.0;net6.0;</TargetFrameworks>
