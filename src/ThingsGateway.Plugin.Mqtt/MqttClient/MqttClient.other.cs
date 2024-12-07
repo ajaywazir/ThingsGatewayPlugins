@@ -330,7 +330,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
     /// <summary>
     /// 上传mqtt，返回上传结果
     /// </summary>
-    private async ValueTask<OperResult> MqttUpAsync(string topic, string payLoad, CancellationToken cancellationToken)
+    public async ValueTask<OperResult> MqttUpAsync(string topic, string payLoad, CancellationToken cancellationToken)
     {
         try
         {

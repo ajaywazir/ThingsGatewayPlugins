@@ -146,7 +146,7 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
     /// <summary>
     /// 上传，返回上传结果
     /// </summary>
-    private async Task<OperResult> Publish(string topic, string payLoad, CancellationToken cancellationToken)
+    public async Task<OperResult> Publish(string topic, string payLoad, CancellationToken cancellationToken)
     {
         try
         {

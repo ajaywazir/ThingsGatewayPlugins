@@ -141,7 +141,7 @@ public partial class KafkaProducer : BusinessBaseWithCacheIntervalScript<Variabl
     /// <summary>
     /// kafka上传，返回上传结果
     /// </summary>
-    private async ValueTask<OperResult> KafKaUpAsync(string topic, string payLoad, CancellationToken cancellationToken)
+    public async ValueTask<OperResult> KafKaUpAsync(string topic, string payLoad, CancellationToken cancellationToken)
     {
         try
         {
