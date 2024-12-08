@@ -3,7 +3,7 @@
     "ModbusType": "ModbusType",
     "Station": "Station",
     "DtuId": "DtuId",
-    "CheckClearTime": "CheckClearTime",
+    "CheckClearTime": "CheckClearTime(s)",
     "HeartbeatHexString": "HeartbeatHexString",
 
     "CacheTimeout": "CacheTimeout",
@@ -16,7 +16,7 @@
   "ThingsGateway.Foundation.Modbus.ModbusSlave": {
     "ModbusType": "ModbusType",
     "Station": "Station",
-    "CheckClearTime": "CheckClearTime",
+    "CheckClearTime": "CheckClearTime(s)",
     "MulStation": "MulStation",
     "IsWriteMemory": "IsWriteMemory",
     "MaxClientCount": "MaxClientCount",

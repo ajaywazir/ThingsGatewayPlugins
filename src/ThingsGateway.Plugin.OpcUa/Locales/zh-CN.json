@@ -18,7 +18,7 @@
     "LoadType": "加载服务端数据类型",
     "SourceTimestampEnable": "服务端时间戳",
     "ExportC": "导出证书",
-    "ReIntervalTime": "离线恢复时间",
+    "ReIntervalTime": "离线恢复时间(s)",
     "RetryCount": "失败重试次数"
   },
   "ThingsGateway.Plugin.OpcUa.OpcUaServerProperty": {

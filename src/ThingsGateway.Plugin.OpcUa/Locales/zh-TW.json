@@ -18,7 +18,7 @@
     "LoadType": "加載伺服器數據類型",
     "ExportC": "導出證書",
     "SourceTimestampEnable": "伺服器時間戳",
-    "ReIntervalTime": "離線恢復時間",
+    "ReIntervalTime": "離線恢復時間(s)",
     "RetryCount": "失敗重試次數"
   },
   "ThingsGateway.Plugin.OpcUa.OpcUaServerProperty": {

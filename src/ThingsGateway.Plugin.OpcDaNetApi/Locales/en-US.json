@@ -8,7 +8,7 @@
     "OpcName": "OpcName",
     "UpdateRate": "UpdateRate",
     "SourceTimestampEnable": "SourceTimestampEnable",
-    "ReIntervalTime": "ReIntervalTime",
+    "ReIntervalTime": "ReIntervalTime(s)",
     "RetryCount": "RetryCount"
   }
 }

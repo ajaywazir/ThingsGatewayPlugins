@@ -5,7 +5,7 @@
     "Password": "Password",
     "Station": "Station",
     "DtuId": "DtuId",
-    "CheckClearTime": "CheckClearTime",
+    "CheckClearTime": "CheckClearTime(s)",
     "HeartbeatHexString": "HeartbeatHexString",
 
     "CacheTimeout": "CacheTimeout",

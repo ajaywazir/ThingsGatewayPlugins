@@ -5,7 +5,7 @@
     "Password": "寫入密碼",
     "Station": "通訊地址",
     "DtuId": "Dtu註冊包(UTF8)",
-    "CheckClearTime": "連接滑動過期時間",
+    "CheckClearTime": "連接滑動過期時間(s)",
     "HeartbeatHexString": "心跳檢測(HEX)",
     "HeartbeatTime": "心跳間隔時間",
 

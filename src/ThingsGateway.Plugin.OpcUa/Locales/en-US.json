@@ -17,7 +17,7 @@
     "LoadType": "LoadType",
     "ExportC": "ExportCertificate",
     "SourceTimestampEnable": "SourceTimestampEnable",
-    "ReIntervalTime": "ReIntervalTime",
+    "ReIntervalTime": "ReIntervalTime(s)",
     "RetryCount": "RetryCount"
   },
   "ThingsGateway.Plugin.OpcUa.OpcUaServerProperty": {

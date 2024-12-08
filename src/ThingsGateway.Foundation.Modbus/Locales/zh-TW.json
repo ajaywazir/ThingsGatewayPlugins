@@ -3,7 +3,7 @@
     "ModbusType": "Modbus類型",
     "Station": "站號",
     "DtuId": "Dtu註冊包(UTF8)",
-    "CheckClearTime": "連接滑動過期時間",
+    "CheckClearTime": "連接滑動過期時間(s)",
     "HeartbeatHexString": "心跳檢測(HEX)",
     "HeartbeatTime": "心跳間隔時間",
 
@@ -17,7 +17,7 @@
   "ThingsGateway.Foundation.Modbus.ModbusSlave": {
     "ModbusType": "Modbus類型",
     "Station": "預設站號",
-    "CheckClearTime": "連接滑動過期時間",
+    "CheckClearTime": "連接滑動過期時間(s)",
     "MulStation": "多站點",
     "IsWriteMemory": "立即寫入記憶體",
     "MaxClientCount": "最大連接數量",
