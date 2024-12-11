@@ -6,6 +6,7 @@
   "ThingsGateway.Plugin.Mqtt.MqttClientProperty": {
     "IP": "IP",
     "Port": "端口",
+    "DetailLog": "详细日志",
     "IsWebSocket": "Websocket",
     "WebSocketUrl": "WebSocketUrl",
     "UserName": "用户名",
@@ -37,6 +38,7 @@
   "ThingsGateway.Plugin.Mqtt.MqttServerProperty": {
     "IP": "IP",
     "Port": "端口",
+    "DetailLog": "详细日志",
     "WebSocketPort": "Websocket端口",
     "StartWithId": "允许连接的ID前缀",
 
@@ -65,6 +67,7 @@
   "ThingsGateway.Plugin.Mqtt.MqttCollectProperty": {
     "IP": "IP",
     "Port": "端口",
+    "DetailLog": "详细日志",
     "IsWebSocket": "Websocket",
     "WebSocketUrl": "WebSocketUrl",
     "UserName": "用户名",

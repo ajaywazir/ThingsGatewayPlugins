@@ -4,6 +4,7 @@
     "Port": "Port",
     "UserName": "UserName",
     "Password": "Password",
+    "DetailLog": "DetailLog",
     "IsQueueDeclare": "IsQueueDeclare",
     "VirtualHost": "VirtualHost",
     "ExchangeName": "ExchangeName",

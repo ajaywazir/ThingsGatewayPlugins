@@ -4,6 +4,7 @@
     "Port": "端口",
     "UserName": "用戶名",
     "Password": "密碼",
+    "DetailLog": "詳細日誌",
     "IsQueueDeclare": "聲明隊列",
     "VirtualHost": "虛擬Host",
     "ExchangeName": "交換機名稱",

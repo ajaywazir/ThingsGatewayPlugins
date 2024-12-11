@@ -70,11 +70,11 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
 
     #region private
 
-    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList, CancellationToken cancellationToken)
+    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList,int count, CancellationToken cancellationToken)
     {
         foreach (var topicJson in topicJsonList)
         {
-            var result = await Publish(topicJson.Topic, topicJson.Json, cancellationToken).ConfigureAwait(false);
+            var result = await Publish(topicJson.Topic, topicJson.Json,count, cancellationToken).ConfigureAwait(false);
             if (success != result.IsSuccess)
             {
                 if (!result.IsSuccess)
@@ -95,19 +95,19 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
     private ValueTask<OperResult> UpdateAlarmModel(IEnumerable<AlarmVariable> item, CancellationToken cancellationToken)
     {
         List<TopicJson> topicJsonList = GetAlarms(item);
-        return Update(topicJsonList, cancellationToken);
+        return Update(topicJsonList, item.Count(), cancellationToken);
     }
 
     private ValueTask<OperResult> UpdateDevModel(IEnumerable<DeviceData> item, CancellationToken cancellationToken)
     {
         List<TopicJson> topicJsonList = GetDeviceData(item);
-        return Update(topicJsonList, cancellationToken);
+        return Update(topicJsonList, item.Count(), cancellationToken);
     }
 
     private ValueTask<OperResult> UpdateVarModel(IEnumerable<VariableData> item, CancellationToken cancellationToken)
     {
         List<TopicJson> topicJsonList = GetVariable(item);
-        return Update(topicJsonList, cancellationToken);
+        return Update(topicJsonList, item.Count(), cancellationToken);
     }
 
     #endregion private
@@ -146,14 +146,24 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
     /// <summary>
     /// 上传，返回上传结果
     /// </summary>
-    public async Task<OperResult> Publish(string topic, string payLoad, CancellationToken cancellationToken)
+    public async Task<OperResult> Publish(string topic, string payLoad,int count, CancellationToken cancellationToken)
     {
         try
         {
             if (_channel != null)
             {
                 await _channel.BasicPublishAsync(_driverPropertys.ExchangeName, topic, Encoding.UTF8.GetBytes(payLoad), cancellationToken).ConfigureAwait(false);
-                LogMessage.Trace($"Topic：{topic}{Environment.NewLine}PayLoad：{payLoad}");
+
+                if (_driverPropertys.DetailLog)
+                {
+                    if (LogMessage.LogLevel <= TouchSocket.Core.LogLevel.Trace)
+                        LogMessage.LogTrace($"Topic：{topic}{Environment.NewLine}PayLoad：{payLoad} {Environment.NewLine} VarModelQueue:{_memoryVarModelQueue.Count}");
+                }
+                else
+                {
+                    LogMessage.LogTrace($"Topic：{topic}{Environment.NewLine}Count：{count} {Environment.NewLine} VarModelQueue:{_memoryVarModelQueue.Count}");
+
+                }
                 return OperResult.Success;
             }
             else

@@ -46,7 +46,17 @@ public partial class MqttCollect : CollectBase
             {
 
                 var payLoad = Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment);
+
+                if (_driverPropertys.DetailLog)
+                {
+                    if (LogMessage.LogLevel <= TouchSocket.Core.LogLevel.Trace)
                 LogMessage.LogTrace($"Topic：{args.ApplicationMessage.Topic}{Environment.NewLine}PayLoad：{payLoad}");
+                }
+                else
+                {
+                LogMessage.LogTrace($"Topic：{args.ApplicationMessage.Topic}");
+
+                }
 
                 Newtonsoft.Json.Linq.JToken json = Newtonsoft.Json.Linq.JToken.Parse(payLoad);
 

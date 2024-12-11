@@ -5,6 +5,7 @@
   "ThingsGateway.Plugin.Mqtt.MqttClientProperty": {
     "IP": "IP",
     "Port": "Port",
+    "DetailLog": "DetailLog",
     "IsWebSocket": "WebSocket",
     "WebSocketUrl": "WebSocketUrl",
     "UserName": "UserName",
@@ -30,10 +31,12 @@
     "CacheFileMaxLength": "CacheFileMaxLength(mb)",
     "SplitSize": "SplitSize",
     "CacheEnable": "CacheEnable"
+
   },
   "ThingsGateway.Plugin.Mqtt.MqttServerProperty": {
     "IP": "IP",
     "Port": "Port",
+    "DetailLog": "DetailLog",
     "WebSocketPort": "WebSocketPort",
     "StartWithId": "StartWithId",
     "DeviceRpcEnable": "DeviceRpcEnable",
@@ -59,6 +62,7 @@
   "ThingsGateway.Plugin.Mqtt.MqttCollectProperty": {
     "IP": "IP",
     "Port": "Port",
+    "DetailLog": "DetailLog",
     "IsWebSocket": "WebSocket",
     "WebSocketUrl": "WebSocketUrl",
     "UserName": "UserName",

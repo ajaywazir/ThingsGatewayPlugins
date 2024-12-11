@@ -28,6 +28,12 @@ public class MqttClientProperty : BusinessPropertyWithCacheIntervalScript
     public int Port { get; set; } = 1883;
 
     /// <summary>
+    /// 是否显示详细日志
+    /// </summary>
+    [DynamicProperty]
+    public bool DetailLog { get; set; } = true;
+
+    /// <summary>
     /// 是否websocket连接
     /// </summary>
     [DynamicProperty]

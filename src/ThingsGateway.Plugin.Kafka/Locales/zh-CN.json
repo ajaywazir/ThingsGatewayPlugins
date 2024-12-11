@@ -1,6 +1,7 @@
 ﻿{
   "ThingsGateway.Plugin.Kafka.KafkaProducerProperty": {
     "BootStrapServers": "服务地址",
+    "DetailLog": "详细日志",
     "Timeout": "发布超时时间",
     "SaslUsername": "用户名",
     "SaslPassword": "密码",

@@ -22,6 +22,12 @@ public class MqttCollectProperty : CollectPropertyBase
     public string IP { get; set; } = "127.0.0.1";
 
     /// <summary>
+    /// 是否显示详细日志
+    /// </summary>
+    [DynamicProperty]
+    public bool DetailLog { get; set; } = true;
+
+    /// <summary>
     /// 端口
     /// </summary>
     [DynamicProperty]

@@ -67,11 +67,11 @@ public partial class KafkaProducer : BusinessBaseWithCacheIntervalScript<Variabl
 
     #region private
 
-    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList, CancellationToken cancellationToken)
+    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList,int count, CancellationToken cancellationToken)
     {
         foreach (var topicJson in topicJsonList)
         {
-            var result = await KafKaUpAsync(topicJson.Topic, topicJson.Json, cancellationToken).ConfigureAwait(false);
+            var result = await KafKaUpAsync(topicJson.Topic, topicJson.Json,count, cancellationToken).ConfigureAwait(false);
             if (success != result.IsSuccess)
             {
                 if (!result.IsSuccess)
@@ -91,19 +91,19 @@ public partial class KafkaProducer : BusinessBaseWithCacheIntervalScript<Variabl
     private async ValueTask<OperResult> UpdateAlarmModel(IEnumerable<AlarmVariable> item, CancellationToken cancellationToken)
     {
         List<TopicJson> topicJsonList = GetAlarms(item);
-        return await Update(topicJsonList, cancellationToken).ConfigureAwait(false);
+        return await Update(topicJsonList, item.Count(), cancellationToken).ConfigureAwait(false);
     }
 
     private async ValueTask<OperResult> UpdateDevModel(IEnumerable<DeviceData> item, CancellationToken cancellationToken)
     {
         List<TopicJson> topicJsonList = GetDeviceData(item);
-        return await Update(topicJsonList, cancellationToken).ConfigureAwait(false);
+        return await Update(topicJsonList, item.Count(), cancellationToken).ConfigureAwait(false);
     }
 
     private async ValueTask<OperResult> UpdateVarModel(IEnumerable<VariableData> item, CancellationToken cancellationToken)
     {
         List<TopicJson> topicJsonList = GetVariable(item);
-        return await Update(topicJsonList, cancellationToken).ConfigureAwait(false);
+        return await Update(topicJsonList, item.Count(), cancellationToken).ConfigureAwait(false);
     }
 
     #endregion private
@@ -141,7 +141,7 @@ public partial class KafkaProducer : BusinessBaseWithCacheIntervalScript<Variabl
     /// <summary>
     /// kafka上传，返回上传结果
     /// </summary>
-    public async ValueTask<OperResult> KafKaUpAsync(string topic, string payLoad, CancellationToken cancellationToken)
+    public async ValueTask<OperResult> KafKaUpAsync(string topic, string payLoad,int count, CancellationToken cancellationToken)
     {
         try
         {
@@ -158,7 +158,16 @@ public partial class KafkaProducer : BusinessBaseWithCacheIntervalScript<Variabl
                 }
                 else
                 {
-                    LogMessage.Trace($"Topic：{topic}{Environment.NewLine}PayLoad：{payLoad}");
+                    if (_driverPropertys.DetailLog)
+                    {
+                        if (LogMessage.LogLevel <= TouchSocket.Core.LogLevel.Trace)
+                            LogMessage.LogTrace($"Topic：{topic}{Environment.NewLine}PayLoad：{payLoad} {Environment.NewLine} VarModelQueue:{_memoryVarModelQueue.Count}");
+                    }
+                    else
+                    {
+                        LogMessage.LogTrace($"Topic：{topic}{Environment.NewLine}Count：{count} {Environment.NewLine} VarModelQueue:{_memoryVarModelQueue.Count}");
+
+                    }
                     return OperResult.Success;
                 }
             }
