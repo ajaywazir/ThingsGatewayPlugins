@@ -169,26 +169,28 @@ public partial class ModbusMaster : ProtocolBase, IDtu
         {
             var mAddress = ModbusAddress.ParseFrom(address, Station, DtuId);
             mAddress.Length = (ushort)length;
-            if (mAddress.BitIndex == null || mAddress.FunctionCode <= 2)
-            {
-                return await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
-            }
-            if (mAddress.BitIndex < 2)
-            {
-                mAddress.Length = 1; //请求寄存器数量
-                var readData = await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
-                if (!readData.IsSuccess) return readData;
-                var data = readData.Content;
-                if (mAddress.BitIndex == 0)
-                    readData.Content = new byte[] { data[1] };
-                else
-                    readData.Content = new byte[] { data[0] };
-                return readData;
-            }
-            else
-            {
-                return new(ModbusResource.Localizer["ValueOverlimit", nameof(mAddress.BitIndex), 2]);
-            }
+            return await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
+
+            //if (mAddress.BitIndex == null || mAddress.FunctionCode <= 2)
+            //{
+            //    return await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
+            //}
+            //if (mAddress.BitIndex < 2)
+            //{
+            //    mAddress.Length = 1; //请求寄存器数量
+            //    var readData = await ModbusRequestAsync(mAddress, true, cancellationToken).ConfigureAwait(false);
+            //    if (!readData.IsSuccess) return readData;
+            //    var data = readData.Content;
+            //    if (mAddress.BitIndex == 0)
+            //        readData.Content = new byte[] { data[1] };
+            //    else
+            //        readData.Content = new byte[] { data[0] };
+            //    return readData;
+            //}
+            //else
+            //{
+            //    return new(ModbusResource.Localizer["ValueOverlimit", nameof(mAddress.BitIndex), 2]);
+            //}
 
         }
         catch (Exception ex)
@@ -196,6 +198,8 @@ public partial class ModbusMaster : ProtocolBase, IDtu
             return new OperResult<byte[]>(ex);
         }
     }
+
+
 
     /// <inheritdoc/>
     public override async ValueTask<OperResult> WriteAsync(string address, byte[] value, CancellationToken cancellationToken = default)
