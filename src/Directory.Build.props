@@ -1,10 +1,10 @@
 <Project>
 
 	<PropertyGroup>
-		<AdminVersion>7.2.0.46</AdminVersion>
-		<GatewayVersion>7.2.0.63</GatewayVersion>
-		<FoundationVersion>9.0.2.31</FoundationVersion>
-		<ProPluginVersion>9.0.2.68</ProPluginVersion>
+		<AdminVersion>7.2.0.48</AdminVersion>
+		<GatewayVersion>7.2.0.64</GatewayVersion>
+		<FoundationVersion>9.0.2.33</FoundationVersion>
+		<ProPluginVersion>9.0.2.71</ProPluginVersion>
 	</PropertyGroup>
 	<PropertyGroup>
 		<TargetFrameworks>net9.0;net8.0;net6.0;</TargetFrameworks>
