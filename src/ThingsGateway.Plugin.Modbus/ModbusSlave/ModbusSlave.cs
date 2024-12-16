@@ -12,14 +12,18 @@ using Microsoft.Extensions.Localization;
 
 using Newtonsoft.Json.Linq;
 
+using Org.BouncyCastle.Ocsp;
+
 using SqlSugar;
 
 using System.Collections.Concurrent;
+using System.Threading;
 
 using ThingsGateway.Core.Json.Extension;
 using ThingsGateway.Extension;
 using ThingsGateway.Foundation.Modbus;
 using ThingsGateway.Gateway.Application;
+using ThingsGateway.NewLife;
 using ThingsGateway.NewLife.Extension;
 using ThingsGateway.NewLife.Threading;
 
@@ -167,19 +171,48 @@ public class ModbusSlave : BusinessBase
     {
         try
         {
-            var tag = _modbusTags.FirstOrDefault(a => a.Key?.StartAddress == modbusRequest.StartAddress && a.Key?.Station == modbusRequest.Station && a.Key?.FunctionCode == modbusRequest.FunctionCode);
-            if (tag.Value == null) return OperResult.Success;
-            var enable = tag.Value.GetPropertyValue(DeviceId, nameof(_variablePropertys.VariableRpcEnable)).ToBoolean(false) && _driverPropertys.DeviceRpcEnable;
-            if (!enable) return new OperResult(Localizer["NotWriteEnable"]);
-            var type = tag.Value.GetPropertyValue(DeviceId, nameof(ModbusSlaveVariableProperty.DataType));
-            var addressStr = tag.Value.GetPropertyValue(DeviceId, nameof(ModbusSlaveVariableProperty.ServiceAddress));
+            var tag = _modbusTags.Where(a => a.Key?.StartAddress == modbusRequest.StartAddress && a.Key?.Station == modbusRequest.Station && a.Key?.FunctionCode == modbusRequest.FunctionCode);
+            if (!tag.Any()) return OperResult.Success;
+            if (!(tag.All(a => a.Value.GetPropertyValue(DeviceId, nameof(_variablePropertys.VariableRpcEnable)).ToBoolean(false) && _driverPropertys.DeviceRpcEnable)))
+                return new OperResult(Localizer["NotWriteEnable"]);
 
-            var thingsGatewayBitConverter = bitConverter.GetTransByAddress(ref addressStr);
-            var writeData = modbusRequest.Data.ToArray();
-            var data = thingsGatewayBitConverter.GetDataFormBytes(_plc, addressStr, writeData, 0, Enum.TryParse(type, out DataTypeEnum dataType) ? dataType : tag.Value.DataType);
-            var result = await tag.Value.SetValueToDeviceAsync(data.ToJsonNetString(),
-                    $"{nameof(ModbusSlave)}-{CurrentDevice.Name}-{$"{channel}"}").ConfigureAwait(false);
-            return result;
+            foreach (var item in tag)
+            {
+
+                var type = item.Value.GetPropertyValue(DeviceId, nameof(ModbusSlaveVariableProperty.DataType));
+                var dType = Enum.TryParse(type, out DataTypeEnum dataType) ? dataType : item.Value.DataType;
+                var addressStr = item.Value.GetPropertyValue(DeviceId, nameof(ModbusSlaveVariableProperty.ServiceAddress));
+
+                var thingsGatewayBitConverter = bitConverter.GetTransByAddress(ref addressStr);
+                var writeData = modbusRequest.Data.ToArray();
+
+                var bitIndex = _plc.GetBitOffset(addressStr);
+                if (modbusRequest.FunctionCode == 0x03 && dType == DataTypeEnum.Boolean && bitIndex != null)
+                {
+                    var int16Data = thingsGatewayBitConverter.ToUInt16(writeData, 0);
+                    var wData = BitHelper.GetBit(int16Data, bitIndex.Value);
+
+                    var result = await item.Value.SetValueToDeviceAsync(wData.ToJsonNetString(),
+                            $"{nameof(ModbusSlave)}-{CurrentDevice.Name}-{$"{channel}"}").ConfigureAwait(false);
+
+                    if (!result.IsSuccess)
+                        return result;
+
+
+                }
+                else
+                {
+                    var data = thingsGatewayBitConverter.GetDataFormBytes(_plc, addressStr, writeData, 0, dType);
+
+
+                    var result = await item.Value.SetValueToDeviceAsync(data.ToJsonNetString(),
+                            $"{nameof(ModbusSlave)}-{CurrentDevice.Name}-{$"{channel}"}").ConfigureAwait(false);
+
+                    if (!result.IsSuccess)
+                        return result;
+                }
+            }
+            return OperResult.Success;
         }
         catch (Exception ex)
         {
