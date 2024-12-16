@@ -3,6 +3,7 @@
     "BigTextConnectStr": "ConnectString",
     "TableName": "TableName",
     "BigTextScriptHistoryTable": "DynamicScriptHistoryTable",
+    "RealTableBusinessInterval": "RealTableBusinessInterval",
 
     "IsInterval": "IsInterval",
     "BusinessInterval": "BusinessInterval",
@@ -32,6 +33,7 @@
     "BigTextConnectStr": "ConnectString",
     "BigTextScriptHistoryTable": "DynamicScriptHistoryTable",
     "BigTextScriptRealTable": "DynamicScriptRealTable",
+    "RealTableBusinessInterval": "RealTableBusinessInterval",
 
     "IsInterval": "IsInterval",
     "BusinessInterval": "BusinessInterval",

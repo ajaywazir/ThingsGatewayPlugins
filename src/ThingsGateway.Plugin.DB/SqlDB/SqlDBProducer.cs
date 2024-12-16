@@ -157,7 +157,7 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
             .Map(dest => dest.Id, src => src.Id)//Id更改为变量Id
             .Map(dest => dest.CreateTime, (src) => DateTime.Now);
 
-        _exRealTimerTick = new(_driverPropertys.BusinessInterval);
+        _exRealTimerTick = new(_driverPropertys.RealTableBusinessInterval);
 
 
 

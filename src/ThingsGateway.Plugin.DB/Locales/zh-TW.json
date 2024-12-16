@@ -3,6 +3,7 @@
     "BigTextConnectStr": "連接字串",
     "TableName": "表名稱",
     "BigTextScriptHistoryTable": "歷史表動態腳本",
+    "RealTableBusinessInterval": "即時表定時上傳間隔",
 
     "IsInterval": "啟用定時上傳",
     "BusinessInterval": "定時上傳間隔",
@@ -32,6 +33,7 @@
     "BigTextConnectStr": "連結字串",
     "BigTextScriptHistoryTable": "歷史表動態腳本",
     "BigTextScriptRealTable": "即時表動態腳本",
+    "RealTableBusinessInterval": "即時表定時上傳間隔",
 
     "IsInterval": "啟用定時上傳",
     "BusinessInterval": "定時上傳間隔",
