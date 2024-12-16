@@ -27,7 +27,7 @@ public class PackHelper
     /// <param name="station">默认站点</param>
     /// <param name="dtuid">默认dtuid</param>
     /// <returns></returns>
-    public static List<T> LoadSourceRead<T>(IProtocol device, IEnumerable<IVariable> deviceVariables, int maxPack, int defaultIntervalTime, byte? station = null, string dtuid = null) where T : IVariableSource, new()
+    public static List<T> LoadSourceRead<T>(IProtocol device, IEnumerable<IVariable> deviceVariables, int maxPack, string defaultIntervalTime, byte? station = null, string dtuid = null) where T : IVariableSource, new()
     {
         // 检查参数是否为空
         if (deviceVariables == null)
@@ -56,7 +56,7 @@ public class PackHelper
         }
 
         // 按照时间间隔将变量分组
-        var deviceVariableRunTimeGroups = deviceVariables.GroupBy(it => it.IntervalTime ?? defaultIntervalTime);
+        var deviceVariableRunTimeGroups = deviceVariables.GroupBy(it =>string.IsNullOrWhiteSpace( it.IntervalTime) ? defaultIntervalTime: it.IntervalTime);
         foreach (var group in deviceVariableRunTimeGroups)
         {
             // 将变量分组转换为字典，键为 ModbusAddress
@@ -135,7 +135,7 @@ public class PackHelper
         return deviceVariableSourceReads;
     }
 
-    private static List<T> LoadSourceRead<T>(Dictionary<ModbusAddress, IVariable> addressList, int functionCode, int intervalTime, int maxPack) where T : IVariableSource, new()
+    private static List<T> LoadSourceRead<T>(Dictionary<ModbusAddress, IVariable> addressList, int functionCode, string intervalTime, int maxPack) where T : IVariableSource, new()
     {
         // 用于存储读取结果的列表
         List<T> sourceReads = new();

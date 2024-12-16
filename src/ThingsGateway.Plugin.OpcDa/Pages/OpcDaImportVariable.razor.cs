@@ -280,7 +280,7 @@ public partial class OpcDaImportVariable
                 Enable = true,
                 Id = id,
                 ProtectType = level,
-                IntervalTime = 1000,
+                IntervalTime = "1000",
                 RpcWriteEnable = true,
             };
         }).Where(a => a != null).ToList();

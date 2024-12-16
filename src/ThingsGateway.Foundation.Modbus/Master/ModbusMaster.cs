@@ -141,7 +141,7 @@ public partial class ModbusMaster : ProtocolBase, IDtu
     }
 
     /// <inheritdoc/>
-    public override List<T> LoadSourceRead<T>(IEnumerable<IVariable> deviceVariables, int maxPack, int defaultIntervalTime)
+    public override List<T> LoadSourceRead<T>(IEnumerable<IVariable> deviceVariables, int maxPack, string defaultIntervalTime)
     {
         return PackHelper.LoadSourceRead<T>(this, deviceVariables, maxPack, defaultIntervalTime, Station, DtuId);
     }

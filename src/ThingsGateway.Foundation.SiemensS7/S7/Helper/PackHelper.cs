@@ -21,7 +21,7 @@ internal static class PackHelper
     /// <param name="maxPack">int，最大打包长度</param>
     /// <param name="defaultIntervalTime">int，默认间隔时间</param>
     /// <returns>List&lt;T&gt;，包含打包后的源数据列表</returns>
-    public static List<T> LoadSourceRead<T>(SiemensS7Master device, IEnumerable<IVariable> deviceVariables, int maxPack, int defaultIntervalTime) where T : IVariableSource, new()
+    public static List<T> LoadSourceRead<T>(SiemensS7Master device, IEnumerable<IVariable> deviceVariables, int maxPack, string defaultIntervalTime) where T : IVariableSource, new()
     {
         var byteConverter = device.ThingsGatewayBitConverter;
         var result = new List<T>();
@@ -40,7 +40,7 @@ internal static class PackHelper
         }
 
         // 按读取间隔分组
-        var tags = deviceVariables.GroupBy(it => it.IntervalTime ?? defaultIntervalTime);
+        var tags = deviceVariables.GroupBy(it => string.IsNullOrWhiteSpace(it.IntervalTime) ? defaultIntervalTime : it.IntervalTime);
 
         foreach (var item in tags)
         {
@@ -161,7 +161,7 @@ internal static class PackHelper
     /// <param name="intervalTime">间隔时间</param>
     /// <param name="siemensS7Net">SiemensS7Master实例，表示Siemens S7主控设备</param>
     /// <returns>包含打包后的源数据列表</returns>
-    private static List<T> LoadSourceRead<T>(Dictionary<SiemensAddress, IVariable> addressList, int functionCode, int intervalTime, SiemensS7Master siemensS7Net) where T : IVariableSource, new()
+    private static List<T> LoadSourceRead<T>(Dictionary<SiemensAddress, IVariable> addressList, int functionCode, string intervalTime, SiemensS7Master siemensS7Net) where T : IVariableSource, new()
     {
         List<T> sourceReads = new(); // 用于存储打包后的源数据列表
 

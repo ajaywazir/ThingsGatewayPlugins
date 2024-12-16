@@ -124,7 +124,7 @@ public partial class MqttCollect : CollectBase
                 TopicItemDict[group.Key] = new();
                 var sourVars = new VariableSourceRead()
                 {
-                    TimeTick = new(0),
+                    TimeTick = new("1000"),
                     RegisterAddress = group.Key,
                 };
                 foreach (var item in group)

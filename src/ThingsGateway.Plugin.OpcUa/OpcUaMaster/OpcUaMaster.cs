@@ -175,7 +175,7 @@ public class OpcUaMaster : CollectBase
             {
                 var sourVars = new VariableSourceRead()
                 {
-                    TimeTick = new(_driverProperties.UpdateRate),
+                    TimeTick = new(_driverProperties.UpdateRate.ToString()),
                     RegisterAddress = "",
                 };
                 foreach (var item in variable)

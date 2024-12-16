@@ -319,7 +319,7 @@ public partial class OpcUaImportVariable
                      Enable = true,
                      Id = id,
                      ProtectType = level,
-                     IntervalTime = 1000,
+                     IntervalTime = "1000",
                      RpcWriteEnable = true,
                  });
              }

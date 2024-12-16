@@ -133,7 +133,7 @@ public class OpcDaMaster : CollectBase
       {
           var read = new VariableSourceRead()
           {
-              TimeTick = new(_driverProperties.UpdateRate),
+              TimeTick = new(_driverProperties.UpdateRate.ToString()),
               RegisterAddress = it.Key,
           };
           var variables = deviceVariables.Where(a => it.Value.Select(b => b.ItemID).Contains(a.RegisterAddress));
