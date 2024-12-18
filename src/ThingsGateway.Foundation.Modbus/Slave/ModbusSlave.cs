@@ -48,8 +48,7 @@ public class ModbusSlave : ProtocolBase, ITcpService, IDtuClient
     {
         ThingsGatewayBitConverter = new ThingsGatewayBitConverter(EndianType.Big);
         RegisterByteLength = 2;
-        if (channel is IClientChannel client)
-            client.WaitHandlePool.MaxSign = ushort.MaxValue;
+        channel.MaxSign = ushort.MaxValue;
     }
 
     #region 属性
