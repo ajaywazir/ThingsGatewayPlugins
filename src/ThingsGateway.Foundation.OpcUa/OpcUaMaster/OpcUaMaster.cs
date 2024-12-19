@@ -346,7 +346,7 @@ public class OpcUaMaster : IDisposable
         };
 
         // fetch references from the server.
-        ReferenceDescriptionCollection references = await FormUtils.BrowseAsync(m_session, nodesToBrowse, false).ConfigureAwait(false);
+        ReferenceDescriptionCollection references = await OpcUaUtils.BrowseAsync(m_session, nodesToBrowse, false).ConfigureAwait(false);
 
         return references.ToArray();
     }
@@ -576,7 +576,7 @@ public class OpcUaMaster : IDisposable
         };
 
         // fetch property references from the server.
-        ReferenceDescriptionCollection references = FormUtils.Browse(m_session, nodesToBrowse, false);
+        ReferenceDescriptionCollection references = OpcUaUtils.Browse(m_session, nodesToBrowse, false);
 
         if (references == null)
         {
@@ -850,7 +850,7 @@ public class OpcUaMaster : IDisposable
         }
         var useSecurity = OpcUaProperty?.UseSecurity ?? true;
 
-        EndpointDescription endpointDescription = CoreClientUtils.SelectEndpoint(m_configuration, serverUrl, useSecurity, 10000);
+        EndpointDescription endpointDescription =await OpcUaUtils.SelectEndpointAsync(m_configuration, serverUrl, useSecurity, 10000).ConfigureAwait(false);
         EndpointConfiguration endpointConfiguration = EndpointConfiguration.Create(m_configuration);
         ConfiguredEndpoint endpoint = new(null, endpointDescription, endpointConfiguration);
         UserIdentity userIdentity;
@@ -1067,7 +1067,7 @@ public class OpcUaMaster : IDisposable
     {
         int startOfProperties = nodesToRead.Count;
 
-        ReferenceDescriptionCollection references = await FormUtils.BrowseAsync(m_session, nodesToBrowse, false, cancellationToken).ConfigureAwait(false);
+        ReferenceDescriptionCollection references = await OpcUaUtils.BrowseAsync(m_session, nodesToBrowse, false, cancellationToken).ConfigureAwait(false);
 
         if (references == null)
         {

@@ -15,8 +15,49 @@ namespace ThingsGateway.Foundation.OpcUa;
 /// <summary>
 /// 辅助类
 /// </summary>
-public class FormUtils
+public class OpcUaUtils
 {
+
+    /// <summary>
+    /// Finds the endpoint that best matches the current settings.
+    /// </summary>
+    /// <param name="application">The application configuration.</param>
+    /// <param name="discoveryUrl">The discovery URL.</param>
+    /// <param name="useSecurity">if set to <c>true</c> select an endpoint that uses security.</param>
+    /// <param name="discoverTimeout">The timeout for the discover operation.</param>
+    /// <returns>The best available endpoint.</returns>
+    public static async Task<EndpointDescription> SelectEndpointAsync(
+        ApplicationConfiguration application,
+        string discoveryUrl,
+        bool useSecurity,
+        int discoverTimeout
+        )
+    {
+        var uri = CoreClientUtils.GetDiscoveryUrl(discoveryUrl);
+        var endpointConfiguration = EndpointConfiguration.Create();
+        endpointConfiguration.OperationTimeout = discoverTimeout;
+
+        using (var client = DiscoveryClient.Create(application, uri, endpointConfiguration))
+        {
+            // Connect to the server's discovery endpoint and find the available configuration.
+            Uri url = new Uri(client.Endpoint.EndpointUrl);
+            var endpoints = await client.GetEndpointsAsync(null).ConfigureAwait(false);
+            var selectedEndpoint = CoreClientUtils.SelectEndpoint(url, endpoints, useSecurity);
+
+            Uri endpointUrl = Utils.ParseUri(selectedEndpoint.EndpointUrl);
+            if (endpointUrl != null && endpointUrl.Scheme == uri.Scheme)
+            {
+                UriBuilder builder = new UriBuilder(endpointUrl);
+                builder.Host = uri.DnsSafeHost;
+                builder.Port = uri.Port;
+                selectedEndpoint.EndpointUrl = builder.ToString();
+            }
+
+            return selectedEndpoint;
+        }
+    }
+
+
     /// <summary>
     /// Browses the address space and returns the references found.
     /// </summary>
@@ -412,7 +453,7 @@ public class FormUtils
     public static async Task CollectFieldsForType(ISession session, NodeId typeId, SimpleAttributeOperandCollection fields, List<NodeId> fieldNodeIds)
     {
         // get the supertypes.
-        ReferenceDescriptionCollection supertypes = await FormUtils.BrowseSuperTypesAsync(session, typeId, false).ConfigureAwait(false);
+        ReferenceDescriptionCollection supertypes = await OpcUaUtils.BrowseSuperTypesAsync(session, typeId, false).ConfigureAwait(false);
 
         if (supertypes == null)
         {
@@ -479,7 +520,7 @@ public class FormUtils
         if (knownType == null)
         {
             // browse for the supertypes of the event type.
-            ReferenceDescriptionCollection supertypes = await FormUtils.BrowseSuperTypesAsync(session, eventTypeId, false).ConfigureAwait(false);
+            ReferenceDescriptionCollection supertypes = await OpcUaUtils.BrowseSuperTypesAsync(session, eventTypeId, false).ConfigureAwait(false);
 
             // can't do anything with unknown types.
             if (supertypes == null)
@@ -547,7 +588,7 @@ public class FormUtils
             // populate the drop down list with the discovery URLs for the available servers.
             for (int ii = 0; ii < servers.Count; ii++)
             {
-                if (servers[ii].ApplicationType == ApplicationType.DiscoveryServer)
+                if (servers[ii].ApplicationType == Opc.Ua.ApplicationType.DiscoveryServer)
                 {
                     continue;
                 }
@@ -893,7 +934,7 @@ public class FormUtils
             ResultMask = (uint)BrowseResultMask.All
         };
 
-        ReferenceDescriptionCollection children = await FormUtils.BrowseAsync(session, nodeToBrowse, false).ConfigureAwait(false);
+        ReferenceDescriptionCollection children = await OpcUaUtils.BrowseAsync(session, nodeToBrowse, false).ConfigureAwait(false);
 
         if (children == null)
         {

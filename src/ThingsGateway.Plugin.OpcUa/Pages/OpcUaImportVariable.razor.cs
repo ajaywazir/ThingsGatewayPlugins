@@ -156,7 +156,7 @@ public partial class OpcUaImportVariable
             nodeToBrowse2
         };
 
-        ReferenceDescriptionCollection references = await FormUtils.BrowseAsync(Plc.Session, nodesToBrowse, false);
+        ReferenceDescriptionCollection references = await OpcUaUtils.BrowseAsync(Plc.Session, nodesToBrowse, false);
         return references;
     }
 
