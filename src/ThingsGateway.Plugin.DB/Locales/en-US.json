@@ -5,7 +5,7 @@
     "BigTextScriptHistoryTable": "DynamicScriptHistoryTable",
     "RealTableBusinessInterval": "RealTableBusinessInterval",
 
-    "IsInterval": "IsInterval",
+    "BusinessUpdateEnum": "BusinessUpdateEnum",
     "BusinessInterval": "BusinessInterval",
     "IsAllVariable": "IsAllVariable",
     "QueueMaxCount": "QueueMaxCount",
@@ -35,7 +35,7 @@
     "BigTextScriptRealTable": "DynamicScriptRealTable",
     "RealTableBusinessInterval": "RealTableBusinessInterval",
 
-    "IsInterval": "IsInterval",
+    "BusinessUpdateEnum": "BusinessUpdateEnum",
     "BusinessInterval": "BusinessInterval",
     "IsAllVariable": "IsAllVariable",
     "QueueMaxCount": "QueueMaxCount",
@@ -80,7 +80,7 @@
     "BigTextConnectStr": "ConnectString",
     "TableName": "TableName",
 
-    "IsInterval": "IsInterval",
+    "BusinessUpdateEnum": "BusinessUpdateEnum",
     "BusinessInterval": "BusinessInterval",
     "IsAllVariable": "IsAllVariable",
     "QueueMaxCount": "QueueMaxCount",

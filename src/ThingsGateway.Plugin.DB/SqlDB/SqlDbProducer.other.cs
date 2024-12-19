@@ -30,8 +30,15 @@ public partial class SqlDBProducer : BusinessBaseWithCacheIntervalVariableModel<
     {
         return UpdateVarModel(item.Select(a => a.Value), cancellationToken);
     }
-
-    protected override void VariableChange(VariableRunTime variableRunTime, VariableData variable)
+    protected override void VariableTimeInterval(VariableRunTime variableRunTime, VariableBasicData variable)
+    {
+        if (_driverPropertys.IsHistoryDB)
+        {
+            AddQueueVarModel(new(variableRunTime.Adapt<SQLHistoryValue>(_config)));
+            base.VariableChange(variableRunTime, variable);
+        }
+    }
+    protected override void VariableChange(VariableRunTime variableRunTime, VariableBasicData variable)
     {
         if (_driverPropertys.IsHistoryDB)
         {

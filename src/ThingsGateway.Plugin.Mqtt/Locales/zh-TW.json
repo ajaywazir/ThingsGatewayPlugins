@@ -27,7 +27,7 @@
     "VariableTopic": "變量主題",
     "AlarmTopic": "報警主題",
 
-    "IsInterval": "啟用定時上傳",
+    "BusinessUpdateEnum": "上傳模式",
     "BusinessInterval": "定時上傳間隔",
     "IsAllVariable": "選擇全部變量",
     "QueueMaxCount": "記憶體佇列最大數量",
@@ -55,7 +55,7 @@
     "VariableTopic": "變量主題",
     "AlarmTopic": "報警主題",
 
-    "IsInterval": "啟用定時上傳",
+    "BusinessUpdateEnum": "上傳模式",
     "BusinessInterval": "定時上傳間隔",
     "IsAllVariable": "選擇全部變量",
     "QueueMaxCount": "記憶體佇列最大數量",
@@ -88,7 +88,7 @@
     "VariableTopic": "變量主題",
     "AlarmTopic": "報警主題",
 
-    "IsInterval": "啟用定時上傳",
+    "BusinessUpdateEnum": "上傳模式",
     "BusinessInterval": "定時上傳間隔",
     "IsAllVariable": "選擇全部變量",
     "QueueMaxCount": "記憶體佇列最大數量",

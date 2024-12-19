@@ -5,7 +5,7 @@
     "BigTextScriptHistoryTable": "历史表动态脚本",
     "RealTableBusinessInterval": "实时表定时上传间隔",
 
-    "IsInterval": "启用定时上传",
+    "BusinessUpdateEnum": "上传模式",
     "BusinessInterval": "定时上传间隔",
     "IsAllVariable": "选择全部变量",
     "QueueMaxCount": "内存队列最大数量",
@@ -35,7 +35,7 @@
     "BigTextScriptRealTable": "实时表动态脚本",
     "RealTableBusinessInterval": "实时表定时上传间隔",
 
-    "IsInterval": "启用定时上传",
+    "BusinessUpdateEnum": "上传模式",
     "BusinessInterval": "定时上传间隔",
     "IsAllVariable": "选择全部变量",
     "QueueMaxCount": "内存队列最大数量",
@@ -80,7 +80,7 @@
     "BigTextConnectStr": "链接字符串",
     "TableName": "表名称",
 
-    "IsInterval": "启用定时上传",
+    "BusinessUpdateEnum": "上传模式",
     "BusinessInterval": "定时上传间隔",
     "IsAllVariable": "选择全部变量",
     "QueueMaxCount": "内存队列最大数量",

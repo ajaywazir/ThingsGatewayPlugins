@@ -10,6 +10,7 @@
 
 using MQTTnet;
 
+using ThingsGateway.Extension;
 using ThingsGateway.Foundation;
 
 using TouchSocket.Core;
@@ -132,6 +133,18 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
             await Task.Delay(10000, cancellationToken).ConfigureAwait(false);
             //return;
         }
+        //TD设备上线
+
+        var data=ThingsBoardDeviceConnectQueue.ToListWithDequeue();
+        if(data?.Count>0)
+        {
+            foreach (var item in data)
+            {
+                await UpdateThingsBoardDeviceConnect(item).ConfigureAwait(false);
+            }
+        }
+
+
         await Update(cancellationToken).ConfigureAwait(false);
 
         await Delay(cancellationToken).ConfigureAwait(false);

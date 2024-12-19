@@ -38,7 +38,14 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
             AddQueueAlarmModel(new(alarmVariable));
         base.AlarmChange(alarmVariable);
     }
+    protected override void DeviceTimeInterval(DeviceRunTime deviceRunTime, DeviceBasicData deviceData)
+    {
 
+        if (!_businessPropertyWithCacheIntervalScript.DeviceTopic.IsNullOrWhiteSpace())
+            AddQueueDevModel(new(deviceData));
+
+        base.DeviceChange(deviceRunTime, deviceData);
+    }
     protected override void DeviceChange(DeviceRunTime deviceRunTime, DeviceBasicData deviceData)
     {
         if (!_businessPropertyWithCacheIntervalScript.DeviceTopic.IsNullOrWhiteSpace())
@@ -60,7 +67,12 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
     {
         return UpdateVarModel(item.Select(a => a.Value), cancellationToken);
     }
-
+    protected override void VariableTimeInterval(VariableRunTime variableRunTime, VariableBasicData variable)
+    {
+        if (!_businessPropertyWithCacheIntervalScript.VariableTopic.IsNullOrWhiteSpace())
+            AddQueueVarModel(new(variable));
+        base.VariableChange(variableRunTime, variable);
+    }
     protected override void VariableChange(VariableRunTime variableRunTime, VariableBasicData variable)
     {
         if (!_businessPropertyWithCacheIntervalScript.VariableTopic.IsNullOrWhiteSpace())

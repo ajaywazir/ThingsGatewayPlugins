@@ -17,7 +17,7 @@
     "DeviceTopic": "DeviceTopic",
     "VariableTopic": "VariableTopic",
     "AlarmTopic": "AlarmTopic",
-    "IsInterval": "IsInterval",
+    "BusinessUpdateEnum": "BusinessUpdateEnum",
     "BusinessInterval": "BusinessInterval",
     "IsAllVariable": "IsAllVariable",
     "QueueMaxCount": "QueueMaxCount",

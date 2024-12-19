@@ -46,7 +46,14 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
             AddQueueAlarmModel(new(alarmVariable));
         base.AlarmChange(alarmVariable);
     }
+    protected override void DeviceTimeInterval(DeviceRunTime deviceRunTime, DeviceBasicData deviceData)
+    {
 
+        if (!_businessPropertyWithCacheIntervalScript.DeviceTopic.IsNullOrWhiteSpace())
+            AddQueueDevModel(new(deviceData));
+
+        base.DeviceChange(deviceRunTime, deviceData);
+    }
     protected override void DeviceChange(DeviceRunTime deviceRunTime, DeviceBasicData deviceData)
     {
         if (!_businessPropertyWithCacheIntervalScript.DeviceTopic.IsNullOrEmpty())
@@ -68,7 +75,12 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
     {
         return UpdateVarModel(item.Select(a => a.Value), cancellationToken);
     }
-
+    protected override void VariableTimeInterval(VariableRunTime variableRunTime, VariableBasicData variable)
+    {
+        if (!_businessPropertyWithCacheIntervalScript.VariableTopic.IsNullOrWhiteSpace())
+            AddQueueVarModel(new(variable));
+        base.VariableChange(variableRunTime, variable);
+    }
     protected override void VariableChange(VariableRunTime variableRunTime, VariableBasicData variable)
     {
         if (!_businessPropertyWithCacheIntervalScript.VariableTopic.IsNullOrEmpty())

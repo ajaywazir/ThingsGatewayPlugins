@@ -29,7 +29,13 @@ public partial class TDengineDBProducer : BusinessBaseWithCacheIntervalVariableM
         return UpdateVarModel(item.Select(a => a.Value), cancellationToken);
     }
 
-    protected override void VariableChange(VariableRunTime variableRunTime, VariableData variable)
+    protected override void VariableTimeInterval(VariableRunTime variableRunTime, VariableBasicData variable)
+    {
+        AddQueueVarModel(new(variableRunTime.Adapt<TDengineDBHistoryValue>()));
+        base.VariableChange(variableRunTime, variable);
+    }
+
+    protected override void VariableChange(VariableRunTime variableRunTime, VariableBasicData variable)
     {
         AddQueueVarModel(new(variableRunTime.Adapt<TDengineDBHistoryValue>()));
         base.VariableChange(variableRunTime, variable);

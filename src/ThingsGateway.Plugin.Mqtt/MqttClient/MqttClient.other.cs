@@ -15,6 +15,7 @@ using MQTTnet.Client;
 
 using Newtonsoft.Json.Linq;
 
+using System.Collections.Concurrent;
 using System.Text;
 
 using ThingsGateway.Core.Json.Extension;
@@ -47,8 +48,66 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
         base.AlarmChange(alarmVariable);
     }
 
+    private ConcurrentQueue<DeviceBasicData> ThingsBoardDeviceConnectQueue { get; set; } = new();
+
+    private  async ValueTask<OperResult> UpdateThingsBoardDeviceConnect(DeviceBasicData deviceData)
+    {
+        List<TopicJson> topicJsonTBList = new();
+
+        {
+            if (deviceData.DeviceStatus == DeviceStatusEnum.OnLine)
+            {
+                var topicJson = new TopicJson()
+                {
+                    Topic = "v1/gateway/connect",
+                    Json = new
+                    {
+                        device = deviceData.Name,
+                    }.ToJsonNetString()
+                };
+                topicJsonTBList.Add(topicJson);
+            }
+            else
+            {
+                var topicJson = new TopicJson()
+                {
+                    Topic = "v1/gateway/disconnect",
+                    Json = new
+                    {
+                        device = deviceData.Name,
+                    }.ToJsonNetString()
+                };
+                topicJsonTBList.Add(topicJson);
+            }
+
+        }
+        var result=await Update(topicJsonTBList, 1, default).ConfigureAwait(false);
+        if (success != result.IsSuccess)
+        {
+            if (!result.IsSuccess)
+            {
+                LogMessage.LogWarning(result.ToString());
+            }
+            success = result.IsSuccess;
+        }
+      return result;
+    }
+
+    protected override void DeviceTimeInterval(DeviceRunTime deviceRunTime, DeviceBasicData deviceData)
+    {
+
+        if (!_businessPropertyWithCacheIntervalScript.DeviceTopic.IsNullOrWhiteSpace())
+            AddQueueDevModel(new(deviceData));
+
+        base.DeviceChange(deviceRunTime, deviceData);
+    }
     protected override void DeviceChange(DeviceRunTime deviceRunTime, DeviceBasicData deviceData)
     {
+        if (_driverPropertys.RpcWriteTopic == ThingsBoardRpcTopic)
+        {
+            ThingsBoardDeviceConnectQueue.Enqueue(deviceData);
+        }
+
         if (!_businessPropertyWithCacheIntervalScript.DeviceTopic.IsNullOrWhiteSpace())
             AddQueueDevModel(new(deviceData));
 
@@ -71,7 +130,12 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
     {
         return UpdateVarModel(item.Select(a => a.Value), cancellationToken);
     }
-
+    protected override void VariableTimeInterval(VariableRunTime variableRunTime, VariableBasicData variable)
+    {
+        if (!_businessPropertyWithCacheIntervalScript.VariableTopic.IsNullOrWhiteSpace())
+            AddQueueVarModel(new(variable));
+        base.VariableChange(variableRunTime, variable);
+    }
     protected override void VariableChange(VariableRunTime variableRunTime, VariableBasicData variable)
     {
         if (!_businessPropertyWithCacheIntervalScript.VariableTopic.IsNullOrWhiteSpace())
@@ -114,41 +178,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
 
     private ValueTask<OperResult> UpdateDevModel(IEnumerable<DeviceBasicData> item, CancellationToken cancellationToken)
     {
-        if (_driverPropertys.RpcWriteTopic == ThingsBoardRpcTopic)
-        {
 
-            List<TopicJson> topicJsonTBList = new();
-
-            foreach (var deviceBasicData in item)
-            {
-                if (deviceBasicData.DeviceStatus == DeviceStatusEnum.OnLine)
-                {
-                    var topicJson = new TopicJson()
-                    {
-                        Topic = "v1/gateway/connect",
-                        Json = new
-                        {
-                            device = deviceBasicData.Name,
-                        }.ToJsonNetString()
-                    };
-                    topicJsonTBList.Add(topicJson);
-                }
-                else
-                {
-                    var topicJson = new TopicJson()
-                    {
-                        Topic = "v1/gateway/disconnect",
-                        Json = new
-                        {
-                            device = deviceBasicData.Name,
-                        }.ToJsonNetString()
-                    };
-                    topicJsonTBList.Add(topicJson);
-                }
-
-            }
-            return Update(topicJsonTBList, item.Count(), cancellationToken);
-        }
         List<TopicJson> topicJsonList = GetDeviceData(item);
         return Update(topicJsonList, item.Count(), cancellationToken);
     }

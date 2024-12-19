@@ -11,6 +11,7 @@
 using Mapster;
 
 using ThingsGateway.Foundation;
+using ThingsGateway.Gateway.Application;
 using ThingsGateway.Plugin.DB;
 
 using TouchSocket.Core;
@@ -28,8 +29,12 @@ public partial class QuestDBProducer : BusinessBaseWithCacheIntervalVariableMode
     {
         return UpdateVarModel(item.Select(a => a.Value), cancellationToken);
     }
-
-    protected override void VariableChange(VariableRunTime variableRunTime, VariableData variable)
+    protected override void VariableTimeInterval(VariableRunTime variableRunTime, VariableBasicData variable)
+    {
+        AddQueueVarModel(new(variableRunTime.Adapt<QuestDBHistoryValue>()));
+        base.VariableChange(variableRunTime, variable);
+    }
+    protected override void VariableChange(VariableRunTime variableRunTime, VariableBasicData variable)
     {
         AddQueueVarModel(new(variableRunTime.Adapt<QuestDBHistoryValue>()));
         base.VariableChange(variableRunTime, variable);
