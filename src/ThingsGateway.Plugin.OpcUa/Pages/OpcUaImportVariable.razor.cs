@@ -43,7 +43,8 @@ public partial class OpcUaImportVariable
     private List<TreeViewItem<OpcUaTagModel>> Items = new();
     private IEnumerable<OpcUaTagModel> Nodes;
     private bool ShowSkeleton = true;
-
+    private bool IsReset = true;
+    
     /// <summary>
     /// Opc对象
     /// </summary>
@@ -69,6 +70,9 @@ public partial class OpcUaImportVariable
             {
                 Items = BuildTreeItemList(await PopulateBranchAsync(ObjectIds.ObjectsFolder), RenderTreeItem).ToList();
                 ShowSkeleton = false;
+                IsReset = true;
+                await InvokeAsync(StateHasChanged);
+                IsReset = false;
                 await InvokeAsync(StateHasChanged);
             });
         }
