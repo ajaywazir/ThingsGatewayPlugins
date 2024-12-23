@@ -5,6 +5,7 @@
 	<Import Project="targets\Gateway.targets" />
 	<Import Project="targets\Custom.targets" />
 	<PropertyGroup>
+		<AdminVersion>7.2.0.55</AdminVersion>
 		<TargetFrameworks>net9.0</TargetFrameworks>
 		<CustomTargetFramework>$(TargetFramework)</CustomTargetFramework>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
