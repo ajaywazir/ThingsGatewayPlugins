@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="ThingsGateway.Razor" Version="$(AdminVersion)" />
     <PackageReference Include="Photino.NET" Version="3.2.3" />
 	  <ProjectReference Include="..\ThingsGateway.Debug.Razor\ThingsGateway.Debug.Razor.csproj" />
   </ItemGroup>

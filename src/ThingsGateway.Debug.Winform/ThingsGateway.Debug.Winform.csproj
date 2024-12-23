@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="ThingsGateway.Razor" Version="$(AdminVersion)" />
 	  <ProjectReference Include="..\ThingsGateway.Debug.Razor\ThingsGateway.Debug.Razor.csproj" />
   </ItemGroup>
 
