@@ -1,9 +1,9 @@
 <Project>
 
 	<PropertyGroup>
-		<GatewayVersion>7.2.0.87</GatewayVersion>
-		<FoundationVersion>9.0.2.39</FoundationVersion>
-		<ProPluginVersion>9.0.2.78</ProPluginVersion>
+		<GatewayVersion>7.2.0.91</GatewayVersion>
+		<FoundationVersion>9.0.2.41</FoundationVersion>
+		<ProPluginVersion>9.0.2.81</ProPluginVersion>
 	</PropertyGroup>
 	<PropertyGroup>
 		<TargetFrameworks>net9.0;net8.0;net6.0;</TargetFrameworks>
