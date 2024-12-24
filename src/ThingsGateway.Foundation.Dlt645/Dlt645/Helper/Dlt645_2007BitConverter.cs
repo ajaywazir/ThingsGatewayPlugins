@@ -88,7 +88,7 @@ public class Dlt645_2007BitConverter : ThingsGatewayBitConverter
             var content = data.Slice(4 + index, dataInfo.ByteLength).ToArray().Reverse().ToArray();
             if (dataInfo.IsSigned)//可能为负数
             {
-                if (content[0] > 0x80)//最高位是表示正负
+                if (content[0] >= 0x80)//最高位是表示正负
                 {
                     content[0] = (byte)(content[0] - 0x80);
                     if (dataInfo.Digtal == 0)//无小数点
