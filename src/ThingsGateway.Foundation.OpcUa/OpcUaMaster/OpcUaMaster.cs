@@ -850,7 +850,7 @@ public class OpcUaMaster : IDisposable
         }
         var useSecurity = OpcUaProperty?.UseSecurity ?? true;
 
-        EndpointDescription endpointDescription =await OpcUaUtils.SelectEndpointAsync(m_configuration, serverUrl, useSecurity, 10000).ConfigureAwait(false);
+        EndpointDescription endpointDescription = await OpcUaUtils.SelectEndpointAsync(m_configuration, serverUrl, useSecurity, 10000).ConfigureAwait(false);
         EndpointConfiguration endpointConfiguration = EndpointConfiguration.Create(m_configuration);
         ConfiguredEndpoint endpoint = new(null, endpointDescription, endpointConfiguration);
         UserIdentity userIdentity;

@@ -80,11 +80,11 @@ public partial class KafkaProducer : BusinessBaseWithCacheIntervalScript<Variabl
 
     #region private
 
-    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList,int count, CancellationToken cancellationToken)
+    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList, int count, CancellationToken cancellationToken)
     {
         foreach (var topicJson in topicJsonList)
         {
-            var result = await KafKaUpAsync(topicJson.Topic, topicJson.Json,count, cancellationToken).ConfigureAwait(false);
+            var result = await KafKaUpAsync(topicJson.Topic, topicJson.Json, count, cancellationToken).ConfigureAwait(false);
             if (success != result.IsSuccess)
             {
                 if (!result.IsSuccess)
@@ -154,7 +154,7 @@ public partial class KafkaProducer : BusinessBaseWithCacheIntervalScript<Variabl
     /// <summary>
     /// kafka上传，返回上传结果
     /// </summary>
-    public async ValueTask<OperResult> KafKaUpAsync(string topic, string payLoad,int count, CancellationToken cancellationToken)
+    public async ValueTask<OperResult> KafKaUpAsync(string topic, string payLoad, int count, CancellationToken cancellationToken)
     {
         try
         {

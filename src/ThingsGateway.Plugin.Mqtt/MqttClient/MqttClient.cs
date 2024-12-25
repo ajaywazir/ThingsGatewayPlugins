@@ -135,8 +135,8 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
         }
         //TD设备上线
 
-        var data=ThingsBoardDeviceConnectQueue.ToListWithDequeue();
-        if(data?.Count>0)
+        var data = ThingsBoardDeviceConnectQueue.ToListWithDequeue();
+        if (data?.Count > 0)
         {
             foreach (var item in data)
             {

@@ -68,6 +68,7 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
     /// <inheritdoc/>
     protected override async void Dispose(bool disposing)
     {
+        base.Dispose(disposing);
         if (_mqttServer != null)
         {
             _mqttServer.ClientDisconnectedAsync -= MqttServer_ClientDisconnectedAsync;
@@ -82,22 +83,25 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
             _webHost.SafeDispose();
         }
 
-        base.Dispose(disposing);
     }
 
     protected override async Task ProtectedBeforStartAsync(CancellationToken cancellationToken)
     {
-        _ = Task.Run(async () =>
+        _ = Task.Factory.StartNew(async () =>
         {
-            try
+            while (!DisposedValue)
             {
-                await _webHost.RunAsync().ConfigureAwait(false);
+                try
+                {
+                    await _webHost.RunAsync().ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    LogMessage.Exception(ex);
+                }
+                await Task.Delay(60000).ConfigureAwait(false);
             }
-            catch (Exception ex)
-            {
-                LogMessage.Exception(ex);
-            }
-        }, cancellationToken);
+        });
         if (_mqttServer != null)
         {
             _mqttServer.ClientDisconnectedAsync -= MqttServer_ClientDisconnectedAsync;

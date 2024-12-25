@@ -50,11 +50,11 @@ public partial class MqttCollect : CollectBase
                 if (_driverPropertys.DetailLog)
                 {
                     if (LogMessage.LogLevel <= TouchSocket.Core.LogLevel.Trace)
-                LogMessage.LogTrace($"Topic：{args.ApplicationMessage.Topic}{Environment.NewLine}PayLoad：{payLoad}");
+                        LogMessage.LogTrace($"Topic：{args.ApplicationMessage.Topic}{Environment.NewLine}PayLoad：{payLoad}");
                 }
                 else
                 {
-                LogMessage.LogTrace($"Topic：{args.ApplicationMessage.Topic}");
+                    LogMessage.LogTrace($"Topic：{args.ApplicationMessage.Topic}");
 
                 }
 

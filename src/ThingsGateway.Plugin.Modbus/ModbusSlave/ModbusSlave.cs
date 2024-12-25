@@ -108,7 +108,6 @@ public class ModbusSlave : BusinessBase
         _plc.WriteData += OnWriteData;
         Localizer = App.CreateLocalizerByType(typeof(ModbusSlave))!;
 
-        _plc.ConnectAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>

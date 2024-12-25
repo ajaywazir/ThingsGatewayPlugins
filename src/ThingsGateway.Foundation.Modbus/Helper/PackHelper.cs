@@ -56,7 +56,7 @@ public class PackHelper
         }
 
         // 按照时间间隔将变量分组
-        var deviceVariableRunTimeGroups = deviceVariables.GroupBy(it =>string.IsNullOrWhiteSpace( it.IntervalTime) ? defaultIntervalTime: it.IntervalTime);
+        var deviceVariableRunTimeGroups = deviceVariables.GroupBy(it => string.IsNullOrWhiteSpace(it.IntervalTime) ? defaultIntervalTime : it.IntervalTime);
         foreach (var group in deviceVariableRunTimeGroups)
         {
             // 将变量分组转换为字典，键为 ModbusAddress

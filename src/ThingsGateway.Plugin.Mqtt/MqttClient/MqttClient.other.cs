@@ -50,7 +50,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
 
     private ConcurrentQueue<DeviceBasicData> ThingsBoardDeviceConnectQueue { get; set; } = new();
 
-    private  async ValueTask<OperResult> UpdateThingsBoardDeviceConnect(DeviceBasicData deviceData)
+    private async ValueTask<OperResult> UpdateThingsBoardDeviceConnect(DeviceBasicData deviceData)
     {
         List<TopicJson> topicJsonTBList = new();
 
@@ -81,7 +81,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
             }
 
         }
-        var result=await Update(topicJsonTBList, 1, default).ConfigureAwait(false);
+        var result = await Update(topicJsonTBList, 1, default).ConfigureAwait(false);
         if (success != result.IsSuccess)
         {
             if (!result.IsSuccess)
@@ -90,7 +90,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
             }
             success = result.IsSuccess;
         }
-      return result;
+        return result;
     }
 
     protected override void DeviceTimeInterval(DeviceRunTime deviceRunTime, DeviceBasicData deviceData)
@@ -147,11 +147,11 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
 
     #region private
 
-    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList,int count, CancellationToken cancellationToken)
+    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList, int count, CancellationToken cancellationToken)
     {
         foreach (var topicJson in topicJsonList)
         {
-            var result = await MqttUpAsync(topicJson.Topic, topicJson.Json, count,cancellationToken).ConfigureAwait(false);
+            var result = await MqttUpAsync(topicJson.Topic, topicJson.Json, count, cancellationToken).ConfigureAwait(false);
             if (cancellationToken.IsCancellationRequested)
                 return result;
             if (success != result.IsSuccess)
@@ -173,7 +173,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
     private ValueTask<OperResult> UpdateAlarmModel(IEnumerable<AlarmVariable> item, CancellationToken cancellationToken)
     {
         List<TopicJson> topicJsonList = GetAlarms(item);
-        return Update(topicJsonList,item.Count(), cancellationToken);
+        return Update(topicJsonList, item.Count(), cancellationToken);
     }
 
     private ValueTask<OperResult> UpdateDevModel(IEnumerable<DeviceBasicData> item, CancellationToken cancellationToken)

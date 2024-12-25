@@ -82,11 +82,11 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
 
     #region private
 
-    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList,int count, CancellationToken cancellationToken)
+    private async ValueTask<OperResult> Update(List<TopicJson> topicJsonList, int count, CancellationToken cancellationToken)
     {
         foreach (var topicJson in topicJsonList)
         {
-            var result = await Publish(topicJson.Topic, topicJson.Json,count, cancellationToken).ConfigureAwait(false);
+            var result = await Publish(topicJson.Topic, topicJson.Json, count, cancellationToken).ConfigureAwait(false);
             if (success != result.IsSuccess)
             {
                 if (!result.IsSuccess)
@@ -158,7 +158,7 @@ public partial class RabbitMQProducer : BusinessBaseWithCacheIntervalScript<Vari
     /// <summary>
     /// 上传，返回上传结果
     /// </summary>
-    public async Task<OperResult> Publish(string topic, string payLoad,int count, CancellationToken cancellationToken)
+    public async Task<OperResult> Publish(string topic, string payLoad, int count, CancellationToken cancellationToken)
     {
         try
         {

@@ -44,7 +44,7 @@ public partial class OpcUaImportVariable
     private IEnumerable<OpcUaTagModel> Nodes;
     private bool ShowSkeleton = true;
     private bool IsReset = true;
-    
+
     /// <summary>
     /// Opc对象
     /// </summary>
