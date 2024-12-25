@@ -107,7 +107,13 @@ public class ModbusSlave : BusinessBase
         );
         _plc.WriteData += OnWriteData;
         Localizer = App.CreateLocalizerByType(typeof(ModbusSlave))!;
-
+        try
+        {
+            channel.Connect(_plc.ConnectTimeout);
+        }
+        catch
+        {
+        }
     }
 
     /// <inheritdoc/>
