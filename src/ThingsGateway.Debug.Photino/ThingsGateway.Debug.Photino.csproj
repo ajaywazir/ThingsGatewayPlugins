@@ -3,7 +3,8 @@
 
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+	  <SatelliteResourceLanguages>zh-Hans;en-US</SatelliteResourceLanguages>
+	  <OutputType>WinExe</OutputType>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <SatelliteResourceLanguages>zh-Hans;en-US</SatelliteResourceLanguages>
 

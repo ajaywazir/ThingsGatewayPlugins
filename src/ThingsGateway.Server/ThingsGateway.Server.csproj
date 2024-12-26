@@ -5,7 +5,7 @@
 	<Import Project="targets\Gateway.targets" />
 	<Import Project="targets\Custom.targets" />
 	<PropertyGroup>
-		<AdminVersion>7.2.0.55</AdminVersion>
+		<AdminVersion>7.2.0.57</AdminVersion>
 		<TargetFrameworks>net9.0</TargetFrameworks>
 		<CustomTargetFramework>$(TargetFramework)</CustomTargetFramework>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
@@ -36,16 +36,14 @@
 		</Content>
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
-	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.20" />
 	</ItemGroup>
+
 
 
 	<!--安装服务守护-->
