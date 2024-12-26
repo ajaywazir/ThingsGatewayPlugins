@@ -56,5 +56,5 @@ public class QuestDBHistoryValue : IPrimaryIdEntity, IDBHistoryValue
     /// 变量值
     /// </summary>
     [AutoGenerateColumn(Visible = true, Filterable = true, Sortable = true)]
-    public string Value { get; set; }
+    public decimal Value { get; set; }
 }

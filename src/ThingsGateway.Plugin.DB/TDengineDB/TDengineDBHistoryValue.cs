@@ -40,7 +40,6 @@ public class TDengineDBHistoryValue : STable, IPrimaryIdEntity, IDBHistoryValue
     [AutoGenerateColumn(Order = 1, Visible = true, Sortable = true, Filterable = false)]
     public bool IsOnline { get; set; }
 
-    [SugarColumn(Length = 18, DecimalDigits = 2)]
     [AutoGenerateColumn(Order = 1, Visible = true, Sortable = true, Filterable = false)]
-    public string Value { get; set; }
+    public decimal Value { get; set; }
 }
