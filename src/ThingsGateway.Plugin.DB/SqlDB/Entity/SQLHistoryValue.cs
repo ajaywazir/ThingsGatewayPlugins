@@ -45,7 +45,7 @@ public class SQLHistoryValue : IPrimaryIdEntity, IDBHistoryValue
     ///</summary>
     [SugarColumn(ColumnDescription = "实时值")]
     [AutoGenerateColumn(Order = 23, Visible = true, Sortable = true, Filterable = false)]
-    public decimal Value { get; set; }
+    public string Value { get; set; }
 
     ///<summary>
     ///是否在线

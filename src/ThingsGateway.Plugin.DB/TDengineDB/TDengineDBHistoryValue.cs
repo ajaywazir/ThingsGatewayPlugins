@@ -41,5 +41,5 @@ public class TDengineDBHistoryValue : STable, IPrimaryIdEntity, IDBHistoryValue
     public bool IsOnline { get; set; }
 
     [AutoGenerateColumn(Order = 1, Visible = true, Sortable = true, Filterable = false)]
-    public decimal Value { get; set; }
+    public string Value { get; set; }
 }

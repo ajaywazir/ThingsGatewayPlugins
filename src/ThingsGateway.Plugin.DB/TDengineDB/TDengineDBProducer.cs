@@ -61,7 +61,7 @@ public partial class TDengineDBProducer : BusinessBaseWithCacheIntervalVariableM
     {
         _config = new TypeAdapterConfig();
         _config.ForType<VariableRunTime, TDengineDBHistoryValue>()
-            .Map(dest => dest.Value, src => src.Value.ToDecimal(0))
+            .Map(dest => dest.Value, src => src.Value == null ? string.Empty : src.Value.ToString() ?? string.Empty)
             //.Map(dest => dest.Id, src => CommonUtils.GetSingleId())
             .Map(dest => dest.Id, src => src.Id)//Id更改为变量Id
             ;//注意sqlsugar插入时无时区，直接utc时间
