@@ -227,6 +227,14 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
 
     private async Task MqttServer_InterceptingPublishAsync(InterceptingPublishEventArgs args)
     {
+#if NET8_0_OR_GREATER
+
+    var payload = args.ApplicationMessage.Payload;
+#else
+
+        var payload = args.ApplicationMessage.PayloadSegment;
+
+#endif
         if (!_driverPropertys.DeviceRpcEnable || string.IsNullOrEmpty(args.ClientId))
             return;
 
@@ -234,7 +242,7 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
         var t = string.Format(RpcTopic, _driverPropertys.RpcWriteTopic);
         if (MqttTopicFilterComparer.Compare(args.ApplicationMessage.Topic, t) != MqttTopicFilterCompareResult.IsMatch)
             return;
-        var rpcDatas = Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment).FromJsonNetString<Dictionary<string, JToken>>();
+        var rpcDatas = Encoding.UTF8.GetString(payload).FromJsonNetString<Dictionary<string, JToken>>();
         if (rpcDatas == null)
             return;
         Dictionary<string, OperResult> mqttRpcResult = await GetResult(args, rpcDatas).ConfigureAwait(false);

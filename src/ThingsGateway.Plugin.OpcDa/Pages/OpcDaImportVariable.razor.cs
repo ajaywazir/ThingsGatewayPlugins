@@ -40,7 +40,6 @@ public partial class OpcDaImportVariable
     private List<TreeViewItem<OpcDaTagModel>> Items = new();
     private IEnumerable<OpcDaTagModel> Nodes;
     private bool ShowSkeleton = true;
-    private bool IsReset = true;
 
     /// <summary>
     /// Opc对象
@@ -67,9 +66,6 @@ public partial class OpcDaImportVariable
             {
                 Items = BuildTreeItemList(PopulateBranch(), RenderTreeItem).ToList();
                 ShowSkeleton = false;
-                IsReset = true;
-                await InvokeAsync(StateHasChanged);
-                IsReset = false;
                 await InvokeAsync(StateHasChanged);
             });
         }

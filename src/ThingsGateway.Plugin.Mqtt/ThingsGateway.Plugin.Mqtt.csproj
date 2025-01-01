@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 	<Import Project="$(SolutionDir)Plugin.props" />
 	<Import Project="$(SolutionDir)Version.props" />
 	<Import Project="$(SolutionDir)PackNuget.props" />
@@ -6,7 +6,15 @@
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
 		<PackageReference Include="MQTTnet.AspNetCore" Version="4.3.7.1207" GeneratePathProperty="true"/>
 		<PackageReference Include="MQTTnet" Version="4.3.7.1207" GeneratePathProperty="true"/>
 	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
+		<PackageReference Include="MQTTnet.AspNetCore" Version="5.0.0.1405" GeneratePathProperty="true" />
+		<PackageReference Include="MQTTnet" Version="5.0.0.1405" GeneratePathProperty="true" />
+	</ItemGroup>
+
 </Project>

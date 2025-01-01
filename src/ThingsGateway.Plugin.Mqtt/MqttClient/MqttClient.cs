@@ -32,6 +32,16 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
         base.Init(channel);
 
         #region 初始化
+#if NET8_0_OR_GREATER
+        var mqttFactory = new MqttClientFactory();
+        var mqttClientOptionsBuilder = mqttFactory.CreateClientOptionsBuilder()
+           .WithClientId(_driverPropertys.ConnectId)
+           .WithCredentials(_driverPropertys.UserName, _driverPropertys.Password)//账密
+           .WithCleanSession(true)
+           .WithKeepAlivePeriod(TimeSpan.FromSeconds(120.0));
+
+
+#else
 
         var mqttFactory = new MqttFactory();
         var mqttClientOptionsBuilder = mqttFactory.CreateClientOptionsBuilder()
@@ -40,6 +50,8 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
            .WithCleanSession(true)
            .WithKeepAlivePeriod(TimeSpan.FromSeconds(120.0))
            .WithoutThrowOnNonSuccessfulConnectResponse();
+
+#endif
         if (_driverPropertys.IsWebSocket)
             _mqttClientOptions = mqttClientOptionsBuilder.WithWebSocketServer(a => a.WithUri(_driverPropertys.WebSocketUrl))
            .Build();
@@ -83,7 +95,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
         _mqttClient.ConnectedAsync += MqttClient_ConnectedAsync;
         _mqttClient.ApplicationMessageReceivedAsync += MqttClient_ApplicationMessageReceivedAsync;
 
-        #endregion 初始化
+#endregion 初始化
     }
 
     /// <inheritdoc/>

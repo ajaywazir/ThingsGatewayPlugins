@@ -49,9 +49,15 @@ public class MqttServerStartup
             return serverOptionsBuilder.Build();
         });
 
-        var logger = new MqttNetEventLogger();
-        services.AddSingleton<IMqttNetLogger>(logger);
+#if NET8_0_OR_GREATER
+        var logger = new MQTTnet.Diagnostics.Logger.MqttNetEventLogger();
+        services.AddSingleton<MQTTnet.Diagnostics.Logger.IMqttNetLogger>(logger);
+        services.TryAddSingleton(new MqttServerFactory());
+#else
+        var logger = new MQTTnet.Diagnostics.MqttNetEventLogger();
+        services.AddSingleton<MQTTnet.Diagnostics.IMqttNetLogger>(logger);
         services.TryAddSingleton(new MqttFactory());
+#endif
         services.AddSingleton<MqttHostedServer>();
         //services.AddSingleton<IHostedService>(s => s.GetService<MqttHostedServer>());
         ////不再注册HostService,MqttServer的生命周期由插件完成

@@ -9,7 +9,10 @@
 //------------------------------------------------------------------------------
 
 using MQTTnet;
+
+#if NET6_0
 using MQTTnet.Client;
+#endif
 
 using System.Text;
 
@@ -37,15 +40,26 @@ public partial class MqttCollect : CollectBase
     #region mqtt方法
 
 
-    private Task MqttClient_ApplicationMessageReceivedAsync(MQTTnet.Client.MqttApplicationMessageReceivedEventArgs args)
+    private Task MqttClient_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs args)
     {
+#if NET8_0_OR_GREATER
+
+    var payload = args.ApplicationMessage.Payload;
+    var payloadCount = payload.Length;
+#else
+
+        var payload = args.ApplicationMessage.PayloadSegment;
+        var payloadCount = payload.Count;
+
+#endif
+
         try
         {
             var tuples = TopicItemDict.FirstOrDefault(t => (MqttTopicFilterComparer.Compare(args.ApplicationMessage.Topic, t.Key) == MqttTopicFilterCompareResult.IsMatch)).Value;
             if (tuples != null)
             {
 
-                var payLoad = Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment);
+                var payLoad = Encoding.UTF8.GetString(payload);
 
                 if (_driverPropertys.DetailLog)
                 {
@@ -96,7 +110,7 @@ public partial class MqttCollect : CollectBase
 
     }
 
-    private async Task MqttClient_ConnectedAsync(MQTTnet.Client.MqttClientConnectedEventArgs args)
+    private async Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs args)
     {
         //连接成功后订阅相关主题
         if (_mqttSubscribeOptions != null)

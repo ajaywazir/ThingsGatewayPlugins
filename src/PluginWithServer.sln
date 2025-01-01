@@ -53,7 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingsGateway.Plugin.OpcDaN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingsGateway.Debug.Winform", "ThingsGateway.Debug.Winform\ThingsGateway.Debug.Winform.csproj", "{B8A77906-446F-4421-B00C-0CF0F8A3E530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingsGateway.Server", "ThingsGateway.Server\ThingsGateway.Server.csproj", "{97D5E4F7-CAFF-4773-B676-F87E6ACE8814}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingsGateway.Server", "ThingsGateway.Server\ThingsGateway.Server.csproj", "{B945FD54-4ED5-40DB-A6D0-445D264C7DDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,10 +141,10 @@ Global
 		{B8A77906-446F-4421-B00C-0CF0F8A3E530}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8A77906-446F-4421-B00C-0CF0F8A3E530}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8A77906-446F-4421-B00C-0CF0F8A3E530}.Release|Any CPU.Build.0 = Release|Any CPU
-		{97D5E4F7-CAFF-4773-B676-F87E6ACE8814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97D5E4F7-CAFF-4773-B676-F87E6ACE8814}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97D5E4F7-CAFF-4773-B676-F87E6ACE8814}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97D5E4F7-CAFF-4773-B676-F87E6ACE8814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B945FD54-4ED5-40DB-A6D0-445D264C7DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B945FD54-4ED5-40DB-A6D0-445D264C7DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B945FD54-4ED5-40DB-A6D0-445D264C7DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B945FD54-4ED5-40DB-A6D0-445D264C7DDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,8 +172,8 @@ Global
 		{B8A77906-446F-4421-B00C-0CF0F8A3E530} = {FDE388A3-F724-430D-BA8F-AB8D21DFAB8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {199B1B96-4F56-4828-9531-813BA02DB282}
-		RESX_NeutralResourcesLanguage = zh-Hans
 		RESX_Rules = {"EnabledRules":[]}
+		RESX_NeutralResourcesLanguage = zh-Hans
+		SolutionGuid = {199B1B96-4F56-4828-9531-813BA02DB282}
 	EndGlobalSection
 EndGlobal

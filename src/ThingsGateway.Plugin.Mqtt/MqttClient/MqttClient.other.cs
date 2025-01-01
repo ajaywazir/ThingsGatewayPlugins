@@ -11,7 +11,10 @@
 using Mapster;
 
 using MQTTnet;
+
+#if NET6_0
 using MQTTnet.Client;
+#endif
 
 using Newtonsoft.Json.Linq;
 
@@ -256,9 +259,21 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
         return mqttRpcResult;
     }
 
-    private async Task MqttClient_ApplicationMessageReceivedAsync(MQTTnet.Client.MqttApplicationMessageReceivedEventArgs args)
+    private async Task MqttClient_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs args)
     {
-        if (args.ApplicationMessage.Topic == _driverPropertys.RpcQuestTopic && args.ApplicationMessage.PayloadSegment.Count > 0)
+#if NET8_0_OR_GREATER
+
+    var payload = args.ApplicationMessage.Payload;
+    var payloadCount = payload.Length;
+#else
+
+        var payload = args.ApplicationMessage.PayloadSegment;
+        var payloadCount = payload.Count;
+
+#endif
+
+
+        if (args.ApplicationMessage.Topic == _driverPropertys.RpcQuestTopic && payloadCount > 0)
         {
             await AllPublishAsync(CancellationToken.None).ConfigureAwait(false);
             return;
@@ -272,7 +287,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
         //适配 ThingsBoardRp
         if (args.ApplicationMessage.Topic == ThingsBoardRpcTopic)
         {
-            var thingsBoardRpcData = Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment).FromJsonNetString<ThingsBoardRpcData>();
+            var thingsBoardRpcData = Encoding.UTF8.GetString(payload).FromJsonNetString<ThingsBoardRpcData>();
             if (thingsBoardRpcData == null)
                 return;
             rpcDatas = thingsBoardRpcData.data.@params.ToDictionary(a => a.Key, a => JToken.Parse(a.Value));
@@ -308,7 +323,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
             var t = string.Format(RpcTopic, _driverPropertys.RpcWriteTopic);
             if (MqttTopicFilterComparer.Compare(args.ApplicationMessage.Topic, t) != MqttTopicFilterCompareResult.IsMatch)
                 return;
-            rpcDatas = Encoding.UTF8.GetString(args.ApplicationMessage.PayloadSegment).FromJsonNetString<Dictionary<string, JToken>>();
+            rpcDatas = Encoding.UTF8.GetString(payload).FromJsonNetString<Dictionary<string, JToken>>();
             if (rpcDatas == null)
                 return;
 
@@ -335,7 +350,7 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
 
     }
 
-    private async Task MqttClient_ConnectedAsync(MQTTnet.Client.MqttClientConnectedEventArgs args)
+    private async Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs args)
     {
         //连接成功后订阅相关主题
         if (_mqttSubscribeOptions != null)
@@ -448,5 +463,5 @@ public partial class MqttClient : BusinessBaseWithCacheIntervalScript<VariableDa
         }
     }
 
-    #endregion mqtt方法
+#endregion mqtt方法
 }
