@@ -3,6 +3,9 @@
 	<Import Project="$(SolutionDir)Version.props" />
 	<Import Project="$(SolutionDir)PackNuget.props" />
 	<ItemGroup>
-		<ProjectReference Include="..\ThingsGateway.Foundation.SiemensS7\ThingsGateway.Foundation.SiemensS7.csproj" />
+		<ProjectReference Include="..\ThingsGateway.Foundation.SiemensS7\ThingsGateway.Foundation.SiemensS7.csproj" >
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+
+		</ProjectReference>
 	</ItemGroup>
 </Project>

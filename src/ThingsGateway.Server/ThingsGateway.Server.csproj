@@ -3,7 +3,6 @@
 	<Import Project="$(SolutionDir)Version.props" />
 	<Import Project="targets\Admin.targets" />
 	<Import Project="targets\Gateway.targets" />
-	<Import Project="targets\Custom.targets" />
 	<PropertyGroup>
 		<TargetFrameworks>net9.0</TargetFrameworks>
 		<CustomTargetFramework>$(TargetFramework)</CustomTargetFramework>

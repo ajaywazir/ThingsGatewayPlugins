@@ -2,9 +2,8 @@
 
 	<PropertyGroup>
 		<AdminVersion>7.2.0.59</AdminVersion>
-		<GatewayVersion>7.2.1.3</GatewayVersion>
+		<GatewayVersion>7.2.3.1</GatewayVersion>
 		<FoundationVersion>9.0.2.44</FoundationVersion>
-		<ProPluginVersion>9.0.2.87</ProPluginVersion>
 	</PropertyGroup>
 	<PropertyGroup>
 		<TargetFrameworks>net9.0;net8.0;net6.0;</TargetFrameworks>

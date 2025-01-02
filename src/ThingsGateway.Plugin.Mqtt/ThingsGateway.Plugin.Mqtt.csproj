@@ -9,12 +9,28 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-		<PackageReference Include="MQTTnet.AspNetCore" Version="4.3.7.1207" GeneratePathProperty="true"/>
-		<PackageReference Include="MQTTnet" Version="4.3.7.1207" GeneratePathProperty="true"/>
+		<PackageReference Include="MQTTnet.AspNetCore" Version="4.3.7.1207" GeneratePathProperty="true" >
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+
+		</PackageReference>
+		<PackageReference Include="MQTTnet" Version="4.3.7.1207" GeneratePathProperty="true">
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+
+		</PackageReference>
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' != 'net6.0' ">
-		<PackageReference Include="MQTTnet.AspNetCore" Version="5.0.0.1405" GeneratePathProperty="true" />
-		<PackageReference Include="MQTTnet" Version="5.0.0.1405" GeneratePathProperty="true" />
+		<PackageReference Include="MQTTnet.Server" Version="5.0.0.1405" GeneratePathProperty="true" >
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+
+		</PackageReference>
+		<PackageReference Include="MQTTnet.AspNetCore" Version="5.0.0.1405" GeneratePathProperty="true" >
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+
+		</PackageReference>
+		<PackageReference Include="MQTTnet" Version="5.0.0.1405" GeneratePathProperty="true" >
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+
+		</PackageReference>
 	</ItemGroup>
 
 </Project>

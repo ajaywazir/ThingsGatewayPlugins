@@ -8,7 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ThingsGateway.Foundation.OpcDa\ThingsGateway.Foundation.OpcDa.csproj" />
+		<ProjectReference Include="..\ThingsGateway.Foundation.OpcDa\ThingsGateway.Foundation.OpcDa.csproj" >
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+		</ProjectReference>
 		<!--<PackageReference Include="ThingsGateway.Foundation.OpcDa" Version="9.0.*" GeneratePathProperty="true"/>-->
 	</ItemGroup>
 

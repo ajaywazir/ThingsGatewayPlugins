@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
-	
-  <Import Project="$(SolutionDir)Plugin.props" />
-  <Import Project="$(SolutionDir)Version.props" />
-  <Import Project="$(SolutionDir)PackNuget.props" />
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<Import Project="$(SolutionDir)Plugin.props" />
+	<Import Project="$(SolutionDir)Version.props" />
+	<Import Project="$(SolutionDir)PackNuget.props" />
 	<ItemGroup>
 		<PackageReference Include="Confluent.Kafka" Version="2.6.1" GeneratePathProperty="true">
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
 </Project>

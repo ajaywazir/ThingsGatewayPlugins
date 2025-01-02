@@ -4,7 +4,9 @@
 	<Import Project="$(SolutionDir)PackNuget.props" />
 
 	<ItemGroup>
-		<ProjectReference Include="..\ThingsGateway.Foundation.Dlt645\ThingsGateway.Foundation.Dlt645.csproj" />
+		<ProjectReference Include="..\ThingsGateway.Foundation.Dlt645\ThingsGateway.Foundation.Dlt645.csproj" >
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+		</ProjectReference>
 		<!--<PackageReference Include="ThingsGateway.Foundation.Dlt645" Version="9.0.*" GeneratePathProperty="true"/>-->
 
 	</ItemGroup>

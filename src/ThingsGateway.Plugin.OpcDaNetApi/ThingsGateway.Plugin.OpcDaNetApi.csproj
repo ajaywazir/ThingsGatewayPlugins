@@ -8,7 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ThingsGateway.Foundation.OpcDaNetApi\ThingsGateway.Foundation.OpcDaNetApi.csproj" />
+		<ProjectReference Include="..\ThingsGateway.Foundation.OpcDaNetApi\ThingsGateway.Foundation.OpcDaNetApi.csproj" >
+			<PrivateAssets>contentFiles;runtime;compile;build;buildMultitargeting;buildTransitive;analyzers;</PrivateAssets>
+		</ProjectReference>
 	</ItemGroup>
 
 
