@@ -274,9 +274,9 @@ public class OpcUaMaster : IDisposable
             }
         }
         m_subscription.AddItems(monitoredItems);
+        m_subscription.Create();
 
         m_session.AddSubscription(m_subscription);
-        m_subscription.Create();
         foreach (var item in m_subscription.MonitoredItems.Where(a => a.Status.Error != null && StatusCode.IsBad(a.Status.Error.StatusCode)))
         {
             item.Filter = OpcUaProperty.DeadBand == 0 ? null : new DataChangeFilter() { DeadbandValue = OpcUaProperty.DeadBand, DeadbandType = (int)DeadbandType.None, Trigger = DataChangeTrigger.StatusValue };
@@ -1006,27 +1006,34 @@ public class OpcUaMaster : IDisposable
     /// </summary>
     private async Task<List<Node>> ReadNodesAsync(string[] nodeIdStrs, CancellationToken cancellationToken = default)
     {
-        List<NodeId> nodeIds = new List<NodeId>();
-        foreach (var item in nodeIdStrs)
+        List<Node> result = new(nodeIdStrs.Length);
+        foreach (var items in nodeIdStrs.ChunkBetter(OpcUaProperty.GroupSize))
         {
-            NodeId nodeToRead = new(item);
-            nodeIds.Add(nodeToRead);
-        }
-        (IList<Node>, IList<ServiceResult>) nodes = await m_session.ReadNodesAsync(nodeIds, NodeClass.Variable, false, cancellationToken).ConfigureAwait(false);
-        for (int i = 0; i < nodes.Item1.Count; i++)
-        {
-            if (StatusCode.IsGood(nodes.Item2[i].StatusCode))
+            List<NodeId> nodeIds = new List<NodeId>();
+
+            foreach (var item in items)
             {
-                var node = ((VariableNode)nodes.Item1[i]);
-                await typeSystem.LoadType(node.DataType, ct: cancellationToken).ConfigureAwait(false);
-                _variableDicts.AddOrUpdate(nodeIdStrs[i], node);
+                NodeId nodeToRead = new(item);
+                nodeIds.Add(nodeToRead);
             }
-            else
+            (IList<Node>, IList<ServiceResult>) nodes = await m_session.ReadNodesAsync(nodeIds, NodeClass.Variable, false, cancellationToken).ConfigureAwait(false);
+            for (int i = 0; i < nodes.Item1.Count; i++)
             {
-                Log(3, null, $"Failed to obtain server node information： {nodes.Item2[i]}");
+                if (StatusCode.IsGood(nodes.Item2[i].StatusCode))
+                {
+                    var node = ((VariableNode)nodes.Item1[i]);
+                    await typeSystem.LoadType(node.DataType, ct: cancellationToken).ConfigureAwait(false);
+                    _variableDicts.AddOrUpdate(nodeIdStrs[i], node);
+                }
+                else
+                {
+                    Log(3, null, $"Failed to obtain server node information： {nodes.Item2[i]}");
+                }
             }
+            result.AddRange(nodes.Item1);
         }
-        return nodes.Item1.ToList();
+
+        return result;
     }
 
     #endregion 读取/写入
