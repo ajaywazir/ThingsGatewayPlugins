@@ -10,6 +10,8 @@
 
 //修改自https://github.com/dathlin/OpcUaHelper 与OPC基金会net库
 
+using Opc.Ua.Client;
+
 namespace ThingsGateway.Foundation.OpcUa;
 
 /// <summary>
@@ -103,7 +105,9 @@ public class OpcUaMaster : IDisposable
             {
                 UseValidatedCertificates = true,
                 AutoAcceptUntrustedCertificates = true,//自动接受证书
-                RejectSHA1SignedCertificates = false,
+                RejectSHA1SignedCertificates = true,
+                AddAppCertToTrustedStore = true,
+                SendCertificateChain = true,
                 MinimumCertificateKeySize = 1024,
                 SuppressNonceValidationErrors = true,
 
@@ -149,15 +153,16 @@ public class OpcUaMaster : IDisposable
                 MaxArrayLength = 65535,
                 MaxMessageSize = 419430400,
                 MaxBufferSize = 65535,
-                ChannelLifetime = -1,
-                SecurityTokenLifetime = -1
+                ChannelLifetime = 300000,
+                SecurityTokenLifetime = 3600000
             },
             ClientConfiguration = new ClientConfiguration
             {
-                DefaultSessionTimeout = -1,
-                MinSubscriptionLifetime = -1,
+                DefaultSessionTimeout = 60000,
+                MinSubscriptionLifetime = 10000,
+
             },
-            DisableHiResClock = true
+
         };
 
         certificateValidator.Update(m_configuration);
@@ -865,7 +870,9 @@ public class OpcUaMaster : IDisposable
         //创建本地证书
         if (useSecurity)
             await m_application.CheckApplicationInstanceCertificate(true, 0, 1200, cancellationToken).ConfigureAwait(false);
+        
         m_session = await Opc.Ua.Client.Session.Create(
+
         m_configuration,
         endpoint,
         false,
@@ -873,7 +880,7 @@ public class OpcUaMaster : IDisposable
         (string.IsNullOrEmpty(OPCUAName)) ? m_configuration.ApplicationName : OPCUAName,
         60000,
         userIdentity,
-        Array.Empty<string>(), cancellationToken
+        null, cancellationToken
         ).ConfigureAwait(false);
         typeSystem = new ComplexTypeSystem(m_session);
 
@@ -1169,6 +1176,21 @@ public class OpcUaMaster : IDisposable
             {
                 return;
             }
+            // if session recovered, Session property is null
+            if (m_reConnectHandler.Session != null)
+            {
+                // ensure only a new instance is disposed
+                // after reactivate, the same session instance may be returned
+                if (!Object.ReferenceEquals(m_session, m_reConnectHandler.Session))
+                {
+                    var session = m_session;
+                    m_session = m_reConnectHandler.Session;
+                    Utils.SilentDispose(session);
+                }
+                else
+                {
+                }
+            }
 
             m_session = m_reConnectHandler.Session;
             m_reConnectHandler.Dispose();
@@ -1194,26 +1216,18 @@ public class OpcUaMaster : IDisposable
 
             if (ServiceResult.IsBad(e.Status))
             {
-                if (m_session.KeepAliveInterval <= 0)
-                {
-                    Log(3, null, "Communication Error ({0})", e.Status);
-                    return;
-                }
-
-                Log(3, null, "Reconnecting in {0}s", 10);
-
                 if (m_reConnectHandler == null)
                 {
+                    Log(3, null, "Reconnecting in {0}s", 1);
                     m_ReconnectStarting?.Invoke(this, e);
 
-                    m_reConnectHandler = new SessionReconnectHandler();
-                    m_reConnectHandler.BeginReconnect(m_session, 10000, Server_ReconnectComplete);
+                    m_reConnectHandler = new SessionReconnectHandler(true, 10000);
+                    m_reConnectHandler.BeginReconnect(m_session, 1000, Server_ReconnectComplete);
+
+                    e.CancelKeepAlive = true;
                 }
-                return;
             }
 
-            // update status.
-            Log(0, null, "Session_KeepAlive Connected [{0}]", session.Endpoint.EndpointUrl);
 
             // raise any additional notifications.
             m_KeepAliveComplete?.Invoke(this, e);

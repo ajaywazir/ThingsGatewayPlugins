@@ -56,7 +56,7 @@ internal sealed class OpcUaLogger : ILogger
         else
         {
             var message = formatter(state, exception);
-            if (logLevel > Microsoft.Extensions.Logging.LogLevel.Warning)
+            //if (logLevel > Microsoft.Extensions.Logging.LogLevel.Warning)
             {
                 _log.Log((TouchSocket.Core.LogLevel)(byte)logLevel, state, message, exception);
             }

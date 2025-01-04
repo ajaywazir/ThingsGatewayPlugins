@@ -61,7 +61,7 @@ public partial class OpcUaServer : BusinessBase
 
         ApplicationInstance.MessageDlg = new ApplicationMessageDlg(LogMessage);//默认返回true
 
-        //Utils.SetLogger(new OPCUALogger(LogMessage)); //调试用途
+        //Utils.SetLogger(new OpcUaLogger(LogMessage)); //调试用途
         m_application = new ApplicationInstance();
         m_configuration = GetDefaultConfiguration();
         m_configuration.Validate(ApplicationType.Server).GetAwaiter().GetResult();
@@ -75,7 +75,6 @@ public partial class OpcUaServer : BusinessBase
         }
 
         m_server = new(this);
-
         CollectVariableRunTimes.Clear();
 
         GlobalData.VariableValueChangeEvent += VariableValueChange;
@@ -268,6 +267,11 @@ public partial class OpcUaServer : BusinessBase
             UserTokenPolicies = userTokens,
             ShutdownDelay = 1,
 
+            MinRequestThreadCount = 50,
+            MaxRequestThreadCount = 1000,
+            MaxQueuedRequestCount = 20000,
+
+
             DiagnosticsEnabled = false,           // 是否启用诊断
             MaxSessionCount = 1000,               // 最大打开会话数
             MinSessionTimeout = 10000,            // 允许该会话在与客户端断开时（单位毫秒）仍然保持连接的最小时间
@@ -276,7 +280,7 @@ public partial class OpcUaServer : BusinessBase
             MaxQueryContinuationPoints = 1000,    // 用于Query / QueryNext操作的连续点的最大数量
             MaxHistoryContinuationPoints = 500,   // 用于HistoryRead操作的最大连续点数。
             MaxRequestAge = 1000000,              // 传入请求的最大年龄（旧请求被拒绝）。
-            MinPublishingInterval = 100,          // 服务器支持的最小发布间隔（以毫秒为单位）
+            MinPublishingInterval = 50,          // 服务器支持的最小发布间隔（以毫秒为单位）
             MaxPublishingInterval = 3600000,      // 服务器支持的最大发布间隔（以毫秒为单位）1小时
             PublishingResolution = 50,            // 支持的发布间隔（以毫秒为单位）的最小差异
             MaxSubscriptionLifetime = 3600000,    // 订阅将在没有客户端发布的情况下保持打开多长时间 1小时
@@ -285,12 +289,25 @@ public partial class OpcUaServer : BusinessBase
             MaxNotificationsPerPublish = 1000,    // 每次发布的最大通知数
             MinMetadataSamplingInterval = 1000,   // 元数据的最小采样间隔
             MaxRegistrationInterval = -1,   // 两次注册尝试之间的最大时间（以毫秒为单位）//不提供注册
+
+            MinSubscriptionLifetime = 1000,
+            MaxPublishRequestCount = 200,
+            MaxSubscriptionCount = 1000,
+            MaxEventQueueSize = 50000,
+
+
+            MaxTrustListSize = 0,
+            MultiCastDnsEnabled = false,
+
         };
         config.SecurityConfiguration = new SecurityConfiguration()
         {
             AddAppCertToTrustedStore = true,
+            SendCertificateChain = true,
             AutoAcceptUntrustedCertificates = _driverPropertys.AutoAcceptUntrustedCertificates,
-            RejectSHA1SignedCertificates = false,
+            UseValidatedCertificates = true,
+            RejectSHA1SignedCertificates = true,
+            RejectUnknownRevocationStatus = true,
             MinimumCertificateKeySize = 1024,
             SuppressNonceValidationErrors = true,
             ApplicationCertificate = new CertificateIdentifier()
@@ -331,7 +348,17 @@ public partial class OpcUaServer : BusinessBase
         };
 
         config.TransportConfigurations = new TransportConfigurationCollection();
-        config.TransportQuotas = new TransportQuotas { OperationTimeout = 15000 };
+        config.TransportQuotas = new TransportQuotas
+        {
+            OperationTimeout = 6000000,
+            MaxStringLength = int.MaxValue,
+            MaxByteStringLength = int.MaxValue,
+            MaxArrayLength = 65535,
+            MaxMessageSize = 419430400,
+            MaxBufferSize = 65535,
+            ChannelLifetime = 300000,
+            SecurityTokenLifetime = 3600000
+        };
         config.ClientConfiguration = new ClientConfiguration { DefaultSessionTimeout = 60000 };
         config.TraceConfiguration = new TraceConfiguration();
 
