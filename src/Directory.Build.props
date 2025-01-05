@@ -1,9 +1,9 @@
 <Project>
 
 	<PropertyGroup>
-		<AdminVersion>7.2.0.61</AdminVersion>
-		<GatewayVersion>7.2.3.4</GatewayVersion>
-		<FoundationVersion>9.0.3.4</FoundationVersion>
+		<AdminVersion>7.2.0.63</AdminVersion>
+		<GatewayVersion>7.2.3.6</GatewayVersion>
+		<FoundationVersion>9.0.3.6</FoundationVersion>
 	</PropertyGroup>
 	
 	<PropertyGroup>
