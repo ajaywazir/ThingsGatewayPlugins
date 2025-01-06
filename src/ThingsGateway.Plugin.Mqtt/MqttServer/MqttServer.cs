@@ -84,20 +84,26 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
         }
 
     }
-
+    private volatile bool startSuccess = false;
+    private volatile bool startFailed = false;
     protected override async Task ProtectedBeforStartAsync(CancellationToken cancellationToken)
     {
         _ = Task.Factory.StartNew(async () =>
         {
-            while (!DisposedValue)
+            while (!DisposedValue&& !startSuccess)
             {
                 try
                 {
                     await _webHost.RunAsync().ConfigureAwait(false);
+                    startSuccess = true;
                 }
                 catch (Exception ex)
                 {
-                    LogMessage.Exception(ex);
+                    if (!startFailed)
+                    {
+                        LogMessage.LogWarning(ex);
+                        startFailed = true;
+                    }
                 }
                 await Task.Delay(60000).ConfigureAwait(false);
             }
