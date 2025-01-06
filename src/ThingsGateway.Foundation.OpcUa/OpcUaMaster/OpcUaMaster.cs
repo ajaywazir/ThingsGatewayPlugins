@@ -1189,12 +1189,8 @@ public class OpcUaMaster : IDisposable
                     m_session = m_reConnectHandler.Session;
                     Utils.SilentDispose(session);
                 }
-                else
-                {
-                }
             }
 
-            m_session = m_reConnectHandler.Session;
             m_reConnectHandler.Dispose();
             m_reConnectHandler = null;
 
