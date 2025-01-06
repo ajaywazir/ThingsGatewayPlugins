@@ -1051,7 +1051,7 @@ public class OpcUaMaster : IDisposable
     {
         if (ServiceResult.IsGood(eventArgs.Error))
             eventArgs.Accept = true;
-        else if (eventArgs.Error.StatusCode.Code == StatusCodes.BadCertificateUntrusted)
+        else if (OpcUaProperty.AutoAcceptUntrustedCertificates)
             eventArgs.Accept = true;
         else
             throw new Exception(string.Format("Verification certificate failed with error code: {0}: {1}", eventArgs.Error.Code, eventArgs.Error.AdditionalInfo));

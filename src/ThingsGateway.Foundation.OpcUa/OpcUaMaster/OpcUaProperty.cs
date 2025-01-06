@@ -21,6 +21,11 @@ public class OpcUaProperty
     public bool ActiveSubscribe { get; set; } = true;
 
     /// <summary>
+    /// 自动接受证书
+    /// </summary>
+    public bool AutoAcceptUntrustedCertificates { get; set; } = true;
+
+    /// <summary>
     /// 检查域
     /// </summary>
     public bool CheckDomain { get; set; }

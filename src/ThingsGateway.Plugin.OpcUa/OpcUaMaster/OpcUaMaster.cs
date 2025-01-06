@@ -67,6 +67,7 @@ public class OpcUaMaster : CollectBase
             Password = _driverProperties.Password,
             CheckDomain = _driverProperties.CheckDomain,
             LoadType = _driverProperties.LoadType,
+            AutoAcceptUntrustedCertificates=_driverProperties.AutoAcceptUntrustedCertificates,
         };
         if (_plc == null)
         {

@@ -11,6 +11,7 @@
     "KeepAliveInterval": "KeepAliveInterval(ms)",
     "UseSecurity": "IsUseSecurity",
     "LoadType": "LoadType",
+    "AutoAcceptUntrustedCertificates": "AutoAcceptUntrustedCertificates",
     "ExportC": "ExportCertificate",
 
     "Connect": "Connect",

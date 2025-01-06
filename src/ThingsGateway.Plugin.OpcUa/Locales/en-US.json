@@ -15,6 +15,7 @@
     "KeepAliveInterval": "KeepAliveInterval(ms)",
     "UseSecurity": "UseSecurity",
     "LoadType": "LoadType",
+    "AutoAcceptUntrustedCertificates": "AutoAcceptUntrustedCertificates",
     "ExportC": "ExportCertificate",
     "SourceTimestampEnable": "SourceTimestampEnable",
     "ReIntervalTime": "ReIntervalTime(s)",

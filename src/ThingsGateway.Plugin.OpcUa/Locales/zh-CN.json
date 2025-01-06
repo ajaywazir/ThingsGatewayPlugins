@@ -16,6 +16,7 @@
     "KeepAliveInterval": "心跳间隔(ms)",
     "UseSecurity": "安全策略",
     "LoadType": "加载服务端数据类型",
+    "AutoAcceptUntrustedCertificates": "自动接受不受信任的证书",
     "SourceTimestampEnable": "服务端时间戳",
     "ExportC": "导出证书",
     "ReIntervalTime": "离线恢复时间(s)",

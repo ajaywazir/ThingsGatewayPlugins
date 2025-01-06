@@ -48,6 +48,12 @@ public class OpcUaMasterProperty : CollectPropertyBase
     public bool UseSecurity { get; set; } = true;
 
     /// <summary>
+    /// 接受不受信任的证书
+    /// </summary>
+    [DynamicProperty()]
+    public bool AutoAcceptUntrustedCertificates { get; set; } = true;
+
+    /// <summary>
     /// 是否使用SourceTime
     /// </summary>
     [DynamicProperty]

@@ -306,7 +306,7 @@ public partial class OpcUaServer : BusinessBase
             SendCertificateChain = true,
             AutoAcceptUntrustedCertificates = _driverPropertys.AutoAcceptUntrustedCertificates,
             UseValidatedCertificates = true,
-            RejectSHA1SignedCertificates = true,
+            RejectSHA1SignedCertificates = false,
             RejectUnknownRevocationStatus = true,
             MinimumCertificateKeySize = 1024,
             SuppressNonceValidationErrors = true,
