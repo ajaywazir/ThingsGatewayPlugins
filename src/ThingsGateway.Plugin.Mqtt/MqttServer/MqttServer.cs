@@ -52,6 +52,7 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
         _webHost = webBuilder.UseConfiguration(configuration)
            .Build();
         _mqttServer = _webHost.Services.GetRequiredService<MqttHostedServer>();
+        _webHost.Start();
 
         #endregion 初始化
     }
@@ -84,30 +85,10 @@ public partial class MqttServer : BusinessBaseWithCacheIntervalScript<VariableDa
         }
 
     }
-    private volatile bool startSuccess = false;
-    private volatile bool startFailed = false;
+
     protected override async Task ProtectedBeforStartAsync(CancellationToken cancellationToken)
     {
-        _ = Task.Factory.StartNew(async () =>
-        {
-            while (!DisposedValue&& !startSuccess)
-            {
-                try
-                {
-                    await _webHost.RunAsync().ConfigureAwait(false);
-                    startSuccess = true;
-                }
-                catch (Exception ex)
-                {
-                    if (!startFailed)
-                    {
-                        LogMessage.LogWarning(ex);
-                        startFailed = true;
-                    }
-                }
-                await Task.Delay(60000).ConfigureAwait(false);
-            }
-        });
+
         if (_mqttServer != null)
         {
             _mqttServer.ClientDisconnectedAsync -= MqttServer_ClientDisconnectedAsync;
