@@ -112,8 +112,9 @@ public class OpcUaMaster : CollectBase
         {
             await _plc.ConnectAsync(cancellationToken).ConfigureAwait(false);
         }
-        catch
+        catch(Exception ex)
         {
+            LogMessage?.LogWarning(ex, "Connect Fail");
             connectFirstFail = true;
         }
         await base.ProtectedBeforStartAsync(cancellationToken).ConfigureAwait(false);

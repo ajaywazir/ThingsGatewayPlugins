@@ -279,9 +279,11 @@ public class OpcUaMaster : IDisposable
             }
         }
         m_subscription.AddItems(monitoredItems);
-        m_subscription.Create();
 
         m_session.AddSubscription(m_subscription);
+
+        m_subscription.Create();
+
         foreach (var item in m_subscription.MonitoredItems.Where(a => a.Status.Error != null && StatusCode.IsBad(a.Status.Error.StatusCode)))
         {
             item.Filter = OpcUaProperty.DeadBand == 0 ? null : new DataChangeFilter() { DeadbandValue = OpcUaProperty.DeadBand, DeadbandType = (int)DeadbandType.None, Trigger = DataChangeTrigger.StatusValue };
